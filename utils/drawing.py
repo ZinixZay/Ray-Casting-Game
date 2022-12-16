@@ -13,11 +13,17 @@ class Drawing:
             3: pygame.image.load(IMAGES_PATH + '\\walls\\wall3.png').convert(),
             4: pygame.image.load(IMAGES_PATH + '\\walls\\wall4.png').convert(),
             5: pygame.image.load(IMAGES_PATH + '\\walls\\wall5.png').convert(),
+            'S': pygame.image.load(IMAGES_PATH + '\\sky\\sky1.png').convert(),
         }
 
-    def background(self):
-        pygame.draw.rect(self.screen, DARK_GRAY, (0, 0, WIDTH, HALF_HEIGHT))
-        pygame.draw.rect(self.screen, BLACK, (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
+    def draw_floor_sky(self, angle: float) -> None:
+        sky_offset = -10 * math.degrees(angle) % WIDTH
+        self.screen.blit(self.textures['S'], (sky_offset, 0))
+        self.screen.blit(self.textures['S'], (sky_offset - WIDTH, 0))
+        self.screen.blit(self.textures['S'], (sky_offset + WIDTH, 0))
+        pygame.draw.rect(self.screen, DARK_GRAY, (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
 
-    def world(self, player_pos, player_angle):
-        ray_casting(self.screen, player_pos, player_angle, self.textures)
+    def draw_world_objects(self, world_objects: list) -> None:
+        for obj in filter(lambda el: el[0], sorted(world_objects, key=lambda n: n[0], reverse=True)):
+            _, object_surface, object_pos = obj
+            self.screen.blit(object_surface, object_pos)

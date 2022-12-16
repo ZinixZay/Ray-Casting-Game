@@ -3,30 +3,33 @@ import pygame
 from entities.main_player import MainPlayer
 from settings import *
 from utils.drawing import Drawing
-
-pygame.init()
-screen = pygame.display.set_mode(SIZE_SCREEN)
-pygame.mouse.set_visible(False)
-clock = pygame.time.Clock()
-player = MainPlayer(speed=4)
-drawing = Drawing(screen)
+from utils.ray_casting import ray_casting
 
 
 class RayCastingGame:
-    def run(self):
+    def __init__(self) -> None:
+        pygame.init()
+        self.screen = pygame.display.set_mode(SIZE_SCREEN)
+        pygame.mouse.set_visible(False)
+        self.clock = pygame.time.Clock()
+        self.player = MainPlayer(speed=4)
+        self.drawing = Drawing(self.screen)
+
+    def run(self) -> None:
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
 
-            player.movement()
-            screen.fill(BLACK)
+            self.player.movement()
+            self.screen.fill(BLACK)
+            walls = ray_casting(self.player, self.drawing.textures)
 
-            drawing.background()
-            drawing.world(player.pos, player.angle)
+            self.drawing.draw_floor_sky(self.player.angle)
+            self.drawing.draw_world_objects(walls)
 
             pygame.display.flip()
-            clock.tick(FPS)
+            self.clock.tick(FPS)
 
 
 if __name__ == '__main__':

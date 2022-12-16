@@ -12,7 +12,7 @@ matrix_map = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
-world_map = {}
+world_map = dict()
 for j, row in enumerate(matrix_map):
     for i, char in enumerate(row):
         if char: world_map[(i * TILE, j * TILE)] = char
