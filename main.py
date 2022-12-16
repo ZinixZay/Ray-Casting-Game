@@ -27,9 +27,10 @@ class RayCastingGame:
 
             self.drawing.draw_floor_sky(self.player.angle)
             self.drawing.draw_world_objects(walls)
+            self.drawing.draw_fps(str(self.clock.get_fps()))
 
             pygame.display.flip()
-            self.clock.tick(FPS)
+            self.clock.tick()
 
 
 if __name__ == '__main__':
