@@ -1,9 +1,10 @@
 import pygame
 
+from assets.map import world_map
 from entities.main_player import MainPlayer
 from settings import *
 from utils.drawing import Drawing
-from utils.ray_casting import ray_casting
+from utils.ray_casting import ray_casting, ray_casting_walls_textured
 
 
 class RayCastingGame:
@@ -23,14 +24,14 @@ class RayCastingGame:
 
             self.player.movement()
             self.screen.fill(BLACK)
-            walls = ray_casting(self.player, self.drawing.textures)
+            walls = ray_casting_walls_textured(self.player, self.drawing.textures, world_map)
 
             self.drawing.draw_floor_sky(self.player.angle)
             self.drawing.draw_world_objects(walls)
             self.drawing.draw_fps(str(self.clock.get_fps()))
 
             pygame.display.flip()
-            self.clock.tick()
+            self.clock.tick(FPS)
 
 
 if __name__ == '__main__':

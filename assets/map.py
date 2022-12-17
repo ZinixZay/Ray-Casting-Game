@@ -1,5 +1,9 @@
 from settings import *
 
+from numba.core import types
+from numba.typed import Dict
+from numba import int32
+
 _ = False
 matrix_map = [
     [1, 2, 4, 2, 1, 4, 1, 5, 1, 2, 1, 1, 1, 1, 1],
@@ -17,7 +21,8 @@ matrix_map = [
     [1, 1, 1, 1, 1, 1, 2, 1, 1, 3, 1, 2, 5, 4, 1]
 ]
 
-world_map = dict()
+WORLD_WIDTH, WORLD_HEIGHT = len(matrix_map[0]) * TILE, len(matrix_map) * TILE
+world_map = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
 for j, row in enumerate(matrix_map):
     for i, char in enumerate(row):
         if char: world_map[(i * TILE, j * TILE)] = char
