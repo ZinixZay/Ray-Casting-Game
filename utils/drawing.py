@@ -1,7 +1,7 @@
 import pygame
 from settings import *
-from utils.ray_casting import ray_casting
 from paths import *
+from utils.utils import get_sky_offset
 
 
 class Drawing:
@@ -19,7 +19,7 @@ class Drawing:
         }
 
     def draw_floor_sky(self, angle: float) -> None:
-        sky_offset = -10 * math.degrees(angle) % WIDTH
+        sky_offset = get_sky_offset(angle)
         self.screen.blit(self.textures['S'], (sky_offset, 0))
         self.screen.blit(self.textures['S'], (sky_offset - WIDTH, 0))
         self.screen.blit(self.textures['S'], (sky_offset + WIDTH, 0))
