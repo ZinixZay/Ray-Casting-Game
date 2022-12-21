@@ -1,17 +1,15 @@
-# TODO: create a class for map generator
 import numpy as np
 import random
-from generate_rate_config import *
+from utils.generate_rate_config import *
 
 
 class MapGenerator:
-    def __init__(self, height, width):
-        self.height = height
-        self.width = width
+    def __init__(self, height: int, width: int) -> None:
+        self.height, self.width = height, width
         self.map = None
 
     def generate(self):
-        new_map = [[0 for _ in range(self.width)] for _ in range(self.height)]
+        new_map = np.zeros((self.height, self.width), dtype=np.int32)
         for row in range(self.height):
             for column in range(self.width):
 
@@ -25,15 +23,12 @@ class MapGenerator:
 
                 new_map[row][column] = self.__generate_cell(row, column, new_map)
 
-        self.map = np.asarray(new_map)
+        self.map = new_map
 
     @staticmethod
     def __generate_wall() -> int:
         for potential_wall, chance in generate_rate.items():
-            if chance >= random.randint(0, 100):
-                return 2
-            else:
-                return 1
+            return 2 if chance >= random.randint(0, 100) else 1
 
     def __generate_cell(self, row, col, field):
         c = 0
@@ -43,14 +38,4 @@ class MapGenerator:
             if field[cell[0]][cell[1]] == 0:
                 c += 1
         rang = 100 - c * 10
-        if wall_chance >= random.randint(0, rang):
-            return self.__generate_wall()
-        else:
-            return 0
-
-
-gr = MapGenerator(10, 15)
-gr.generate()
-print(gr.map)
-
-
+        return self.__generate_wall() if wall_chance >= random.randint(0, rang) else 0
