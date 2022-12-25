@@ -13,7 +13,7 @@ def pretty_print_map(_map):
         print()
 
 
-gr = MapGenerator(16, 24)
+gr = MapGenerator(24, 16)
 gr.generate()
-print('TEST GENERATE 10*15')
+print('TEST GENERATE 24*16')
 pretty_print_map(gr.map)

@@ -4,8 +4,8 @@ from utils.generate_rate_config import *
 
 
 class MapGenerator:
-    def __init__(self, height: int, width: int) -> None:
-        self.height, self.width = height, width
+    def __init__(self, width: int, height: int) -> None:
+        self.width, self.height = width, height
         self.map = None
         self.space = list()
         self.hero_spawn = None
@@ -29,8 +29,8 @@ class MapGenerator:
         self.__destroy_no_ways()
         row, col = random.choice(self.space)
         new_map[row][col] = 5
-        self.space.remove([row, col])
-        self.hero_spawn = [row, col]
+        self.space.remove((row, col))
+        self.hero_spawn = (row, col)
 
     @staticmethod
     def __generate_wall() -> int:
@@ -39,13 +39,12 @@ class MapGenerator:
 
     @staticmethod
     def __get_neighbours(row, col) -> list:
-        return [[row + 1, col], [row, col + 1], [row - 1, col], [row, col - 1]]
+        return [(row + 1, col), (row, col + 1), (row - 1, col), (row, col - 1)]
 
     def __generate_cell(self, row, col, field):
         walls_near = 0
         wall_chance = intensivity
-        neighbours = self.__get_neighbours(row, col)
-        for cell in neighbours:
+        for cell in self.__get_neighbours(row, col):
             if field[cell[0]][cell[1]] != 0:
                 walls_near += 1
         match walls_near:
@@ -62,7 +61,7 @@ class MapGenerator:
         if wall_chance >= random.randint(0, rang):
             return self.__generate_wall()
         else:
-            self.space.append([row, col])
+            self.space.append((row, col))
             return 0
 
     def __destroy_no_ways(self):
@@ -71,8 +70,7 @@ class MapGenerator:
                 if row == 0 or col == 0 or row == self.height - 1 or col == self.width - 1:
                     continue
                 walls_near = 0
-                neighbours = self.__get_neighbours(row, col)
-                for cell in neighbours:
+                for cell in self.__get_neighbours(row, col):
                     if self.map[cell[0]][cell[1]] != 0:
                         walls_near += 1
                 match walls_near:
