@@ -20,7 +20,7 @@ class MapService:
 
     @staticmethod
     def __convert_player_pos(pos: list[int, int]) -> tuple[int, int]:
-        return pos[0] * TILE, pos[1] * TILE
+        return pos[0] * TILE - TILE // 2, pos[1] * TILE - TILE // 2
 
     def set_data(self, data) -> None:
         self.reset_values()

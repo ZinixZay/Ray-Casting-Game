@@ -19,7 +19,6 @@ class RayCastingGame:
         self.player.update_collision_objs(self.map_service.collision_walls)
         self.drawing = Drawing(self.screen)
 
-
     def run(self) -> None:
         while True:
             for event in pygame.event.get():
