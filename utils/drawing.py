@@ -9,7 +9,7 @@ class Drawing:
         self.screen = screen
         self.font = pygame.font.SysFont('Arial', 36, bold=True)
         self.textures = {
-            1: pygame.image.load(IMAGES_PATH+'\\walls\\wall11.png').convert(),
+            1: pygame.image.load(IMAGES_PATH+'\\walls\\wall123.png').convert(),
             2: pygame.image.load(IMAGES_PATH + '\\walls\\wall10.png').convert(),
             3: pygame.image.load(IMAGES_PATH + '\\walls\\wall3.png').convert(),
             4: pygame.image.load(IMAGES_PATH + '\\walls\\wall4.png').convert(),

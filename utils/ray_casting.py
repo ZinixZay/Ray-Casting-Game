@@ -48,7 +48,7 @@ def ray_casting(player_pos, player_angle, world_map):
         offset = int(offset) % TILE
         depth *= math.cos(player_angle - cur_angle)
         depth = max(depth, 0.00001)
-        proj_height = int(PROJ_COEFF / depth)
+        proj_height = int(PROJ_COEFF / depth) * 1.6
 
         walls.append((ray, depth, offset, proj_height, texture))
         cur_angle += DELTA_ANGLE
