@@ -1,6 +1,6 @@
 import pygame
 
-from assets.map import world_map, collision_walls
+from assets.map import MapService
 from entities.main_player import MainPlayer
 from settings import *
 from utils.drawing import Drawing
@@ -13,9 +13,12 @@ class RayCastingGame:
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
         pygame.mouse.set_visible(False)
         self.clock = pygame.time.Clock()
-        self.player = MainPlayer((HALF_WIDTH, HALF_HEIGHT), speed=6)
-        self.player.update_collision_objs(collision_walls)
+        self.map_service = MapService()
+        self.map_service.load_map_local('1')
+        self.player = MainPlayer(self.map_service.start_player_pos, speed=6)
+        self.player.update_collision_objs(self.map_service.collision_walls)
         self.drawing = Drawing(self.screen)
+
 
     def run(self) -> None:
         while True:
@@ -27,7 +30,9 @@ class RayCastingGame:
             self.screen.fill(BLACK)
 
             self.drawing.draw_floor_sky(self.player.angle)
-            self.drawing.draw_world_objects(ray_casting_walls_textured(self.player, self.drawing.textures, world_map))
+            self.drawing.draw_world_objects(
+                ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.world_map)
+            )
             self.drawing.draw_fps(str(self.clock.get_fps()))
 
             pygame.display.flip()
