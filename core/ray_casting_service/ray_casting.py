@@ -1,9 +1,10 @@
 import pygame
 from settings import *
-from assets.map import WORLD_WIDTH, WORLD_HEIGHT
+# from assets.map import WORLD_WIDTH, WORLD_HEIGHT
+from core.map_service.config import WORLD_WIDTH_TILE, WORLD_HEIGHT_TILE
 from numba import njit, prange
 
-from utils.utils import get_left_top_coord_texture
+from core.utils.utils import get_left_top_coord_texture
 
 
 @njit(fastmath=True, cache=True)
@@ -25,7 +26,7 @@ def ray_casting(player_pos, player_angle, world_map):
         cos_a = cos_a if cos_a else 0.000001
 
         x, dx = (xm + TILE, 1) if cos_a >= 0 else (xm, -1)
-        for i in prange(0, WORLD_WIDTH, TILE):
+        for i in prange(0, WORLD_WIDTH_TILE, TILE):
             depth_v = (x - ox) / cos_a
             yv = oy + depth_v * sin_a
             tile_v = mapping(x + dx, yv)
@@ -35,7 +36,7 @@ def ray_casting(player_pos, player_angle, world_map):
             x += dx * TILE
 
         y, dy = (ym + TILE, 1) if sin_a >= 0 else (ym, -1)
-        for i in prange(0, WORLD_HEIGHT, TILE):
+        for i in prange(0, WORLD_HEIGHT_TILE, TILE):
             depth_h = (y - oy) / sin_a
             xh = ox + depth_h * cos_a
             tile_h = mapping(xh, y + dy)
@@ -68,7 +69,7 @@ def ray_casting_walls_textured(player, textures, world_map) -> list:
             wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2)
             scale_wall = (SCALE, proj_height)
 
-        wall_column = pygame.transform.scale(textures[texture]
+        wall_column = pygame.transform.scale(textures[texture if texture in textures.keys() else '_']
                                              .subsurface(*get_left_top_coord_texture(offset, proj_height)), scale_wall)
         walls_textured.append((depth, wall_column, wall_pos))
     return walls_textured

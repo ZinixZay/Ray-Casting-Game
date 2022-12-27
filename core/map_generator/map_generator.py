@@ -1,17 +1,17 @@
-import numpy as np
+import numpy
 import random
-from utils.generate_rate_config import *
+from core.map_generator.config import *
 
 
 class MapGenerator:
     def __init__(self, width: int, height: int) -> None:
         self.width, self.height = width, height
         self.map = None
-        self.space = list()
+        self.space_cells = list()
         self.hero_spawn = None
 
     def generate(self):
-        new_map = np.zeros((self.height, self.width), dtype=np.int32)
+        new_map = numpy.zeros((self.height, self.width), dtype=numpy.int32)
         for row in range(self.height):
             for column in range(self.width):
 
@@ -27,14 +27,14 @@ class MapGenerator:
 
         self.map = new_map
         self.__destroy_no_ways()
-        row, col = random.choice(self.space)
+        row, col = random.choice(self.space_cells)
         new_map[row][col] = 5
-        self.space.remove((row, col))
+        self.space_cells.remove((row, col))
         self.hero_spawn = (row, col)
 
     @staticmethod
     def __generate_wall() -> int:
-        for potential_wall, chance in generate_rate.items():
+        for potential_wall, chance in GENERATE_RATE.items():
             return 2 if chance >= random.randint(0, 100) else 1
 
     @staticmethod
@@ -43,7 +43,7 @@ class MapGenerator:
 
     def __generate_cell(self, row, col, field):
         walls_near = 0
-        wall_chance = intensivity
+        wall_chance = INTENSIVE
         for cell in self.__get_neighbours(row, col):
             if field[cell[0]][cell[1]] != 0:
                 walls_near += 1
@@ -61,7 +61,7 @@ class MapGenerator:
         if wall_chance >= random.randint(0, rang):
             return self.__generate_wall()
         else:
-            self.space.append((row, col))
+            self.space_cells.append((row, col))
             return 0
 
     def __destroy_no_ways(self):

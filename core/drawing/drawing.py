@@ -1,19 +1,18 @@
 import pygame
-from settings import *
-from paths import *
-from utils.utils import get_sky_offset
+from core.utils.utils import get_sky_offset
+from core.drawing.config import *
 
 
 class Drawing:
     def __init__(self, screen):
         self.screen = screen
         self.font = pygame.font.SysFont('Arial', 36, bold=True)
-        self.textures = {
-            1: pygame.image.load(IMAGES_PATH+'\\walls\\wall1.png').convert(),
-            2: pygame.image.load(IMAGES_PATH + '\\walls\\wall2.png').convert(),
-            'S': pygame.image.load(IMAGES_PATH + '\\sky\\sky1.png').convert(),
-            'error_texture': pygame.image.load(IMAGES_PATH+'\\walls\\wall1.png').convert(),
-        }
+        self.textures = dict()
+        self.load_textures()
+
+    def load_textures(self) -> None:
+        for key in TEXTURES:
+            self.textures[key] = pygame.image.load(TEXTURES[key]).convert()
 
     def draw_floor_sky(self, angle: float) -> None:
         sky_offset = get_sky_offset(angle)
