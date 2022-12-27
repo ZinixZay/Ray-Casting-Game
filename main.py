@@ -10,14 +10,19 @@ from core.ray_casting_service.ray_casting import ray_casting_walls_textured
 class RayCastingGame:
     def __init__(self) -> None:
         pygame.init()
-        self.screen = pygame.display.set_mode(SIZE_SCREEN)
         pygame.mouse.set_visible(False)
+
+        self.screen = pygame.display.set_mode(SIZE_SCREEN)
+        self.screen_minimap = pygame.Surface((300, 200))
+        self.drawing = Drawing(self.screen, self.screen_minimap)
+
         self.clock = pygame.time.Clock()
-        self.player = MainPlayer((HALF_WIDTH, HALF_HEIGHT), speed=6)
+
         self.map_service = MapService()
         self.map_service.generate_map()
+
+        self.player = MainPlayer((HALF_WIDTH, HALF_HEIGHT), speed=10)
         self.player.update_collision_objs(self.map_service.collisions)
-        self.drawing = Drawing(self.screen)
 
     def run(self) -> None:
         while True:
@@ -26,13 +31,14 @@ class RayCastingGame:
                     exit()
 
             self.player.movement()
-            self.screen.fill(BLACK)
 
+            self.screen.fill(BLACK)
             self.drawing.draw_floor_sky(self.player.angle)
             self.drawing.draw_world_objects(
                 ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.walls)
             )
-            self.drawing.draw_fps(str(self.clock.get_fps()))
+            self.drawing.draw_minimap(self.player, self.map_service.mini_map)
+            # self.drawing.draw_fps(str(self.clock.get_fps()))
 
             pygame.display.flip()
             self.clock.tick(FPS)

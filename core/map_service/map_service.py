@@ -15,6 +15,7 @@ class MapService:
         self.collisions = list()
         self.walls = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
         self.start_player_pos = None
+        self.mini_map = set()
 
     def generate_map(self) -> None:
         self.map_generator.generate()
@@ -30,8 +31,10 @@ class MapService:
     def reset_param(self):
         self.walls = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
         self.collisions = list()
+        self.mini_map = set()
         for j, row in enumerate(self.matrix_map):
             for i, char in enumerate(row):
                 if char:
                     self.collisions.append(pygame.Rect(i * TILE, j * TILE, TILE, TILE))
                     self.walls[(i * TILE, j * TILE)] = char
+                    self.mini_map.add((i * MINIMAP_TILE, j * MINIMAP_TILE))
