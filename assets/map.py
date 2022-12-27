@@ -1,40 +1,39 @@
 from settings import *
+
 from numba.core import types
 from numba.typed import Dict
 from numba import int32
+
+import numpy
 import pygame
-import json
 
 
-class MapService:
-    def __init__(self):
-        self.matrix_map = None
-        self.start_player_pos = (4, 4)
-        self.collision_walls = list()
-        self.world_map = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
+_ = 0
+matrix_map = numpy.array(
+    [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+     [1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1, _, _, _, _, 1],
+     [1, _, 1, 1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1, _, _, _, _, 1],
+     [1, _, 1, 1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1, 1, 1],
+     [1, _, _, _, _, _, _, _, _, _, _, _, _, _, 1, _, _, _, 1, _, _, _, _, 1],
+     [1, _, 1, _, _, _, _, _, _, _, _, _, _, _, 1, _, _, _, 1, _, _, _, _, 1],
+     [1, _, 1, _, _, 1, _, _, _, _, _, _, _, 1, 1, 1, _, _, 1, _, _, 1, 1, 1],
+     [1, _, _, _, 1, 1, 1, _, _, _, _, _, _, 1, 1, 1, _, _, _, _, _, 1, 1, 1],
+     [1, _, _, _, _, 1, _, _, _, _, _, _, _, _, 1, _, _, _, 1, _, _, _, _, 1],
+     [1, _, 1, 1, _, _, _, _, 1, _, _, 1, _, _, _, _, _, _, 1, _, _, 1, 1, 1],
+     [1, _, _, 1, _, _, _, _, 1, 1, 1, 1, _, _, _, _, _, _, 1, _, _, _, _, 1],
+     [1, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, 1, _, _, _, _, 1, 1, 1],
+     [1, _, _, _, 1, 1, _, 1, 1, _, 1, _, 1, _, 1, _, _, _, 1, _, _, 1, 1, 1],
+     [1, _, _, 1, 1, 1, _, _, 1, _, 1, _, 1, _, 1, _, 1, _, 1, _, _, _, _, 1],
+     [1, _, _, 1, 1, 1, _, _, 1, _, 1, _, _, _, 1, _, _, _, 1, _, _, 1, 1, 1],
+     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+    int
+)
 
-    def reset_values(self):
-        self.matrix_map = None
-        self.collision_walls = list()
-        self.world_map = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
-
-    @staticmethod
-    def __convert_player_pos(pos: list[int, int]) -> tuple[int, int]:
-        return pos[0] * TILE - TILE // 2, pos[1] * TILE - TILE // 2
-
-    def set_data(self, data) -> None:
-        self.reset_values()
-        self.matrix_map = data['matrix_map']
-        self.start_player_pos = self.__convert_player_pos(data['player']['start_pos'])
-        for j, row in enumerate(self.matrix_map):
-            for i, char in enumerate(row):
-                if char:
-                    self.collision_walls.append(pygame.Rect(i * TILE, j * TILE, TILE, TILE))
-                    self.world_map[(i * TILE, j * TILE)] = char
-
-    def load_map_local(self, number_map):
-        file = open(f'assets/maps/map{number_map}.json')
-        data = json.load(file)
-        file.close()
-        self.set_data(data)
-
+WORLD_WIDTH, WORLD_HEIGHT = len(matrix_map[0]) * TILE, len(matrix_map) * TILE
+world_map = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
+collision_walls = list()
+for j, row in enumerate(matrix_map):
+    for i, char in enumerate(row):
+        if char:
+            collision_walls.append(pygame.Rect(i * TILE, j * TILE, TILE, TILE))
+            world_map[(i * TILE, j * TILE)] = char
