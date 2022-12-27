@@ -3,7 +3,9 @@ from numba.core import types
 from numba.typed import Dict
 from numba import int32
 from core.map_service.config import *
+from paths import *
 import pygame
+import json
 
 
 class MapService:
@@ -19,9 +21,11 @@ class MapService:
         self.matrix_map = self.map_generator.map
         self.reset_param()
 
-    def load_map(self) -> None:
-        # TODO: create method for load local maps
-        pass
+    def load_map(self, number_map: int) -> None:
+        with open(MAPS_PATH+f'map{number_map}.json', 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        self.matrix_map = data["matrix_map"]
+        self.reset_param()
 
     def reset_param(self):
         self.walls = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
