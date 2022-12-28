@@ -4,7 +4,8 @@ from numba import njit, float32
 
 @njit(float32(float32), fastmath=True, cache=True)
 def get_sky_offset(angle):
-    return -10 * math.degrees(angle) % WIDTH
+    deg = math.degrees(angle)
+    return -480 / 36 * deg
 
 
 @njit(fastmath=True, cache=True)

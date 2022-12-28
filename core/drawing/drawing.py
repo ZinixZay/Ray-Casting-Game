@@ -18,8 +18,7 @@ class Drawing:
     def draw_floor_sky(self, angle: float) -> None:
         sky_offset = get_sky_offset(angle)
         self.screen.blit(self.textures['S'], (sky_offset, 0))
-        self.screen.blit(self.textures['S'], (sky_offset - WIDTH, 0))
-        self.screen.blit(self.textures['S'], (sky_offset + WIDTH, 0))
+        self.screen.blit(self.textures['S'], (sky_offset+4800, 0))
         pygame.draw.rect(self.screen, DARK_GRAY, (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
 
     def draw_world_objects(self, world_objects: list) -> None:

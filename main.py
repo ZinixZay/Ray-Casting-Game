@@ -19,7 +19,7 @@ class RayCastingGame:
         self.clock = pygame.time.Clock()
 
         self.map_service = MapService()
-        self.map_service.generate_map()
+        self.map_service.load_map(2)
 
         self.player = MainPlayer((HALF_WIDTH, HALF_HEIGHT), speed=10)
         self.player.update_collision_objs(self.map_service.collisions)
@@ -38,7 +38,7 @@ class RayCastingGame:
                 ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.walls)
             )
             self.drawing.draw_minimap(self.player, self.map_service.mini_map)
-            # self.drawing.draw_fps(str(self.clock.get_fps()))
+            self.drawing.draw_fps(str(self.clock.get_fps()))
 
             pygame.display.flip()
             self.clock.tick(FPS)
