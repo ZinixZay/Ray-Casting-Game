@@ -28,14 +28,27 @@ class MapGenerator:
         self.map = new_map
         self.__destroy_no_ways()
         row, col = random.choice(self.space_cells)
-        new_map[row][col] = 5
+        new_map[row][col] = 8
         self.space_cells.remove((row, col))
         self.hero_spawn = (row, col)
 
     @staticmethod
     def __generate_wall() -> int:
         for potential_wall, chance in GENERATE_RATE.items():
-            return 2 if chance >= random.randint(0, 100) else 1
+            if random.randint(0, 100) >= 70:
+                if random.randint(0, 100) <= 50:
+                    return 5
+                else:
+                    return 4
+            else:
+                usuall_wall_chance = random.randint(0, 100)
+                if usuall_wall_chance <= 33:
+                    return 1
+                elif usuall_wall_chance <= 66:
+                    return 2
+                else:
+                    return 3
+
 
     @staticmethod
     def __get_neighbours(row, col) -> list:
@@ -80,5 +93,3 @@ class MapGenerator:
                         self.map[row][col] = 1
                     case 3:
                         self.map[row][col] = 1
-
-
