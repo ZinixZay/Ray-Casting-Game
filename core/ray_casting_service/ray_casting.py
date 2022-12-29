@@ -1,6 +1,6 @@
+import numpy
 import pygame
 from settings import *
-# from assets.map import WORLD_WIDTH, WORLD_HEIGHT
 from core.map_service.config import WORLD_WIDTH_TILE, WORLD_HEIGHT_TILE
 from numba import njit, prange
 
@@ -71,5 +71,8 @@ def ray_casting_walls_textured(player, textures, world_map) -> list:
 
         wall_column = pygame.transform.scale(textures[texture if texture in textures.keys() else '_']
                                              .subsurface(*get_left_top_coord_texture(offset, proj_height)), scale_wall)
+        shadow = pygame.Surface((SCALE, proj_height), pygame.SRCALPHA)
+        shadow.fill((0, 0, 0, min(depth / TILE * 12, 200)))
+        wall_column.blit(shadow, (0, 0))
         walls_textured.append((depth, wall_column, wall_pos))
     return walls_textured
