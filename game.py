@@ -5,14 +5,14 @@ from network import Network
 class Player():
     width = height = 50
 
-    def __init__(self, startx, starty, color=(255,0,0)):
+    def __init__(self, startx, starty, color=(255, 0, 0)):
         self.x = startx
         self.y = starty
         self.velocity = 2
         self.color = color
 
     def draw(self, g):
-        pygame.draw.rect(g, self.color ,(self.x, self.y, self.width, self.height), 0)
+        pygame.draw.rect(g, self.color, (self.x, self.y, self.width, self.height), 0)
 
     def move(self, dirn):
         """
@@ -37,7 +37,7 @@ class Game:
         self.width = w
         self.height = h
         self.player = Player(50, 50)
-        self.player2 = Player(100,100)
+        self.player2 = Player(100, 100)
         self.canvas = Canvas(self.width, self.height, "Testing...")
 
     def run(self):
@@ -97,7 +97,7 @@ class Game:
             d = data.split(":")[1].split(",")
             return int(d[0]), int(d[1])
         except:
-            return 0,0
+            return 0, 0
 
 
 class Canvas:
@@ -105,7 +105,7 @@ class Canvas:
     def __init__(self, w, h, name="None"):
         self.width = w
         self.height = h
-        self.screen = pygame.display.set_mode((w,h))
+        self.screen = pygame.display.set_mode((w, h))
         pygame.display.set_caption(name)
 
     @staticmethod
@@ -115,12 +115,12 @@ class Canvas:
     def draw_text(self, text, size, x, y):
         pygame.font.init()
         font = pygame.font.SysFont("comicsans", size)
-        render = font.render(text, 1, (0,0,0))
+        render = font.render(text, 1, (0, 0, 0))
 
-        self.screen.draw(render, (x,y))
+        self.screen.draw(render, (x, y))
 
     def get_canvas(self):
         return self.screen
 
     def draw_background(self):
-        self.screen.fill((255,255,255))
+        self.screen.fill((255, 255, 255))
