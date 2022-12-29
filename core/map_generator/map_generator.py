@@ -35,7 +35,7 @@ class MapGenerator:
     @staticmethod
     def __generate_wall() -> int:
         for potential_wall, chance in GENERATE_RATE.items():
-            if random.randint(0, 100) >= 70:
+            if random.randint(0, 100) >= 80:
                 if random.randint(0, 100) <= 50:
                     return 5
                 else:
