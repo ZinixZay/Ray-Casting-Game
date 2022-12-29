@@ -16,7 +16,7 @@ def mapping(a, b):
 def ray_casting(player_pos, player_angle, world_map):
     walls = list()
     ox, oy = player_pos
-    texture_v, texture_h = 1, 1
+    texture_v, texture_h = 0, 0
     xm, ym = mapping(ox, oy)
     cur_angle = player_angle - HALF_FOV
     for ray in prange(NUM_RAYS):
@@ -69,7 +69,7 @@ def ray_casting_walls_textured(player, textures, world_map) -> list:
             wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2)
             scale_wall = (SCALE, proj_height)
 
-        wall_column = pygame.transform.scale(textures[texture if texture in textures.keys() else '_']
+        wall_column = pygame.transform.scale(textures[texture if texture in textures.keys() else 0]
                                              .subsurface(*get_left_top_coord_texture(offset, proj_height)), scale_wall)
         shadow = pygame.Surface((SCALE, proj_height), pygame.SRCALPHA)
         shadow.fill((0, 0, 0, min(depth / TILE * 12, 200)))

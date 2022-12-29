@@ -8,8 +8,8 @@ TEXTURES = {
     3: IMAGES_PATH + '\\walls\\wall3.png',
     4: IMAGES_PATH + '\\walls\\wall4.png',
     5: IMAGES_PATH + '\\walls\\wall5.png',
-    'S': IMAGES_PATH + '\\sky\\sky4.png',
-    '_': IMAGES_PATH + '\\walls\\wall0.png',
+    'S': IMAGES_PATH + '\\sky\\skyf.png',
+    0: IMAGES_PATH + '\\walls\\wall0.png',
 }
 
 WHITE = (255, 255, 255)
