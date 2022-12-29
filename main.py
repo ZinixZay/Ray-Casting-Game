@@ -17,9 +17,10 @@ class RayCastingGame:
         self.drawing = Drawing(self.screen, self.screen_minimap)
 
         self.clock = pygame.time.Clock()
+        pygame.event.set_grab(1)
 
         self.map_service = MapService()
-        self.map_service.load_map(2)
+        self.map_service.load_map(1)
 
         self.player = MainPlayer((HALF_WIDTH, HALF_HEIGHT), speed=10)
         self.player.update_collision_objs(self.map_service.collisions)

@@ -1,3 +1,4 @@
+import numpy
 import pygame
 from settings import *
 
@@ -66,7 +67,5 @@ class MainPlayer:
             self.angle += 0.02
 
     def mouse_control(self) -> None:
-        if pygame.mouse.get_focused():
-            difference = pygame.mouse.get_pos()[0] - HALF_WIDTH
-            pygame.mouse.set_pos((HALF_WIDTH, HALF_HEIGHT))
-            self.angle += difference * self.sensitivity
+        p_mouse = pygame.mouse.get_rel()
+        self.angle += numpy.clip((p_mouse[0]) / 200, -0.2, .2)
