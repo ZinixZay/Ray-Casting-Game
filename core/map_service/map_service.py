@@ -20,12 +20,14 @@ class MapService:
     def generate_map(self) -> None:
         self.map_generator.generate()
         self.matrix_map = self.map_generator.map
+        self.start_player_pos = self.map_generator.hero_spawn[0]*50, self.map_generator.hero_spawn[1]*50
         self.reset_param()
 
     def load_map(self, number_map: int) -> None:
         with open(MAPS_PATH+f'map{number_map}.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
         self.matrix_map = data["matrix_map"]
+        self.start_player_pos = data["player"]["start_pos"]
         self.reset_param()
 
     def reset_param(self):

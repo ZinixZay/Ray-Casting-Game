@@ -20,9 +20,9 @@ class RayCastingGame:
         pygame.event.set_grab(1)
 
         self.map_service = MapService()
-        self.map_service.load_map(1)
+        self.map_service.generate_map()
 
-        self.player = MainPlayer((HALF_WIDTH, HALF_HEIGHT), speed=10)
+        self.player = MainPlayer(self.map_service.start_player_pos, speed=10)
         self.player.update_collision_objs(self.map_service.collisions)
 
     def run(self) -> None:
