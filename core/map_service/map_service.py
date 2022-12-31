@@ -20,7 +20,7 @@ class MapService:
     def generate_map(self) -> None:
         self.map_generator.generate()
         self.matrix_map = self.map_generator.map
-        self.start_player_pos = self.map_generator.hero_spawn[0]*50, self.map_generator.hero_spawn[1]*50
+        self.start_player_pos = list(map(lambda coord: coord*TILE+TILE//2, self.map_generator.hero_spawn))
         self.reset_param()
 
     def load_map(self, number_map: int) -> None:

@@ -29,7 +29,7 @@ class MapGenerator:
         self.__destroy_no_ways()
         row, col = random.choice(self.space_cells)
         self.space_cells.remove((row, col))
-        self.hero_spawn = (row, col)
+        self.hero_spawn = (col, row)
 
     @staticmethod
     def __generate_wall() -> int:
