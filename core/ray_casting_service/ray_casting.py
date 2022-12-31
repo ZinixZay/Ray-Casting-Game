@@ -71,8 +71,9 @@ def ray_casting_walls_textured(player, textures, world_map) -> list:
 
         wall_column = pygame.transform.scale(textures[texture if texture in textures.keys() else 0]
                                              .subsurface(*get_left_top_coord_texture(offset, proj_height)), scale_wall)
-        shadow = pygame.Surface((SCALE, proj_height), pygame.SRCALPHA)
-        shadow.fill((0, 0, 0, min(depth / TILE * 12, 200)))
-        wall_column.blit(shadow, (0, 0))
+        if proj_height < HEIGHT * 1.4:
+            shadow = pygame.Surface((SCALE, proj_height), pygame.SRCALPHA)
+            shadow.fill((0, 0, 0, min(depth / TILE * 10, 200)))
+            wall_column.blit(shadow, (0, 0))
         walls_textured.append((depth, wall_column, wall_pos))
     return walls_textured

@@ -1,7 +1,8 @@
-from settings import *
-
-DEFAULT_WALL = 'wall10.jpg'
 GENERATE_RATE = {
-    'wall11.jpg': 10,
+    1: 28,
+    2: 28,
+    3: 28,
+    4: 8,
+    5: 8,
 }
 INTENSIVE = 15

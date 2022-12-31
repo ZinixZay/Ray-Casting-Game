@@ -6,8 +6,6 @@ def pretty_print_map(_map):
         for col in row:
             if col == 0:
                 print(' ', end='')
-            elif col == 8:
-                print('@', end='')
             else:
                 print('█', end='')
         print()
