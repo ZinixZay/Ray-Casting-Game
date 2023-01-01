@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import pygame
 from core.utils.utils import get_sky_offset
 from core.drawing.config import *

@@ -20,5 +20,19 @@
     "start_pos": [250, 250],
     "speed": 2
   },
+  "entities": [
+    {
+      "id": "test_entity",
+      "pos": [10.5, 9.4]
+    },
+    {
+      "id": "test_entity",
+      "pos": [9.5, 9.4]
+    },
+    {
+      "id": "test_entity",
+      "pos": [9.5, 5.5]
+    }
+  ],
   "endpoint": []
 }

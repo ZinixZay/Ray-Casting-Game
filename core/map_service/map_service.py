@@ -15,19 +15,21 @@ class MapService:
         self.collisions = list()
         self.walls = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
         self.start_player_pos = None
+        self.entities = list()
         self.mini_map = set()
 
     def generate_map(self) -> None:
         self.map_generator.generate()
         self.matrix_map = self.map_generator.map
-        self.start_player_pos = list(map(lambda coord: coord*TILE+TILE//2, self.map_generator.hero_spawn))
+        self.start_player_pos = list(map(lambda coord: coord*TILE, self.map_generator.hero_spawn))
         self.reset_param()
 
     def load_map(self, number_map: int) -> None:
         with open(MAPS_PATH+f'map{number_map}.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
         self.matrix_map = data["matrix_map"]
-        self.start_player_pos = data["player"]["start_pos"]
+        self.start_player_pos = list(map(lambda coord: coord*TILE, data["player"]["start_pos"]))
+        self.entities = data["entities"]
         self.reset_param()
 
     def reset_param(self):
