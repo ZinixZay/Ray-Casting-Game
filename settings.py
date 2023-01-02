@@ -50,6 +50,7 @@ TEXTURES = {
     5: IMAGES_PATH + '\\walls\\wall5.png',
     'S': IMAGES_PATH + '\\sky\\skyf.png',
 }
+INTERFACE_TEXTURE = IMAGES_PATH + '\\interface\\interface.png'
 
 # drawing
 MARGIN = 10
