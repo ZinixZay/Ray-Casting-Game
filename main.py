@@ -18,8 +18,8 @@ class RayCastingGame:
         pygame.mouse.set_visible(False)
 
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
-        self.screen_minimap = pygame.Surface((300, 200))
-        self.drawing = Drawing(self.screen, self.screen_minimap)
+
+        self.drawing = Drawing(self.screen)
 
         self.clock = pygame.time.Clock()
         pygame.event.set_grab(1)
@@ -29,7 +29,7 @@ class RayCastingGame:
 
         self.entity_service = EntityService(self.map_service.entities)
 
-        self.player = MainPlayer(self.map_service.start_player_pos, speed=10)
+        self.player = MainPlayer(self.map_service.start_player_pos, speed=8)
         self.player.update_collision_objs(self.map_service.collisions)
 
     def run(self) -> None:
@@ -46,8 +46,6 @@ class RayCastingGame:
                 ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.walls)
                 + [obj.object_locate(self.player) for obj in self.entity_service.entities]
             )
-            self.drawing.draw_minimap(self.player, self.map_service.mini_map)
-            self.drawing.draw_fps(str(self.clock.get_fps()))
 
             pygame.display.flip()
             self.clock.tick(FPS)

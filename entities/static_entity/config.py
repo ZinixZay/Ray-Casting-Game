@@ -6,7 +6,7 @@ ENTITIES_PARAM = {
     'test_entity': {
         'sprite': IMAGES_PATH+'entities\\test_entity\\default\\0.png',
         'viewing_angles': None,
-        'shift': -1,
+        'shift': 0.4,
         'scale': 1,
         'animation': [],
         'animation_dist': 800,

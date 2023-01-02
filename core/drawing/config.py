@@ -12,11 +12,14 @@ TEXTURES = {
     0: IMAGES_PATH + '\\walls\\wall0.png',
 }
 
+BLUE = (106, 109, 119)
+RED = (255, 0, 0)
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-RED = (220, 0, 0)
+
 GREEN = (0, 80, 0)
-BLUE = (0, 0, 255)
+
 DARK_GRAY = (12, 12, 12)
 PURPLE = (120, 0, 120)
 SKY_BLUE = (0, 186, 255)

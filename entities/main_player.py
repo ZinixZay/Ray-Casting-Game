@@ -6,6 +6,8 @@ from settings import *
 class MainPlayer:
     def __init__(self, player_pos: tuple, angle: int = 0, speed: int = 2) -> None:
         self.x, self.y = player_pos
+        self.health_points = 100
+        self.inventory = list()
         self.angle = angle
         self.speed = speed
         self.sensitivity = SENSITIVITY
