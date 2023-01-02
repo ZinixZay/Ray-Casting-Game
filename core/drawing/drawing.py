@@ -1,13 +1,16 @@
 import pygame
 from core.utils.utils import get_sky_offset
 from paths import FONT_PATH, IMAGES_PATH
-from settings import TEXTURES, DARK_GRAY, HALF_HEIGHT, WIDTH, WHITE
+from settings import TEXTURES, DARK_GRAY, HALF_HEIGHT, WIDTH, WHITE, BLACK, MINIMAP_SCALE, RED, INTERFACE_COLOR, \
+    MINIMAP_TILE, MINIMAP_POS, MINIMAP_SIZE, GAMEINFO_SIZE, GAMEINFO_POS, MAP_WALLS_COLOR, FPS_POS
 
 
 class Drawing:
     def __init__(self, screen):
         self.screen = screen
-        self.font = pygame.font.Font(FONT_PATH+'Fifaks10Dev1.ttf', 36)
+        self.screen_minimap = pygame.Surface(MINIMAP_SIZE)
+        self.screen_gameinfo = pygame.Surface(GAMEINFO_SIZE)
+        self.font_fps = pygame.font.Font(FONT_PATH+'Fifaks10Dev1.ttf', 26)
         self.textures = dict()
         self.interface_texture = pygame.image.load(IMAGES_PATH+'interface\\interface_1.png').convert()
         self.load_textures()
@@ -27,24 +30,20 @@ class Drawing:
             _, object_surface, object_pos = obj
             self.screen.blit(object_surface, object_pos)
 
-    def draw_fps(self, fps_value):
-        render = self.font.render(fps_value, 0, WHITE)
-        self.screen.blit(render, (WIDTH - 65, 5))
+    def draw_interface(self, player, mini_map, fps='none'):
+        self.draw_minimap(player, mini_map)
+        self.draw_gameinfo(player, fps)
 
-    # def draw_minimap(self, player, mini_map):
-    #     self.screen_minimap.fill(BLACK)
-    #     map_x, map_y = player.x // MINIMAP_SCALE, player.y // MINIMAP_SCALE
-    #     pygame.draw.circle(self.screen_minimap, RED, (int(map_x), int(map_y)), 4)
-    #     for x, y in mini_map:
-    #         pygame.draw.rect(self.screen_minimap, BLUE, (x, y, MINIMAP_TILE, MINIMAP_TILE))
-    #     pygame.draw.line(self.screen_minimap, RED, (map_x, map_y), (map_x + 12 * math.cos(player.angle),
-    #                                                                        map_y + 12 * math.sin(player.angle)), 2)
-    #     self.screen_interface.blit(self.screen_minimap, (0, 0))
-    #
-    # def draw_interface(self, player, mini_map):
-    #     self.screen_interface.fill((24, 27, 33))
-    #     self.draw_minimap(player, mini_map)
-    #     self.screen_info.fill((0, 0, 255))
-    #     self.screen_interface.blit(self.screen_info, (880, 0))
-    #
-    #     self.screen.blit(self.screen_interface, (10, HEIGHT-210))
+    def draw_minimap(self, player, mini_map):
+        self.screen_minimap.fill(BLACK)
+        map_x, map_y = player.x // MINIMAP_SCALE, player.y // MINIMAP_SCALE
+        pygame.draw.circle(self.screen_minimap, RED, (int(map_x), int(map_y)), 4)
+        for x, y in mini_map:
+            pygame.draw.rect(self.screen_minimap, MAP_WALLS_COLOR, (x, y, MINIMAP_TILE, MINIMAP_TILE))
+        self.screen.blit(self.screen_minimap, MINIMAP_POS)
+
+    def draw_gameinfo(self, player, fps='none'):
+        self.screen_gameinfo.fill(INTERFACE_COLOR)
+        fps_text = self.font_fps.render(f'FPS: {fps}', 0, WHITE)
+        self.screen_gameinfo.blit(fps_text, FPS_POS )
+        self.screen.blit(self.screen_gameinfo, GAMEINFO_POS)

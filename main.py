@@ -41,6 +41,7 @@ class RayCastingGame:
                 ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.walls)
                 + [obj.object_locate(self.player) for obj in self.entity_service.entities]
             )
+            self.drawing.draw_interface(self.player, self.map_service.mini_map, round(self.clock.get_fps()))
 
             pygame.display.flip()
             self.clock.tick(FPS)
