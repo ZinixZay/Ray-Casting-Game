@@ -1,9 +1,6 @@
-import numpy
 import pygame
 from settings import *
-from core.map_service.config import WORLD_WIDTH_TILE, WORLD_HEIGHT_TILE
 from numba import njit, prange
-
 from core.utils.utils import get_left_top_coord_texture
 
 

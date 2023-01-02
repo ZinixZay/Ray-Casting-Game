@@ -1,8 +1,7 @@
-from pprint import pprint
-
 import pygame
 from core.utils.utils import get_sky_offset
-from core.drawing.config import *
+from paths import FONT_PATH, IMAGES_PATH
+from settings import TEXTURES, DARK_GRAY, HALF_HEIGHT, WIDTH, WHITE
 
 
 class Drawing:

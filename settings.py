@@ -1,5 +1,7 @@
 import math
+from paths import IMAGES_PATH
 
+# general
 SIZE_SCREEN = WIDTH, HEIGHT = 1200, 800
 HALF_WIDTH, HALF_HEIGHT = WIDTH // 2, HEIGHT // 2
 DOUBLE_WIDTH, DOUBLE_HEIGHT = WIDTH * 2, HEIGHT * 2
@@ -7,7 +9,7 @@ TILE = 100
 FPS = 60
 SENSITIVITY = 0.002
 
-
+# ray casting
 FOV = math.pi / 4
 HALF_FOV = FOV / 2
 NUM_RAYS = 400
@@ -21,14 +23,78 @@ CENTER_RAY = NUM_RAYS // 2 - 1
 FAKE_RAYS = 100
 FAKE_RAYS_RANGE = NUM_RAYS - 1 + 2 * FAKE_RAYS
 
+# map
+WORLD_SIZE = WORLD_WIDTH, WORLD_HEIGHT = 27, 18
+WORLD_SIZE_TILE = WORLD_WIDTH_TILE, WORLD_HEIGHT_TILE = WORLD_WIDTH * TILE, WORLD_HEIGHT * TILE
+
+# map generator
+GENERATE_RATE = {
+    1: 28,
+    2: 28,
+    3: 28,
+    4: 8,
+    5: 8,
+}
+INTENSIVE = 15
+
+# textures
 TEXTURE_WIDTH, TEXTURE_HEIGHT = 1200, 1200
 HALF_TEXTURE_HEIGHT = TEXTURE_HEIGHT // 2
 TEXTURE_SCALE = TEXTURE_WIDTH // TILE
+TEXTURES = {
+    0: IMAGES_PATH + '\\walls\\wall0.png',
+    1: IMAGES_PATH + '\\walls\\wall1.png',
+    2: IMAGES_PATH + '\\walls\\wall2.png',
+    3: IMAGES_PATH + '\\walls\\wall3.png',
+    4: IMAGES_PATH + '\\walls\\wall4.png',
+    5: IMAGES_PATH + '\\walls\\wall5.png',
+    'S': IMAGES_PATH + '\\sky\\skyf.png',
+}
 
-WORLD_WIDTH, WORLD_HEIGHT = 27, 18
+# drawing
 MINIMAP_SIZE = MINIMAP_WIDTH, MINIMAP_HEIGHT = 300, 200
 MINIMAP_TILE = MINIMAP_WIDTH//WORLD_WIDTH
 MINIMAP_SCALE = TILE//MINIMAP_TILE
-
+INTERFACE_COLOR = (106, 109, 119)
 BLACK = (0, 0, 0)
 DARK_GRAY = (12, 12, 12)
+RED = (255, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (0, 80, 0)
+PURPLE = (120, 0, 120)
+SKY_BLUE = (0, 186, 255)
+YELLOW = (220, 220, 0)
+
+# entities
+ENTITIES_PARAM = {
+    'test_entity': {
+        'sprite': IMAGES_PATH+'entities\\test_entity\\default\\0.png',
+        'viewing_angles': None,
+        'shift': 0.4,
+        'scale': 1,
+        'animation': [],
+        'animation_dist': 800,
+        'animation_speed': 0,
+        'blocked': True,
+    },
+    'test_entity_anim': {
+        'sprite': IMAGES_PATH+'entities\\test_entity_anim\\default\\0.png',
+        'viewing_angles': None,
+        'shift': 0,
+        'scale': 1,
+        'animation': [f'{IMAGES_PATH}entities\\test_entity_anim\\animation\\{path}.png' for path in range(4)],
+        'animation_dist': 400,
+        'animation_speed': 20,
+        'blocked': True,
+    },
+    'test_angle': {
+        'sprite': [f'{IMAGES_PATH}entities\\test_angle\\default\\{path}.png' for path in range(8)],
+        'viewing_angles': True,
+        'shift': 0,
+        'scale': 1,
+        'animation': [],
+        'animation_dist': 400,
+        'animation_speed': 20,
+        'blocked': True,
+    }
+}

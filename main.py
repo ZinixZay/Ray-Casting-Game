@@ -1,19 +1,14 @@
-import random
-
 import pygame
-
+from settings import *
 from core.entity_service.entity_service import EntityService
 from core.map_service.map_service import MapService
-from entities.main_player import MainPlayer
-from entities.static_entity.config import ENTITIES_PARAM
-from entities.static_entity.static_entity import StaticEntity
-from settings import *
 from core.drawing.drawing import Drawing
 from core.ray_casting_service.ray_casting import ray_casting_walls_textured
+from entities.main_player.main_player import MainPlayer
 
 
 class RayCastingGame:
-    def __init__(self) -> None:
+    def __init__(self):
         pygame.init()
         pygame.mouse.set_visible(False)
 
@@ -32,7 +27,7 @@ class RayCastingGame:
         self.player = MainPlayer(self.map_service.start_player_pos, speed=8)
         self.player.update_collision_objs(self.map_service.collisions)
 
-    def run(self) -> None:
+    def run(self):
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

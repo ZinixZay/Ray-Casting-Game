@@ -1,11 +1,11 @@
-from core.map_generator.map_generator import MapGenerator
+import json
+import pygame
+from paths import *
+from numba import int32
 from numba.core import types
 from numba.typed import Dict
-from numba import int32
-from core.map_service.config import *
-from paths import *
-import pygame
-import json
+from core.map_generator.map_generator import MapGenerator
+from settings import WORLD_SIZE, TILE, MINIMAP_TILE
 
 
 class MapService:

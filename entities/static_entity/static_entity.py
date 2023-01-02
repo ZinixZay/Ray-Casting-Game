@@ -1,9 +1,6 @@
-from collections import deque
-
 import pygame
-from numba import njit
-
 from settings import *
+from collections import deque
 
 
 class StaticEntity:

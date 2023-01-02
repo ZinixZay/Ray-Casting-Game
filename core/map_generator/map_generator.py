@@ -1,6 +1,7 @@
 import numpy
 import random
-from core.map_generator.config import *
+
+from settings import GENERATE_RATE, INTENSIVE
 
 
 class MapGenerator:
@@ -34,20 +35,6 @@ class MapGenerator:
     @staticmethod
     def __generate_wall() -> int:
         return random.choices(list(GENERATE_RATE.keys()), weights=GENERATE_RATE.values())[0]
-        # for potential_wall, chance in GENERATE_RATE.items():
-        #     if random.randint(0, 100) >= 80:
-        #         if random.randint(0, 100) <= 50:
-        #             return 5
-        #         else:
-        #             return 4
-        #     else:
-        #         usuall_wall_chance = random.randint(0, 100)
-        #         if usuall_wall_chance <= 33:
-        #             return 1
-        #         elif usuall_wall_chance <= 66:
-        #             return 2
-        #         else:
-        #             return 3
 
 
     @staticmethod

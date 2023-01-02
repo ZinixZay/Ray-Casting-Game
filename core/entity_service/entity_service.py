@@ -1,5 +1,5 @@
-from entities.static_entity.config import ENTITIES_PARAM
 from entities.static_entity.static_entity import StaticEntity
+from settings import ENTITIES_PARAM
 
 
 class EntityService:
