@@ -27,7 +27,8 @@ class RayCastingGame:
         self.entity_service = EntityService(self.map_service.entities)
 
         self.player = MainPlayer(self.map_service.start_player_pos, speed=8)
-        self.player.update_collision_objs(self.map_service.collisions)
+        self.player.update_collision_objs(self.map_service.collisions
+                                          + [i.rect for i in self.entity_service.entities if i.blocked])
 
     def run(self):
         while True:
@@ -44,8 +45,6 @@ class RayCastingGame:
                 + [obj.object_locate(self.player) for obj in self.entity_service.entities]
             )
             self.drawing.draw_interface(self.player, self.map_service.mini_map, round(self.clock.get_fps()))
-            # test
-            # self.entity_service.update_entity_angle(2, normalize_angle(self.entity_service.entities[2].angle+20))
             pygame.display.flip()
             self.clock.tick(FPS)
 

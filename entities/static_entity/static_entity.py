@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import pygame
 
 from core.utils.utils import get_sprite_angles
@@ -21,10 +19,11 @@ class StaticEntity:
         self.animation_dist = parameters['animation_dist']
         self.animation_speed = parameters['animation_speed']
         self.blocked = parameters['blocked']
-        self.side = 30
+        self.side = parameters['side']
         self.animation_count = 0
         self.x, self.y = pos[0] * TILE, pos[1] * TILE
         self.pos = self.x - self.side // 2, self.y - self.side // 2
+        self.rect = pygame.Rect(*self.pos, self.side, self.side)
         if self.viewing_angles:
             self.sprite_angles = list(map(frozenset, get_sprite_angles(self.angle)))
             self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.objects)}
@@ -72,7 +71,7 @@ class StaticEntity:
         return False, False, False
 
     def update_pos(self, pos: tuple[float, float]) -> None:
-        self.x, self.y = pos[0] * TILE, pos[1] * TILE
+        self.x, self.y = list(map(lambda x: x*TILE, pos))
 
     def update_angle(self, angle: int) -> None:
         self.angle = angle

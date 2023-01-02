@@ -84,7 +84,8 @@ ENTITIES_PARAM = {
         'animation': [],
         'animation_dist': 800,
         'animation_speed': 0,
-        'blocked': True,
+        'blocked': False,
+        'side': 20
     },
     'test_entity_anim': {
         'sprites': [IMAGES_PATH+'entities\\test_entity_anim\\default\\0.png'],
@@ -96,6 +97,7 @@ ENTITIES_PARAM = {
         'animation_dist': 400,
         'animation_speed': 20,
         'blocked': True,
+        'side': 100
     },
     'test_angle': {
         'sprites': [f'{IMAGES_PATH}entities\\test_angle\\default\\{path}.png' for path in range(8)],
@@ -107,5 +109,6 @@ ENTITIES_PARAM = {
         'animation_dist': 400,
         'animation_speed': 20,
         'blocked': True,
+        'side': 40
     }
 }
