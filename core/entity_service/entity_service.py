@@ -18,3 +18,6 @@ class EntityService:
 
     def update_entity_pos(self, id: int, pos: tuple[float, float]) -> None:
         self.entities[id].update_pos(pos)
+
+    def update_entity_angle(self, id: int, angle: int) -> None:
+        self.entities[id].update_angle(angle)

@@ -1,4 +1,6 @@
 import pygame
+
+from core.utils.utils import normalize_angle
 from settings import *
 from core.entity_service.entity_service import EntityService
 from core.map_service.map_service import MapService
@@ -42,7 +44,8 @@ class RayCastingGame:
                 + [obj.object_locate(self.player) for obj in self.entity_service.entities]
             )
             self.drawing.draw_interface(self.player, self.map_service.mini_map, round(self.clock.get_fps()))
-
+            # test
+            # self.entity_service.update_entity_angle(2, normalize_angle(self.entity_service.entities[2].angle+20))
             pygame.display.flip()
             self.clock.tick(FPS)
 

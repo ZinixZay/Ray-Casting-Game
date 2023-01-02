@@ -76,8 +76,9 @@ YELLOW = (220, 220, 0)
 # entities
 ENTITIES_PARAM = {
     'test_entity': {
-        'sprite': IMAGES_PATH+'entities\\test_entity\\default\\0.png',
+        'sprites': [IMAGES_PATH+'entities\\test_entity\\default\\0.png'],
         'viewing_angles': None,
+        'angle': None,
         'shift': 0.4,
         'scale': 1,
         'animation': [],
@@ -86,8 +87,9 @@ ENTITIES_PARAM = {
         'blocked': True,
     },
     'test_entity_anim': {
-        'sprite': IMAGES_PATH+'entities\\test_entity_anim\\default\\0.png',
+        'sprites': [IMAGES_PATH+'entities\\test_entity_anim\\default\\0.png'],
         'viewing_angles': None,
+        'angle': None,
         'shift': 0,
         'scale': 1,
         'animation': [f'{IMAGES_PATH}entities\\test_entity_anim\\animation\\{path}.png' for path in range(4)],
@@ -96,8 +98,9 @@ ENTITIES_PARAM = {
         'blocked': True,
     },
     'test_angle': {
-        'sprite': [f'{IMAGES_PATH}entities\\test_angle\\default\\{path}.png' for path in range(8)],
+        'sprites': [f'{IMAGES_PATH}entities\\test_angle\\default\\{path}.png' for path in range(8)],
         'viewing_angles': True,
+        'angle': 90,
         'shift': 0,
         'scale': 1,
         'animation': [],

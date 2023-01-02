@@ -1,15 +1,20 @@
+from pprint import pprint
+
 import pygame
+
+from core.utils.utils import get_sprite_angles
 from settings import *
 from collections import deque
 
 
 class StaticEntity:
     def __init__(self, parameters, pos):
+        self.param = parameters
         if parameters['viewing_angles']:
-            self.object = [pygame.image.load(i).convert_alpha() for i in parameters['sprite'].copy()]
-        else:
-            self.object = pygame.image.load(parameters['sprite']).convert_alpha()
+            self.objects = [pygame.image.load(i).convert_alpha() for i in parameters['sprites'].copy()]
+        self.object = pygame.image.load(parameters['sprites'][0]).convert_alpha()
         self.viewing_angles = parameters['viewing_angles']
+        self.angle = parameters['angle']
         self.shift = parameters['shift']
         self.scale = parameters['scale']
         self.animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['animation'].copy()])
@@ -21,8 +26,8 @@ class StaticEntity:
         self.x, self.y = pos[0] * TILE, pos[1] * TILE
         self.pos = self.x - self.side // 2, self.y - self.side // 2
         if self.viewing_angles:
-            self.sprite_angles = [frozenset(range(i, i + 45)) for i in range(0, 360, 45)]
-            self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.object)}
+            self.sprite_angles = list(map(frozenset, get_sprite_angles(self.angle)))
+            self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.objects)}
 
     def object_locate(self, player):
         dx, dy = self.x - player.x, self.y - player.y
@@ -66,5 +71,12 @@ class StaticEntity:
             return distance_to_sprite, sprite, sprite_pos
         return False, False, False
 
-    def update_pos(self, pos) -> None:
+    def update_pos(self, pos: tuple[float, float]) -> None:
         self.x, self.y = pos[0] * TILE, pos[1] * TILE
+
+    def update_angle(self, angle: int) -> None:
+        self.angle = angle
+        if self.viewing_angles:
+            self.sprite_angles = list(map(frozenset, get_sprite_angles(self.angle)))
+            self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.objects)}
+
