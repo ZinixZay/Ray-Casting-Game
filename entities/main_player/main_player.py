@@ -22,7 +22,7 @@ class MainPlayer:
     def update_collision_objs(self, objs: list) -> None:
         self.collision_objs = objs
 
-    def detect_collision(self, dx, dy):
+    def detect_collision(self, dx: float, dy: float) -> None:
         next_rect = self.rect.copy()
         next_rect.move_ip(dx, dy)
         hit_indexes = next_rect.collidelistall(self.collision_objs)
@@ -31,14 +31,8 @@ class MainPlayer:
             delta_x, delta_y = 0, 0
             for hit_index in hit_indexes:
                 hit_rect = self.collision_objs[hit_index]
-                if dx > 0:
-                    delta_x += next_rect.right - hit_rect.left
-                else:
-                    delta_x += hit_rect.right - next_rect.left
-                if dy > 0:
-                    delta_y += next_rect.bottom - hit_rect.top
-                else:
-                    delta_y += hit_rect.bottom - next_rect.top
+                delta_x += next_rect.right - hit_rect.left if dx > 0 else hit_rect.right - next_rect.left
+                delta_y += next_rect.bottom - hit_rect.top if dy > 0 else hit_rect.bottom - next_rect.top
 
             if abs(delta_x - delta_y) < 40:
                 dx, dy = 0, 0
@@ -76,5 +70,4 @@ class MainPlayer:
             self.angle += 0.02
 
     def mouse_control(self) -> None:
-        p_mouse = pygame.mouse.get_rel()
-        self.angle += numpy.clip((p_mouse[0]) / 200, -0.2, .2)
+        self.angle += numpy.clip((pygame.mouse.get_rel()[0]) / 200, -0.2, .2)

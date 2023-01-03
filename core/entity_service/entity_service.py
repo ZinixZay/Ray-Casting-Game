@@ -8,7 +8,7 @@ class EntityService:
         self.set_entities(entities)
 
     @property
-    def entity_objs(self):
+    def entity_objs(self) -> list:
         return self.entities
 
     def set_entities(self, entities: list[dict]) -> None:

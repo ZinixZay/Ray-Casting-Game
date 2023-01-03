@@ -32,7 +32,7 @@ class MapService:
         self.entities = data["entities"]
         self.reset_param()
 
-    def reset_param(self):
+    def reset_param(self) -> None:
         self.walls = Dict.empty(key_type=types.UniTuple(int32, 2), value_type=int32)
         self.collisions = list()
         self.mini_map = set()

@@ -1,6 +1,7 @@
 import pygame
 from core.utils.utils import get_sky_offset
-from paths import FONT_PATH, IMAGES_PATH
+from entities.main_player.main_player import MainPlayer
+from paths import FONT_PATH
 from settings import *
 
 
@@ -31,7 +32,7 @@ class Drawing:
             _, object_surface, object_pos = obj
             self.screen.blit(object_surface, object_pos)
 
-    def draw_interface(self, player, mini_map, fps='none'):
+    def draw_interface(self, player: MainPlayer, mini_map, fps='none') -> None:
         self.screen_gameinfo.fill(EMPTY_COLOR)
         self.screen.blit(self.interface_texture, (MARGIN, HEIGHT-220-MARGIN))
         fps_text = self.font_fps.render(f'FPS: {fps}', 0, WHITE)
@@ -43,7 +44,7 @@ class Drawing:
         self.screen.blit(self.screen_gameinfo, (WIDTH-MARGIN-440, HEIGHT-220-MARGIN))
         self.draw_minimap(player, mini_map)
 
-    def draw_minimap(self, player, minimap):
+    def draw_minimap(self, player: MainPlayer, minimap) -> None:
         self.screen_minimap.fill(BLACK)
         camera_rect = pygame.Rect(player.x//5-110, player.y//5-110, 250, 250)
         diffx = 95 - player.x//5
@@ -52,7 +53,7 @@ class Drawing:
             wall_rect = pygame.Rect(wall[0], wall[1], MINIMAP_TILE, MINIMAP_TILE)
             if camera_rect.colliderect(wall_rect):
                 pygame.draw.rect(self.screen_minimap, WHITE, pygame.Rect(wall_rect.x + diffx, wall_rect.y + diffy, MINIMAP_TILE, MINIMAP_TILE))
-        pygame.draw.circle(self.screen_minimap, RED, (95, 102), 5)
-        pygame.draw.line(self.screen_minimap, RED, (95, 102), (95 + 12 * math.cos(player.angle),
-                                                               102 + 12 * math.sin(player.angle)), 2)
+        # pygame.draw.circle(self.screen_minimap, RED, (95, 102), 5)
+        # pygame.draw.line(self.screen_minimap, RED, (95, 102), (95 + 12 * math.cos(player.angle),
+        #                                                        102 + 12 * math.sin(player.angle)), 2)
         self.screen.blit(self.screen_minimap, (MARGIN+6, HEIGHT-220-MARGIN+6))

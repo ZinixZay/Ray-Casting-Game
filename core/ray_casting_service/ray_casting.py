@@ -1,4 +1,8 @@
+from typing import List
+
 import pygame
+
+from entities.main_player.main_player import MainPlayer
 from settings import *
 from numba import njit, prange
 from core.utils.utils import get_left_top_coord_texture
@@ -53,7 +57,7 @@ def ray_casting(player_pos, player_angle, world_map):
     return walls
 
 
-def ray_casting_walls_textured(player, textures, world_map) -> list:
+def ray_casting_walls_textured(player: MainPlayer, textures: dict, world_map: List[list]) -> List[tuple]:
     walls = ray_casting(player.pos, player.angle, world_map)
     walls_textured = list()
     for casted_values in walls:
