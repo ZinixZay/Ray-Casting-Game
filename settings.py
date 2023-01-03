@@ -51,6 +51,8 @@ TEXTURES = {
     'S': IMAGES_PATH + '\\sky\\skyf.png',
 }
 INTERFACE_TEXTURE = IMAGES_PATH + '\\interface\\interface.png'
+BUTTON_TEXTURE = IMAGES_PATH + '\\interface\\button.png'
+BACKGROUND_TEXTURE = IMAGES_PATH + '\\interface\\background.png'
 
 # drawing
 MARGIN = 10

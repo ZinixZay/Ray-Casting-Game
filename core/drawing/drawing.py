@@ -12,6 +12,8 @@ class Drawing:
         self.font_fps = pygame.font.Font(FONT_PATH+'Fifaks10Dev1.ttf', 34)
         self.textures = dict()
         self.interface_texture = pygame.image.load(INTERFACE_TEXTURE).convert_alpha()
+        self.button_texture = pygame.image.load(BUTTON_TEXTURE).convert_alpha()
+        self.background_texture = pygame.image.load(BACKGROUND_TEXTURE).convert_alpha()
         self.load_textures()
 
     def load_textures(self) -> None:

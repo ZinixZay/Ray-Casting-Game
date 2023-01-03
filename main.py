@@ -1,5 +1,7 @@
 import pygame
 
+from components.menu_start.menu_start import MenuStart
+from core.status_game import STATUS_GAME
 from core.utils.utils import normalize_angle
 from settings import *
 from core.entity_service.entity_service import EntityService
@@ -12,15 +14,41 @@ from entities.main_player.main_player import MainPlayer
 class RayCastingGame:
     def __init__(self):
         pygame.init()
-        pygame.mouse.set_visible(False)
 
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
 
         self.drawing = Drawing(self.screen)
-
         self.clock = pygame.time.Clock()
         pygame.event.set_grab(1)
 
+        self.game_status = STATUS_GAME.MENU_START
+        self.start_menu = MenuStart(self.drawing.button_texture, self.drawing.background_texture)
+
+    def run(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    exit()
+
+            if self.game_status == STATUS_GAME.MENU_START:
+                self.start_menu_logic()
+            elif self.game_status == STATUS_GAME.GAME_PROCESS:
+                self.game_process()
+
+    def start_menu_logic(self):
+        self.start_menu.draw(self.screen)
+        status = self.start_menu.get_status()
+        if status:
+            if status == STATUS_GAME.EXIT:
+                exit()
+            elif status == STATUS_GAME.GAME_PROCESS:
+                self.game_status = STATUS_GAME.GAME_PROCESS
+                self.start_game()
+        pygame.display.flip()
+        self.clock.tick(FPS)
+
+    def start_game(self):
+        pygame.mouse.set_visible(False)
         self.map_service = MapService()
         self.map_service.load_map(1)
 
@@ -30,23 +58,17 @@ class RayCastingGame:
         self.player.update_collision_objs(self.map_service.collisions
                                           + [i.rect for i in self.entity_service.entities if i.blocked])
 
-    def run(self):
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    exit()
-
-            self.player.movement()
-
-            self.screen.fill(BLACK)
-            self.drawing.draw_floor_sky(self.player.angle)
-            self.drawing.draw_world_objects(
-                ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.walls)
-                + [obj.object_locate(self.player) for obj in self.entity_service.entities]
-            )
-            self.drawing.draw_interface(self.player, self.map_service.mini_map, round(self.clock.get_fps()))
-            pygame.display.flip()
-            self.clock.tick(FPS)
+    def game_process(self):
+        self.screen.fill(BLACK)
+        self.player.movement()
+        self.drawing.draw_floor_sky(self.player.angle)
+        self.drawing.draw_world_objects(
+            ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.walls)
+            + [obj.object_locate(self.player) for obj in self.entity_service.entities]
+        )
+        self.drawing.draw_interface(self.player, self.map_service.mini_map, round(self.clock.get_fps()))
+        pygame.display.flip()
+        self.clock.tick(FPS)
 
 
 if __name__ == '__main__':
