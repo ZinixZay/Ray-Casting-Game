@@ -1,5 +1,6 @@
 import pygame
 
+from components.menu_pause.menu_pause import MenuPause
 from components.menu_start.menu_start import MenuStart
 from core.status_game import STATUS_GAME
 from core.utils.utils import normalize_angle
@@ -23,19 +24,25 @@ class RayCastingGame:
 
         self.game_status = STATUS_GAME.MENU_START
         self.start_menu = MenuStart(self.drawing.button_texture, self.drawing.background_texture)
+        self.start_pause = MenuPause(self.drawing.button_texture, self.drawing.background_texture)
 
     def run(self):
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and self.game_status == STATUS_GAME.GAME_PROCESS:
+                    self.game_status = STATUS_GAME.MENU_PAUSE
 
             if self.game_status == STATUS_GAME.MENU_START:
                 self.start_menu_logic()
             elif self.game_status == STATUS_GAME.GAME_PROCESS:
                 self.game_process()
+            elif self.game_status == STATUS_GAME.MENU_PAUSE:
+                self.pause_menu_logic()
 
     def start_menu_logic(self):
+        pygame.mouse.set_visible(True)
         self.start_menu.draw(self.screen)
         status = self.start_menu.get_status()
         if status:
@@ -44,6 +51,22 @@ class RayCastingGame:
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 self.start_game()
+        pygame.display.flip()
+        self.clock.tick(FPS)
+
+    def pause_menu_logic(self):
+        pygame.mouse.set_visible(True)
+        self.start_pause.draw(self.screen)
+        status = self.start_pause.get_status()
+        if status:
+            if status == STATUS_GAME.EXIT:
+                exit()
+            elif status == STATUS_GAME.GAME_PROCESS:
+                self.game_status = STATUS_GAME.GAME_PROCESS
+                pygame.mouse.set_visible(False)
+                self.game_process()
+            elif status == STATUS_GAME.MENU_START:
+                self.game_status = STATUS_GAME.MENU_START
         pygame.display.flip()
         self.clock.tick(FPS)
 
