@@ -3,10 +3,10 @@ import socket
 
 class Network:
 
-    def __init__(self):
+    def __init__(self, ip, port):
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.host = "192.168.0.142"
-        self.port = 5555
+        self.host = ip
+        self.port = port
         self.addr = (self.host, self.port)
         self.id = self.connect()
 
