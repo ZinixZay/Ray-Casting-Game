@@ -19,6 +19,5 @@ class MenuStart:
     def get_status(self) -> bool | STATUS_GAME:
         for btn in self.buttons:
             if btn.get_status():
-                print(self.buttons[btn])
                 return self.buttons[btn]
         return False

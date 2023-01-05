@@ -27,7 +27,7 @@ def ray_casting(player_pos, player_angle, world_map):
         cos_a = cos_a if cos_a else 0.000001
 
         x, dx = (xm + TILE, 1) if cos_a >= 0 else (xm, -1)
-        for i in prange(0, WORLD_WIDTH_TILE, TILE):
+        for _ in prange(0, WORLD_WIDTH_TILE, TILE):
             depth_v = (x - ox) / cos_a
             yv = oy + depth_v * sin_a
             tile_v = mapping(x + dx, yv)
@@ -37,7 +37,7 @@ def ray_casting(player_pos, player_angle, world_map):
             x += dx * TILE
 
         y, dy = (ym + TILE, 1) if sin_a >= 0 else (ym, -1)
-        for i in prange(0, WORLD_HEIGHT_TILE, TILE):
+        for _ in prange(0, WORLD_HEIGHT_TILE, TILE):
             depth_h = (y - oy) / sin_a
             xh = ox + depth_h * cos_a
             tile_h = mapping(xh, y + dy)
@@ -58,23 +58,20 @@ def ray_casting(player_pos, player_angle, world_map):
 
 
 def ray_casting_walls_textured(player: MainPlayer, textures: dict, world_map: List[list]) -> List[tuple]:
-    walls = ray_casting(player.pos, player.angle, world_map)
     walls_textured = list()
-    for casted_values in walls:
+    for casted_values in ray_casting(player.pos, player.angle, world_map):
         ray, depth, offset, proj_height, texture = casted_values
 
         if proj_height > HEIGHT:
-            wall_pos = (ray * SCALE, 0)
-            scale_wall = (SCALE, HEIGHT)
+            wall_pos, scale_wall = (ray * SCALE, 0), (SCALE, HEIGHT)
         else:
-            wall_pos = (ray * SCALE, HALF_HEIGHT - proj_height // 2)
-            scale_wall = (SCALE, proj_height)
+            wall_pos, scale_wall = (ray * SCALE, HALF_HEIGHT - proj_height // 2), (SCALE, proj_height)
 
         wall_column = pygame.transform.scale(textures[texture if texture in textures.keys() else 0]
                                              .subsurface(*get_left_top_coord_texture(offset, proj_height)), scale_wall)
-        if proj_height < HEIGHT * 1.4:
+        if proj_height < HEIGHT * 1.6:
             shadow = pygame.Surface((SCALE, proj_height), pygame.SRCALPHA)
-            shadow.fill((0, 0, 0, min(depth / TILE * 10, 200)))
+            shadow.fill((0, 0, 0, min(depth / TILE * 10, 255)))
             wall_column.blit(shadow, (0, 0))
         walls_textured.append((depth, wall_column, wall_pos))
     return walls_textured

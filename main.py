@@ -3,7 +3,6 @@ import pygame
 from components.menu_pause.menu_pause import MenuPause
 from components.menu_start.menu_start import MenuStart
 from core.status_game import STATUS_GAME
-from core.utils.utils import normalize_angle
 from settings import *
 from core.entity_service.entity_service import EntityService
 from core.map_service.map_service import MapService
@@ -23,8 +22,10 @@ class RayCastingGame:
         pygame.event.set_grab(1)
 
         self.game_status = STATUS_GAME.MENU_START
-        self.start_menu = MenuStart(self.drawing.button_texture, self.drawing.background_texture)
-        self.start_pause = MenuPause(self.drawing.button_texture, self.drawing.background_texture)
+        self.start_menu = MenuStart(self.drawing.textures_interface['button'],
+                                    self.drawing.textures_interface['background'])
+        self.start_pause = MenuPause(self.drawing.textures_interface['button'],
+                                     self.drawing.textures_interface['background'])
 
     def run(self):
         while True:

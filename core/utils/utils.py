@@ -17,7 +17,7 @@ def get_sprite_angles(angle):
     result = list()
     for i in range(8):
         theta = normalize_angle(angle + 45 * i)
-        result.append(list(map(normalize_angle, list(range(theta-22, theta+23)))))
+        result.append(list(map(normalize_angle, list(range(theta - 22, theta + 23)))))
     return result
 
 
