@@ -56,7 +56,10 @@ TEXTURES_INTERFACE = {
     'button': IMAGES_PATH + '\\interface\\button.png',
     'background': IMAGES_PATH + '\\interface\\background.png',
     'minimap_background': IMAGES_PATH + '\\interface\\minimap.png',
-    'player_point': IMAGES_PATH + '\\interface\\player_point.png'
+    'player_point': IMAGES_PATH + '\\interface\\player_point.png',
+    'points': IMAGES_PATH + '\\interface\\points.png',
+    'points_background': IMAGES_PATH + '\\interface\\points_background.png',
+    'bullet': IMAGES_PATH + '\\interface\\bullet.png',
 }
 
 # drawing
@@ -69,6 +72,8 @@ MINIMAP_SCALE = TILE // MINIMAP_TILE
 MINIMAP_POS = (MARGIN+6, HEIGHT-220-MARGIN+6)
 GAMEINFO_POS = (WIDTH-MARGIN-440, HEIGHT-220-MARGIN)
 FPS_POS = (MARGIN, GAMEINFO_HEIGHT-26)
+HEALTH_POINTS_POS = (MARGIN + 385, HEIGHT - 100 - MARGIN)
+HEALTH_POINTS_TEXT_POS = (MARGIN + 385, HEIGHT - 120 - MARGIN)
 
 
 MAP_WALLS_COLOR = (71, 231, 255, 80)
