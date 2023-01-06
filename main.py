@@ -31,7 +31,7 @@ class RayCastingGame:
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    exit()
+                    pygame.quit()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and self.game_status == STATUS_GAME.GAME_PROCESS:
                     self.game_status = STATUS_GAME.MENU_PAUSE
 
@@ -48,7 +48,7 @@ class RayCastingGame:
         status = self.start_menu.get_status()
         if status:
             if status == STATUS_GAME.EXIT:
-                exit()
+                pygame.quit()
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 self.start_game()
@@ -61,7 +61,7 @@ class RayCastingGame:
         status = self.start_pause.get_status()
         if status:
             if status == STATUS_GAME.EXIT:
-                exit()
+                pygame.quit()
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 pygame.mouse.set_visible(False)
