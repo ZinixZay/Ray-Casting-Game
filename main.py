@@ -1,3 +1,5 @@
+import sys
+
 import pygame
 
 from components.menu_pause.menu_pause import MenuPause
@@ -32,6 +34,7 @@ class RayCastingGame:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
+                    sys.exit()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and self.game_status == STATUS_GAME.GAME_PROCESS:
                     self.game_status = STATUS_GAME.MENU_PAUSE
 
@@ -49,6 +52,7 @@ class RayCastingGame:
         if status:
             if status == STATUS_GAME.EXIT:
                 pygame.quit()
+                sys.exit()
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 self.start_game()
@@ -62,6 +66,7 @@ class RayCastingGame:
         if status:
             if status == STATUS_GAME.EXIT:
                 pygame.quit()
+                sys.exit()
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 pygame.mouse.set_visible(False)
