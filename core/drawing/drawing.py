@@ -1,5 +1,3 @@
-import math
-
 import pygame
 from core.utils.utils import get_sky_offset
 from entities.main_player.main_player import MainPlayer
