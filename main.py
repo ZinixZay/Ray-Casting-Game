@@ -91,7 +91,6 @@ class RayCastingGame:
         self.screen.fill(BLACK)
         if self.player.rect.collidepoint(self.map_service.end_point):
             self.start_game(2)
-        print(self.map_service.start_player_pos)
         self.player.movement()
         self.drawing.draw_floor_sky(self.player.angle)
         self.drawing.draw_world_objects(
