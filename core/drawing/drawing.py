@@ -31,7 +31,8 @@ class Drawing:
         sky_offset = get_sky_offset(angle)
         self.screen.blit(self.textures['S'], (sky_offset, 0))
         self.screen.blit(self.textures['S'], (sky_offset+4800, 0))
-        pygame.draw.rect(self.screen, DARK_GRAY, (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
+        self.screen.blit(self.textures['F'], (0, HALF_HEIGHT))
+        # pygame.draw.rect(self.screen, DARK_GRAY, (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
 
     def draw_world_objects(self, world_objects: list) -> None:
         for obj in filter(lambda el: el[0], sorted(world_objects, key=lambda n: n[0], reverse=True)):

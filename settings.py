@@ -49,6 +49,7 @@ TEXTURES = {
     4: IMAGES_PATH + '\\walls\\wall4.png',
     5: IMAGES_PATH + '\\walls\\wall5.png',
     'S': IMAGES_PATH + '\\sky\\skyf.png',
+    'F': IMAGES_PATH + '\\sky\\floor.png',
 }
 
 TEXTURES_INTERFACE = {
