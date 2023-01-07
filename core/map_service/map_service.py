@@ -17,6 +17,7 @@ class MapService:
         self.start_player_pos = None
         self.entities = list()
         self.mini_map = set()
+        self.end_point = None
 
     def generate_map(self) -> None:
         self.map_generator.generate()
@@ -27,9 +28,11 @@ class MapService:
     def load_map(self, number_map: int) -> None:
         with open(MAPS_PATH+f'map{number_map}.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
+            print(data)
         self.matrix_map = data["matrix_map"]
         self.start_player_pos = list(map(lambda coord: coord*TILE, data["player"]["start_pos"]))
         self.entities = data["entities"]
+        self.end_point = tuple(map(lambda coord: int(coord*TILE), data["endpoint"]))
         self.reset_param()
 
     def reset_param(self) -> None:

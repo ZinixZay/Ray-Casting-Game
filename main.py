@@ -76,10 +76,10 @@ class RayCastingGame:
         pygame.display.flip()
         self.clock.tick(FPS)
 
-    def start_game(self):
+    def start_game(self, map_lvl=1):
         pygame.mouse.set_visible(False)
         self.map_service = MapService()
-        self.map_service.load_map(1)
+        self.map_service.load_map(map_lvl)
 
         self.entity_service = EntityService(self.map_service.entities)
 
@@ -89,6 +89,9 @@ class RayCastingGame:
 
     def game_process(self):
         self.screen.fill(BLACK)
+        if self.player.rect.collidepoint(self.map_service.end_point):
+            self.start_game(2)
+        print(self.map_service.start_player_pos)
         self.player.movement()
         self.drawing.draw_floor_sky(self.player.angle)
         self.drawing.draw_world_objects(
