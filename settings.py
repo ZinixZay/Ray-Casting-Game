@@ -54,6 +54,7 @@ TEXTURES = {
 TEXTURES_INTERFACE = {
     'interface': IMAGES_PATH + '\\interface\\interface.png',
     'button': IMAGES_PATH + '\\interface\\button.png',
+    'active_button': IMAGES_PATH + '\\interface\\active_button.png',
     'background': IMAGES_PATH + '\\interface\\background.png',
     'minimap_background': IMAGES_PATH + '\\interface\\minimap.png',
     'player_point': IMAGES_PATH + '\\interface\\player_point.png',
@@ -81,7 +82,8 @@ INTERFACE_COLOR = (24, 27, 33)
 EMPTY_COLOR = (0, 0, 0, 0)
 BLACK = (0, 0, 0)
 DARK_GRAY = (12, 12, 12)
-LIGHT_GRAY = (232, 232, 230)
+LIGHT_GRAY = (182, 182, 180)
+LIGHT_GRAY2 = (232, 232, 230)
 RED = (255, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 80, 0)
