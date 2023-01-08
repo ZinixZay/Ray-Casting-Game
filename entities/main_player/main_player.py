@@ -72,3 +72,10 @@ class MainPlayer:
 
     def mouse_control(self) -> None:
         self.angle += numpy.clip((pygame.mouse.get_rel()[0]) / 200, -0.2, .2)
+
+    @staticmethod
+    def is_moving() -> bool:
+        keys = pygame.key.get_pressed()
+        if any([keys[pygame.K_w], keys[pygame.K_s], keys[pygame.K_a], keys[pygame.K_d]]):
+            return True
+        return False
