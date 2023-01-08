@@ -38,11 +38,11 @@ class Drawing:
             _, object_surface, object_pos = obj
             self.screen.blit(object_surface, object_pos)
 
-    def draw_interface(self, player: MainPlayer, mini_map, fps='none') -> None:
+    def draw_interface(self, player: MainPlayer, mini_map: set, fps='none') -> None:
         self.screen.blit(self.textures_interface['interface'], (MARGIN, HEIGHT-220-MARGIN))
         self.draw_weapon_info('ZEDGUN', 10)
         self.draw_points(player.health_points, player.armor_points)
-        self.draw_gameinfo([f'FPS: {fps}'])
+        self.draw_gameinfo([f'FPS: {fps}', f'Pos: {int(player.x//TILE)} {int(player.y//TILE)}'])
         self.draw_minimap(player, mini_map)
 
     def draw_weapon_info(self, weapon_name, bullet_number) -> None:
@@ -67,17 +67,11 @@ class Drawing:
                          .subsurface(0, 0, 8 * math.ceil(armor_points / 4), 15), ARMOR_POINTS_POS)
         self.screen.blit(self.textures_interface['points'], ARMOR_POINTS_POS)
 
-    def draw_gameinfo(self, information):
+    def draw_gameinfo(self, information: list) -> None:
         self.screen_gameinfo.fill(EMPTY_COLOR)
         for ind, text in enumerate(information):
             render = self.font_fps.render(text, 0, WHITE)
-            self.screen_gameinfo.blit(render, (240-40*ind, 20+40*ind))
-        # fps_text = self.font_fps.render(f'FPS: {fps}', 0, WHITE)
-        # test1_text = self.font_fps.render('TEST TEXT INFO', 0, WHITE)
-        # test2_text = self.font_fps.render('ZED DUCK', 0, WHITE)
-        # self.screen_gameinfo.blit(fps_text, (240, 20))
-        # self.screen_gameinfo.blit(test2_text, (200, 60))
-        # self.screen_gameinfo.blit(test1_text, (160, 100))
+            self.screen_gameinfo.blit(render, (240 - 40*ind, 20 + 40*ind))
         self.screen.blit(self.screen_gameinfo, GAMEINFO_POS)
 
     def draw_minimap(self, player: MainPlayer, minimap) -> None:
