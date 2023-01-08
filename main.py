@@ -10,6 +10,7 @@ from core.entity_service.entity_service import EntityService
 from core.map_service.map_service import MapService
 from core.drawing.drawing import Drawing
 from core.ray_casting_service.ray_casting import ray_casting_walls_textured
+from core.sound_service.sound_service import SoundService
 from entities.main_player.main_player import MainPlayer
 
 
@@ -18,6 +19,9 @@ class RayCastingGame:
         pygame.init()
 
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
+
+        self.sound_service = SoundService()
+        self.sound_service.sound_menu()
 
         self.drawing = Drawing(self.screen)
         self.clock = pygame.time.Clock()
@@ -61,6 +65,7 @@ class RayCastingGame:
 
     def pause_menu_logic(self):
         pygame.mouse.set_visible(True)
+        self.sound_service.sound_pause()
         self.start_pause.draw(self.screen)
         status = self.start_pause.get_status()
         if status:
@@ -69,6 +74,7 @@ class RayCastingGame:
                 sys.exit()
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
+                self.sound_service.sound_unpause()
                 pygame.mouse.set_visible(False)
                 self.game_process()
             elif status == STATUS_GAME.MENU_START:
@@ -77,6 +83,8 @@ class RayCastingGame:
         self.clock.tick(FPS)
 
     def start_game(self, map_lvl=1):
+        self.sound_service.sound_start()
+        self.sound_service.sound_game()
         pygame.mouse.set_visible(False)
         self.map_service = MapService()
         self.map_service.load_map(map_lvl)
@@ -92,6 +100,7 @@ class RayCastingGame:
         if self.player.rect.collidepoint(self.map_service.end_point):
             self.start_game(2)
         self.player.movement()
+        self.sound_service.sound_steps(self.player.is_moving())
         self.drawing.draw_floor_sky(self.player.angle)
         self.drawing.draw_world_objects(
             ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.walls)
