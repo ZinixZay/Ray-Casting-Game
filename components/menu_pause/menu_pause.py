@@ -1,3 +1,5 @@
+import pygame
+
 from components.button.button import Button
 from components.menu_pause.config import BUTTONS
 from core.status_game import STATUS_GAME
@@ -8,7 +10,6 @@ class MenuPause:
         self.title = 'Pause'
         self.background_image = background_image
         self.buttons = {Button(pos, size, btn_image, name): status for pos, size, name, status in BUTTONS}
-
 
     def draw(self, screen):
         screen.blit(self.background_image, (0, 0))

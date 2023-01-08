@@ -12,16 +12,11 @@ class Button:
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.image = image
         self.font = pygame.font.Font(FONT_PATH + 'Fifaks10Dev1.ttf', 34)
-        self.clicked = False
 
     def get_status(self) -> bool:
         pos = pygame.mouse.get_pos()
-        if self.rect.collidepoint(pos):
-            if pygame.mouse.get_pressed()[0] == 1 and not self.clicked:
-                self.clicked = True
-        if pygame.mouse.get_pressed()[0] == 0:
-            self.clicked = False
-        return self.clicked
+        if self.rect.collidepoint(pos) and pygame.mouse.get_pressed()[0] == 1:
+            return True
 
     def draw(self, screen):
         title = self.font.render(self.title, 0, BLACK)
