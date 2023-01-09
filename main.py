@@ -29,6 +29,7 @@ class RayCastingGame:
 
         self.game_status = STATUS_GAME.MENU_START
         self.start_menu = MenuStart(self.drawing.textures_interface['button'],
+                                    self.drawing.textures_interface['active_button'],
                                     self.drawing.textures_interface['background'])
         self.start_pause = MenuPause(self.drawing.textures_interface['button'],
                                      self.drawing.textures_interface['background'])
