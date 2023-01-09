@@ -17,7 +17,8 @@ from entities.main_player.main_player import MainPlayer
 class RayCastingGame:
     def __init__(self):
         pygame.init()
-
+        icon = pygame.image.load(IMAGES_PATH+'\\icon\\icon.png')
+        pygame.display.set_icon(icon)
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
 
         self.sound_service = SoundService()
