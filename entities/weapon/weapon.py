@@ -6,6 +6,9 @@ from settings import HEIGHT, HALF_WIDTH
 class Weapon:
     def __init__(self, param):
         self.param = param
+        self.shot = 0
+        self.shot_animation_count = 0
+        self.shot_animation_speed = 10
         self.name = param['name']
         self.numbers_bullets = param['numbers_bullets']
         self.gun_magazine = param['gun_magazine']
@@ -18,17 +21,32 @@ class Weapon:
         return f'{self.bullet}/{self.gun_magazine}'
 
     def draw(self, screen):
-        screen.blit(self.base_texture, (HALF_WIDTH - self.base_texture.get_rect().width // 2,
+        # if self.shot:
+        #     self.shot_animation_count += 1
+        #     if self.shot_animation_count == self.shot_animation_speed:
+        #         self.weapon_shot_animation.rotate(-1)
+        #         self.shot_animation_count = 0
+        #         self.shot_length_count += 1
+        #         self.shot_animation_trigger = False
+        #     if self.shot_length_count == self.shot_length:
+        #         self.player.shot = False
+        #         self.shot_length_count = 0
+        #         self.sfx_length_count = 0
+        #         self.shot_animation_trigger = True
+        # else:
+            screen.blit(self.base_texture, (HALF_WIDTH - self.base_texture.get_rect().width // 2,
                                         HEIGHT - self.base_texture.get_rect().height))
 
     def fire(self):
-        self.bullet -= 1
+        if self.bullet > 0:
+            self.bullet -= 1
 
     def recharge(self):
-        if self.numbers_bullets > 0:
+        if self.numbers_bullets > 0 and self.bullet < self.gun_magazine:
+            bullet_prev = self.bullet
             if self.numbers_bullets > self.gun_magazine:
                 self.bullet = self.gun_magazine
             else:
                 self.bullet = self.numbers_bullets
 
-            self.numbers_bullets = max(self.numbers_bullets - self.gun_magazine, 0)
+            self.numbers_bullets = max(self.numbers_bullets - (self.gun_magazine - bullet_prev), 0)
