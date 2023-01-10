@@ -109,7 +109,8 @@ ENTITIES_PARAM = {
         'animation_dist': 800,
         'animation_speed': 0,
         'blocked': False,
-        'side': 20
+        'side': 20,
+        'heath_point': -1
     },
     'test_entity_anim': {
         'sprites': [IMAGES_PATH+'entities\\test_entity_anim\\default\\0.png'],
@@ -121,7 +122,8 @@ ENTITIES_PARAM = {
         'animation_dist': 400,
         'animation_speed': 20,
         'blocked': True,
-        'side': 100
+        'side': 100,
+        'heath_point': -1
     },
     'test_angle': {
         'sprites': [f'{IMAGES_PATH}entities\\test_angle\\default\\{path}.png' for path in range(8)],
@@ -133,7 +135,8 @@ ENTITIES_PARAM = {
         'animation_dist': 400,
         'animation_speed': 20,
         'blocked': True,
-        'side': 40
+        'side': 40,
+        'heath_point': 100
     }
 }
 
@@ -143,15 +146,8 @@ WEAPONS_PARAM = {
         'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\0.png',
         'numbers_bullets': 100,
         'gun_magazine': 10,
-        # 'sprites': [IMAGES_PATH+'entities\\test_entity\\default\\0.png'],
-        # 'viewing_angles': None,
-        # 'angle': None,
-        # 'shift': 0.4,
-        # 'scale': 1,
-        # 'animation': [],
-        # 'animation_dist': 800,
-        # 'animation_speed': 0,
-        # 'blocked': False,
-        # 'side': 20
+        'animation_shot': [f'{IMAGES_PATH}weapons\\test_weapon\\shotgun\\shot\\{path}.png' for path in range(20)],
+        'animation_shot_speed': 10,
+        'shot_length': 12,
     }
 }
