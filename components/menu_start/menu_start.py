@@ -26,3 +26,4 @@ class MenuStart:
             if btn.get_status():
                 return self.buttons[btn]
         return False
+    

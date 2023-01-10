@@ -32,7 +32,6 @@ class Drawing:
         self.screen.blit(self.textures['S'], (sky_offset, 0))
         self.screen.blit(self.textures['S'], (sky_offset+4800, 0))
         self.screen.blit(self.textures['F'], (0, HALF_HEIGHT))
-        # pygame.draw.rect(self.screen, DARK_GRAY, (0, HALF_HEIGHT, WIDTH, HALF_HEIGHT))
 
     def draw_world_objects(self, world_objects: list) -> None:
         for obj in filter(lambda el: el[0], sorted(world_objects, key=lambda n: n[0], reverse=True)):
@@ -40,8 +39,9 @@ class Drawing:
             self.screen.blit(object_surface, object_pos)
 
     def draw_interface(self, player: MainPlayer, mini_map: set, fps='none') -> None:
+        player.weapon.draw(self.screen)
         self.screen.blit(self.textures_interface['interface'], (MARGIN, HEIGHT-220-MARGIN))
-        self.draw_weapon_info('ZEDGUN', 10)
+        self.draw_weapon_info(player.weapon.name, 10)
         self.draw_points(player.health_points, player.armor_points)
         self.draw_gameinfo([f'FPS: {fps}', f'Pos: {int(player.x//TILE)} {int(player.y//TILE)}'])
         self.draw_minimap(player, mini_map)

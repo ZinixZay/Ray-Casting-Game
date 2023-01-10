@@ -5,6 +5,7 @@ import pygame
 from components.menu_pause.menu_pause import MenuPause
 from components.menu_start.menu_start import MenuStart
 from core.status_game import STATUS_GAME
+from entities.weapon.weapon import Weapon
 from settings import *
 from core.entity_service.entity_service import EntityService
 from core.map_service.map_service import MapService
@@ -94,7 +95,8 @@ class RayCastingGame:
 
         self.entity_service = EntityService(self.map_service.entities)
 
-        self.player = MainPlayer(self.map_service.start_player_pos, speed=8)
+        self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
+        self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
         self.player.update_collision_objs(self.map_service.collisions
                                           + [i.rect for i in self.entity_service.entities if i.blocked])
 

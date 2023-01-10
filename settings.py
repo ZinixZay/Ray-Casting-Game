@@ -136,3 +136,20 @@ ENTITIES_PARAM = {
         'side': 40
     }
 }
+
+WEAPONS_PARAM = {
+    'test_weapon': {
+        'name': 'test',
+        'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\0.png'
+        # 'sprites': [IMAGES_PATH+'entities\\test_entity\\default\\0.png'],
+        # 'viewing_angles': None,
+        # 'angle': None,
+        # 'shift': 0.4,
+        # 'scale': 1,
+        # 'animation': [],
+        # 'animation_dist': 800,
+        # 'animation_speed': 0,
+        # 'blocked': False,
+        # 'side': 20
+    }
+}
