@@ -140,7 +140,9 @@ ENTITIES_PARAM = {
 WEAPONS_PARAM = {
     'test_weapon': {
         'name': 'test',
-        'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\0.png'
+        'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\0.png',
+        'numbers_bullets': 100,
+        'gun_magazine': 10,
         # 'sprites': [IMAGES_PATH+'entities\\test_entity\\default\\0.png'],
         # 'viewing_angles': None,
         # 'angle': None,

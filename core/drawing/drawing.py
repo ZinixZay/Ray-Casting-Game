@@ -41,14 +41,14 @@ class Drawing:
     def draw_interface(self, player: MainPlayer, mini_map: set, fps='none') -> None:
         player.weapon.draw(self.screen)
         self.screen.blit(self.textures_interface['interface'], (MARGIN, HEIGHT-220-MARGIN))
-        self.draw_weapon_info(player.weapon.name, 10)
+        self.draw_weapon_info(player.weapon.name, player.weapon.get_bullet_str)
         self.draw_points(player.health_points, player.armor_points)
         self.draw_gameinfo([f'FPS: {fps}', f'Pos: {int(player.x//TILE)} {int(player.y//TILE)}'])
         self.draw_minimap(player, mini_map)
 
     def draw_weapon_info(self, weapon_name, bullet_number) -> None:
         weapon_name_text = self.font_hp.render(f'Weapon: {weapon_name}', 0, WHITE)
-        bullets_text = self.font_bullet.render(f'{bullet_number}/20', 0, WHITE)
+        bullets_text = self.font_bullet.render(bullet_number, 0, WHITE)
 
         self.screen.blit(self.textures_interface['bullet'], WEAPON_BULLET_POS)
         self.screen.blit(weapon_name_text, WEAPON_NAME_TEXT_POS)
