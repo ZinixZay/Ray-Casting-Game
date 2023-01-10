@@ -144,6 +144,7 @@ WEAPONS_PARAM = {
     'test_weapon': {
         'name': 'test',
         'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\0.png',
+        'miniature': IMAGES_PATH+'\\weapons\\test_weapon\\miniature\\0.png',
         'numbers_bullets': 100,
         'gun_magazine': 10,
         'animation_shot': [f'{IMAGES_PATH}weapons\\test_weapon\\shotgun\\shot\\{path}.png' for path in range(20)],

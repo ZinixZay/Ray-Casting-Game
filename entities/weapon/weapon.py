@@ -15,6 +15,7 @@ class Weapon:
         self.bullet = self.gun_magazine
 
         self.base_texture = pygame.image.load(param['base_sprite']).convert_alpha()
+        self.miniature = pygame.image.load(param['miniature']).convert_alpha()
 
     @property
     def get_bullet_str(self):
