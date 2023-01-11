@@ -148,7 +148,7 @@ WEAPONS_PARAM = {
         'numbers_bullets': 100,
         'gun_magazine': 10,
         'animation_shot': [f'{IMAGES_PATH}weapons\\test_weapon\\shotgun\\shot\\{path}.png' for path in range(20)],
-        'animation_shot_speed': 10,
-        'shot_length': 70,
+        'animation_shot_speed': 3,
+        'shot_length': 60,
     }
 }
