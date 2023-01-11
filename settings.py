@@ -1,5 +1,5 @@
 import math
-from paths import IMAGES_PATH
+from paths import IMAGES_PATH, WALLS_TEXTURES_PATH, SKY_TEXTURES_PATH, INTERFACE_TEXTURES_PATH, ENTITY_TEXTURES_PATH
 
 # general
 SIZE_SCREEN = WIDTH, HEIGHT = 1200, 800
@@ -42,26 +42,26 @@ TEXTURE_WIDTH, TEXTURE_HEIGHT = 1200, 1200
 HALF_TEXTURE_HEIGHT = TEXTURE_HEIGHT // 2
 TEXTURE_SCALE = TEXTURE_WIDTH // TILE
 TEXTURES = {
-    0: IMAGES_PATH + '\\walls\\wall0.png',
-    1: IMAGES_PATH + '\\walls\\wall1.png',
-    2: IMAGES_PATH + '\\walls\\wall2.png',
-    3: IMAGES_PATH + '\\walls\\wall3.png',
-    4: IMAGES_PATH + '\\walls\\wall4.png',
-    5: IMAGES_PATH + '\\walls\\wall5.png',
-    'S': IMAGES_PATH + '\\sky\\skyf.png',
-    'F': IMAGES_PATH + '\\sky\\floor.png',
+    0: WALLS_TEXTURES_PATH + 'wall0.png',
+    1: WALLS_TEXTURES_PATH + 'wall1.png',
+    2: WALLS_TEXTURES_PATH + 'wall2.png',
+    3: WALLS_TEXTURES_PATH + 'wall3.png',
+    4: WALLS_TEXTURES_PATH + 'wall4.png',
+    5: WALLS_TEXTURES_PATH + 'wall5.png',
+    'S': SKY_TEXTURES_PATH + 'skyf.png',
+    'F': SKY_TEXTURES_PATH + 'floor.png',
 }
 
 TEXTURES_INTERFACE = {
-    'interface': IMAGES_PATH + '\\interface\\interface.png',
-    'button': IMAGES_PATH + '\\interface\\button.png',
-    'active_button': IMAGES_PATH + '\\interface\\active_button.png',
-    'background': IMAGES_PATH + '\\interface\\background.png',
-    'minimap_background': IMAGES_PATH + '\\interface\\minimap.png',
-    'player_point': IMAGES_PATH + '\\interface\\player_point.png',
-    'points': IMAGES_PATH + '\\interface\\points.png',
-    'points_background': IMAGES_PATH + '\\interface\\points_background.png',
-    'bullet': IMAGES_PATH + '\\interface\\bullet.png',
+    'interface': INTERFACE_TEXTURES_PATH + 'interface.png',
+    'button': INTERFACE_TEXTURES_PATH + 'button.png',
+    'active_button': INTERFACE_TEXTURES_PATH + 'active_button.png',
+    'background': INTERFACE_TEXTURES_PATH + 'background.png',
+    'minimap_background': INTERFACE_TEXTURES_PATH + 'minimap.png',
+    'player_point': INTERFACE_TEXTURES_PATH + 'player_point.png',
+    'points': INTERFACE_TEXTURES_PATH + 'points.png',
+    'points_background': INTERFACE_TEXTURES_PATH + 'points_background.png',
+    'bullet': INTERFACE_TEXTURES_PATH + 'bullet.png',
 }
 
 # drawing
@@ -137,7 +137,22 @@ ENTITIES_PARAM = {
         'blocked': True,
         'side': 40,
         'heath_point': 100
-    }
+    },
+}
+
+HEALTH_PACK = {
+    'name': 'heath pack',
+    'sprites': [ENTITY_TEXTURES_PATH+'heath_pack\\default\\0.png'],
+    'viewing_angles': None,
+    'angle': None,
+    'shift': 0,
+    'scale': 0,
+    'animation': [],
+    'animation_dist': 800,
+    'animation_speed': 0,
+    'blocked': False,
+    'side': 20,
+    'heath_point': -1
 }
 
 WEAPONS_PARAM = {
