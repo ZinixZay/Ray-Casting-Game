@@ -143,12 +143,12 @@ ENTITIES_PARAM = {
 WEAPONS_PARAM = {
     'test_weapon': {
         'name': 'test',
-        'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\0.png',
+        'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\10.png',
         'miniature': IMAGES_PATH+'\\weapons\\test_weapon\\miniature\\0.png',
         'numbers_bullets': 100,
         'gun_magazine': 10,
         'animation_shot': [f'{IMAGES_PATH}weapons\\test_weapon\\shotgun\\shot\\{path}.png' for path in range(20)],
         'animation_shot_speed': 10,
-        'shot_length': 12,
+        'shot_length': 70,
     }
 }
