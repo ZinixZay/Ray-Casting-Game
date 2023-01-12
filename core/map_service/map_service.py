@@ -23,6 +23,7 @@ class MapService:
         self.map_generator.generate()
         self.matrix_map = self.map_generator.map
         self.start_player_pos = list(map(lambda coord: coord*TILE, self.map_generator.hero_spawn))
+        self.end_point = tuple(map(lambda coord: int(coord * TILE), [1, 1]))
         self.reset_param()
 
     def load_map(self, number_map: int) -> None:

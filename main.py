@@ -48,7 +48,7 @@ class RayCastingGame:
 
             if self.game_status == STATUS_GAME.MENU_START:
                 self.start_menu_logic()
-            elif self.game_status == STATUS_GAME.GAME_PROCESS:
+            elif self.game_status == STATUS_GAME.GAME_PROCESS or self.game_status == STATUS_GAME.GAME_PROCESS_RANDOM:
                 self.game_process()
             elif self.game_status == STATUS_GAME.MENU_PAUSE:
                 self.pause_menu_logic()
@@ -64,6 +64,9 @@ class RayCastingGame:
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 self.start_game()
+            elif status == STATUS_GAME.GAME_PROCESS_RANDOM:
+                self.game_status = STATUS_GAME.GAME_PROCESS_RANDOM
+                self.start_game_random()
         pygame.display.flip()
         self.clock.tick(FPS)
 
@@ -85,6 +88,20 @@ class RayCastingGame:
                 self.game_status = STATUS_GAME.MENU_START
         pygame.display.flip()
         self.clock.tick(FPS)
+
+    def start_game_random(self):
+        self.sound_service.sound_start()
+        self.sound_service.sound_game()
+        pygame.mouse.set_visible(False)
+        self.map_service = MapService()
+        self.map_service.generate_map()
+
+        self.entity_service = EntityService(self.map_service.entities)
+
+        self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
+        self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
+        self.player.update_collision_objs(self.map_service.collisions
+                                          + [i.rect for i in self.entity_service.entities if i.blocked])
 
     def start_game(self, map_lvl=1):
         self.sound_service.sound_start()

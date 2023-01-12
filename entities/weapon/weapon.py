@@ -21,6 +21,10 @@ class Weapon:
         self.animation_shot_count = 0
 
         self.base_texture = pygame.image.load(param['base_sprite']).convert_alpha()
+        self.base_texture = pygame.transform.scale(self.base_texture, (
+            self.base_texture.get_rect().width,
+            self.base_texture.get_rect().height
+        ))
         self.shot_animation = deque([pygame.image.load(i).convert_alpha() for i in param['animation_shot'].copy()])
         self.miniature = pygame.image.load(param['miniature']).convert_alpha()
 
