@@ -63,7 +63,7 @@ class RayCastingGame:
                 sys.exit()
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
-                self.start_game()
+                self.start_game(1)
             elif status == STATUS_GAME.GAME_PROCESS_RANDOM:
                 self.game_status = STATUS_GAME.GAME_PROCESS_RANDOM
                 self.start_game_random()
@@ -107,8 +107,9 @@ class RayCastingGame:
         self.sound_service.sound_start()
         self.sound_service.sound_game()
         pygame.mouse.set_visible(False)
+        self.map_lvl = map_lvl
         self.map_service = MapService()
-        self.map_service.load_map(map_lvl)
+        self.map_service.load_map(self.map_lvl)
 
         self.entity_service = EntityService(self.map_service.entities)
 
@@ -120,7 +121,7 @@ class RayCastingGame:
     def game_process(self):
         self.screen.fill(BLACK)
         if self.player.rect.collidepoint(self.map_service.end_point):
-            self.start_game(2)
+            self.start_game(self.map_lvl+1)
         self.player.movement()
         self.sound_service.sound_steps(self.player.is_moving())
         self.drawing.draw_floor_sky(self.player.angle)
