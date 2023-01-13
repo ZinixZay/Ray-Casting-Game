@@ -24,6 +24,10 @@ class MainPlayer:
     def pos(self) -> tuple:
         return self.x, self.y
 
+    @property
+    def pos_normalize(self) -> tuple:
+        return self.x/TILE, self.y/TILE
+
     def update_collision_objs(self, objs: list) -> None:
         self.collision_objs = objs
 
@@ -73,7 +77,6 @@ class MainPlayer:
             self.angle -= 0.02
         if keys[pygame.K_RIGHT]:
             self.angle += 0.02
-
 
     def mouse_control(self) -> None:
         self.shot = False

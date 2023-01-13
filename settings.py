@@ -100,6 +100,7 @@ YELLOW = (220, 220, 0)
 # entities
 ENTITIES_PARAM = {
     'test_entity': {
+        'type': 'static',
         'sprites': [IMAGES_PATH+'entities\\test_entity\\default\\0.png'],
         'viewing_angles': None,
         'angle': None,
@@ -113,6 +114,7 @@ ENTITIES_PARAM = {
         'heath_point': -1
     },
     'test_entity_anim': {
+        'type': 'static',
         'sprites': [IMAGES_PATH+'entities\\test_entity_anim\\default\\0.png'],
         'viewing_angles': None,
         'angle': None,
@@ -126,6 +128,7 @@ ENTITIES_PARAM = {
         'heath_point': -1
     },
     'test_angle': {
+        'type': 'static',
         'sprites': [f'{IMAGES_PATH}entities\\test_angle\\default\\{path}.png' for path in range(8)],
         'viewing_angles': True,
         'angle': 90,
@@ -137,6 +140,20 @@ ENTITIES_PARAM = {
         'blocked': True,
         'side': 40,
         'heath_point': 100
+    },
+    'bullet': {
+        'type': 'bullet',
+        'sprites': [IMAGES_PATH+'entities\\bullet\\base\\0.png'],
+        'viewing_angles': None,
+        'angle': None,
+        'shift': 0.4,
+        'scale': 0.18,
+        'animation': [],
+        'animation_dist': 800,
+        'animation_speed': 0,
+        'blocked': False,
+        'side': 20,
+        'heath_point': -1
     },
 }
 
@@ -158,7 +175,7 @@ HEALTH_PACK = {
 WEAPONS_PARAM = {
     'test_weapon': {
         'name': 'test',
-        'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\10.png',
+        'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\0.png',
         'miniature': IMAGES_PATH+'\\weapons\\test_weapon\\miniature\\0.png',
         'numbers_bullets': 100,
         'gun_magazine': 10,

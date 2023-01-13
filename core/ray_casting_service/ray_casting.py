@@ -5,12 +5,7 @@ import pygame
 from entities.main_player.main_player import MainPlayer
 from settings import *
 from numba import njit, prange
-from core.utils.utils import get_left_top_coord_texture
-
-
-@njit(fastmath=True, cache=True)
-def mapping(a, b):
-    return int(a // TILE) * TILE, int(b // TILE) * TILE
+from core.utils.utils import get_left_top_coord_texture, mapping
 
 
 @njit(fastmath=True, cache=True)

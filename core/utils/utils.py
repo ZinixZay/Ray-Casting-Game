@@ -2,6 +2,11 @@ from settings import *
 from numba import njit, float32, int32
 
 
+@njit(fastmath=True, cache=True)
+def mapping(a, b):
+    return int(a // TILE) * TILE, int(b // TILE) * TILE
+
+
 @njit(float32(float32), fastmath=True, cache=True)
 def get_sky_offset(angle):
     return -40 / 3 * math.degrees(angle)
