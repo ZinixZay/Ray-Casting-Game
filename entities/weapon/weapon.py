@@ -10,6 +10,8 @@ class Weapon:
         self.param = param
         self.name = param['name']
 
+        self.damage = param['damage']
+
         self.numbers_bullets = param['numbers_bullets']
         self.gun_magazine = param['gun_magazine']
         self.bullet = self.gun_magazine

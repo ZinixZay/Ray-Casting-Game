@@ -17,12 +17,15 @@ class StaticEntity:
         self.shift = parameters['shift']
         self.scale = parameters['scale']
         self.animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['animation'].copy()])
+        self.death_animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['death_animation'].copy()])
         self.animation_dist = parameters['animation_dist']
         self.animation_speed = parameters['animation_speed']
         self.blocked = parameters['blocked']
         self.side = parameters['side']
         self.health_point = parameters['heath_point']
         self.animation_count = 0
+        self.dead_animation_count = 0
+        self.death = False
         self.x, self.y = pos[0] * TILE, pos[1] * TILE
         self.pos = self.x - self.side // 2, self.y - self.side // 2
         self.angle = angle
@@ -42,42 +45,71 @@ class StaticEntity:
 
     def object_locate(self, player: MainPlayer) -> tuple:
         dx, dy = self.x - player.x, self.y - player.y
-        distance_to_sprite = self.distance(player)
-        
-        theta = math.atan2(dy, dx)
-        gamma = theta - player.angle
+        self.distance_to_sprite = self.distance(player)
+
+        self.theta = math.atan2(dy, dx)
+        gamma = self.theta - player.angle
         if dx > 0 and 180 <= math.degrees(player.angle) <= 360 or dx < 0 and dy < 0:
             gamma += DOUBLE_PI
+        self.theta -= 1.4 * gamma
 
         self.current_ray = CENTER_RAY + int(gamma / DELTA_ANGLE)
-        distance_to_sprite *= math.cos(HALF_FOV - self.current_ray * DELTA_ANGLE)
 
-        if 0 <= self.current_ray + FAKE_RAYS <= FAKE_RAYS_RANGE and distance_to_sprite > 30:
-            self.proj_height = min(int(PROJ_COEFF / distance_to_sprite * self.scale), DOUBLE_HEIGHT)
-            half_proj_height = self.proj_height // 2
-            shift = half_proj_height * self.shift
-            if self.viewing_angles:
-                if theta < 0:
-                    theta += DOUBLE_PI
+        fake_ray = self.current_ray + FAKE_RAYS
+        if 0 <= fake_ray <= FAKE_RAYS_RANGE and self.distance_to_sprite > 30:
+            self.proj_height = min(int(PROJ_COEFF / self.distance_to_sprite), HEIGHT)
+            sprite_width = int(self.proj_height * self.scale[0])
+            sprite_height = int(self.proj_height * self.scale[1])
+            half_sprite_width = sprite_width // 2
+            half_sprite_height = sprite_height // 2
+            shift = half_sprite_height * self.shift
 
-                for angles in self.sprite_angles:
-                    if min(360 - int(math.degrees(theta)), 359) in angles:
-                        self.object = self.sprite_positions[angles]
-                        break
+            if self.death and self.health_point != -1:
+                sprite_object = self.dead_animation()
+                shift = half_sprite_height * self.shift
+                sprite_height = int(sprite_height / 1.3)
+            else:
+                self.object = self.visible_sprite()
+                sprite_object = self.sprite_animation()
 
-            sprite_object = self.object
-            if self.animation and distance_to_sprite < self.animation_dist:
-                sprite_object = self.animation[0]
-                if self.animation_count < self.animation_speed:
-                    self.animation_count += 1
-                else:
-                    self.animation.rotate()
-                    self.animation_count = 0
+            # sprite scale and pos
+            sprite_pos = (self.current_ray * SCALE - half_sprite_width, HALF_HEIGHT - half_sprite_height + shift)
+            sprite = pygame.transform.scale(sprite_object, (sprite_width, sprite_height))
+            return self.distance_to_sprite, sprite, sprite_pos
+        else:
+            return False, False, False
 
-            sprite = pygame.transform.scale(sprite_object, (self.proj_height, self.proj_height))
-            return distance_to_sprite, sprite, \
-                    (self.current_ray * SCALE - half_proj_height, HALF_HEIGHT - half_proj_height + shift)
-        return False, False, False
+    def sprite_animation(self):
+        if self.animation and self.distance_to_sprite < self.animation_dist:
+            sprite_object = self.animation[0]
+            if self.animation_count < self.animation_speed:
+                self.animation_count += 1
+            else:
+                self.animation.rotate()
+                self.animation_count = 0
+            return sprite_object
+        return self.object
+
+    def visible_sprite(self):
+        if self.viewing_angles:
+            if self.theta < 0:
+                self.theta += DOUBLE_PI
+            self.theta = 360 - int(math.degrees(self.theta))
+
+            for angles in self.sprite_angles:
+                if self.theta in angles:
+                    return self.sprite_positions[angles]
+        return self.object
+
+    def dead_animation(self):
+        if len(self.death_animation):
+            if self.dead_animation_count < self.animation_speed:
+                self.dead_sprite = self.death_animation[0]
+                self.dead_animation_count += 1
+            else:
+                self.dead_sprite = self.death_animation.popleft()
+                self.dead_animation_count = 0
+        return self.dead_sprite
 
     def update_pos(self, pos: tuple[float, float]) -> None:
         self.x, self.y = list(map(lambda x: x * TILE, pos))

@@ -47,4 +47,6 @@ class Interactive:
         if player.shot:
             for obj in sorted(self.entity_service.entity_vulnerable, key=lambda obj: obj.distance(player)):
                 if obj.is_on_fire(player)[1]:
-                    print('hit')
+                    obj.health_point -= player.weapon.damage
+                if obj.health_point <= 0:
+                    obj.death = True

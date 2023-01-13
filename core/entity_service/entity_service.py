@@ -13,7 +13,7 @@ class EntityService:
 
     @property
     def entity_vulnerable(self) -> list:
-        return [ent for ent in filter(lambda x: x.health_point > -1, self.entities)]
+        return [ent for ent in filter(lambda x: x.health_point > 0, self.entities)]
 
     def set_entities(self, entities: list[dict]) -> None:
         self.entities.clear()
