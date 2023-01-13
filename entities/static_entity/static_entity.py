@@ -21,6 +21,7 @@ class StaticEntity:
         self.animation_speed = parameters['animation_speed']
         self.blocked = parameters['blocked']
         self.side = parameters['side']
+        self.heath_point = parameters['heath_point']
         self.animation_count = 0
         self.x, self.y = pos[0] * TILE, pos[1] * TILE
         self.pos = self.x - self.side // 2, self.y - self.side // 2

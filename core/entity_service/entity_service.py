@@ -11,6 +11,10 @@ class EntityService:
     def entity_objs(self) -> list:
         return self.entities
 
+    @property
+    def entity_vulnerable(self) -> list:
+        return [ent for ent in filter(lambda x: x.health_point > -1, self.entities)]
+
     def set_entities(self, entities: list[dict]) -> None:
         self.entities.clear()
         for obj in entities:
@@ -21,3 +25,9 @@ class EntityService:
 
     def update_entity_angle(self, id: int, angle: int) -> None:
         self.entities[id].update_angle(angle)
+
+    def create_bullet(self):
+        pass
+
+    def remove_entity(self):
+        pass
