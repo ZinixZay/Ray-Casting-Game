@@ -4,6 +4,7 @@ import pygame
 
 from components.menu_pause.menu_pause import MenuPause
 from components.menu_start.menu_start import MenuStart
+from core.interactive_service.interactive import Interactive
 from core.status_game import STATUS_GAME
 from entities.weapon.weapon import Weapon
 from settings import *
@@ -112,6 +113,7 @@ class RayCastingGame:
         self.map_service.load_map(self.map_lvl)
 
         self.entity_service = EntityService(self.map_service.entities)
+        self.interactive_service = Interactive(self.entity_service)
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
         self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
@@ -123,6 +125,7 @@ class RayCastingGame:
         if self.player.rect.collidepoint(self.map_service.end_point):
             self.start_game(self.map_lvl+1)
         self.player.movement()
+        self.interactive_service.shot(self.player)
         self.sound_service.sound_steps(self.player.is_moving())
         self.drawing.draw_floor_sky(self.player.angle)
         self.drawing.draw_world_objects(

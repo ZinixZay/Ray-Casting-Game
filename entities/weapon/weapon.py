@@ -45,10 +45,12 @@ class Weapon:
             screen.blit(self.base_texture, (HALF_WIDTH - self.base_texture.get_rect().width // 2,
                                         HEIGHT - self.base_texture.get_rect().height))
 
-    def fire(self):
+    def fire(self) -> bool:
         if self.bullet > 0 and self.shot_count == 0:
             self.shot_count = self.shot_length
             self.bullet -= 1
+            return True
+        return False
 
     def recharge(self):
         if self.numbers_bullets > 0 and self.bullet < self.gun_magazine:

@@ -17,6 +17,7 @@ class MainPlayer:
         self.sensitivity = SENSITIVITY
         self.side = 50
         self.rect = pygame.Rect(*player_pos, self.side, self.side)
+        self.shot = False
         self.collision_objs = list()
 
     @property
@@ -73,9 +74,11 @@ class MainPlayer:
         if keys[pygame.K_RIGHT]:
             self.angle += 0.02
 
+
     def mouse_control(self) -> None:
+        self.shot = False
         if pygame.mouse.get_pressed()[0]:
-            self.weapon.fire()
+            self.shot = self.weapon.fire()
         elif pygame.mouse.get_pressed()[2]:
             self.weapon.recharge()
         self.angle += numpy.clip((pygame.mouse.get_rel()[0]) / 200, -0.2, .2)
