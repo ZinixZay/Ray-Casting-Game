@@ -4,16 +4,20 @@ import pygame
 
 from components.menu_pause.menu_pause import MenuPause
 from components.menu_start.menu_start import MenuStart
+
+from entities.weapon.weapon import Weapon
+
+from settings import IMAGES_PATH, SIZE_SCREEN, FPS, WEAPONS_PARAM, BLACK
+
 from core.interactive_service.interactive import Interactive
 from core.status_game import STATUS_GAME
-from entities.weapon.weapon import Weapon
-from settings import *
 from core.entity_service.entity_service import EntityService
 from core.map_service.map_service import MapService
 from core.drawing.drawing import Drawing
 from core.ray_casting_service.ray_casting import ray_casting_walls_textured
 from core.sound_service.sound_service import SoundService
 from core.data_service.data_service import DataService
+
 from entities.main_player.main_player import MainPlayer
 
 
