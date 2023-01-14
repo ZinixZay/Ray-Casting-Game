@@ -47,7 +47,8 @@ class RayCastingGame:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and self.game_status == STATUS_GAME.GAME_PROCESS:
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and\
+                        self.game_status in [STATUS_GAME.GAME_PROCESS, STATUS_GAME.GAME_PROCESS_RANDOM]:
                     self.game_status = STATUS_GAME.MENU_PAUSE
 
             if self.game_status == STATUS_GAME.MENU_START:
@@ -102,6 +103,7 @@ class RayCastingGame:
         self.map_service.generate_map()
 
         self.entity_service = EntityService(self.map_service.entities)
+        self.interactive_service = Interactive(self.entity_service)
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
         self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
