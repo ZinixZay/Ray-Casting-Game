@@ -3,15 +3,18 @@ import json
 
 class DataService:
     def __init__(self):
-        pass
+        self.data = {}
 
     def save_data(self, head: str, body: dict) -> str:
-        with open('C:/Users/Daniel/PycharmProjects/projects/Ray-Casting-Game/assets/data/data.json') as f:
-            data = json.load(f)
-        if head in data.keys():
+        self.__update_data()
+        if head in self.data.keys():
             return 'error'
-        data[head] = body
-        dumped_data = json.dumps(data)
+        self.data[head] = body
+        dumped_data = json.dumps(self.data)
         with open('C:/Users/Daniel/PycharmProjects/projects/Ray-Casting-Game/assets/data/data.json', 'w') as f:
             f.write(dumped_data)
         return 'ok'
+
+    def __update_data(self):
+        with open('C:/Users/Daniel/PycharmProjects/projects/Ray-Casting-Game/assets/data/data.json') as f:
+            self.data = json.load(f)
