@@ -6,7 +6,7 @@ class DataService:
         self.data = {}
 
     def save_data(self, head: str, body: dict) -> str:
-        self.__update_data()
+        self.update_data()
         if head in self.data.keys():
             return 'error'
         self.data[head] = body
@@ -15,6 +15,6 @@ class DataService:
             f.write(dumped_data)
         return 'ok'
 
-    def __update_data(self):
+    def update_data(self):
         with open('C:/Users/Daniel/PycharmProjects/projects/Ray-Casting-Game/assets/data/data.json') as f:
             self.data = json.load(f)
