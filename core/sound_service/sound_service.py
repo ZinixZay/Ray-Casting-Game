@@ -4,7 +4,7 @@ from random import randint, shuffle
 
 class SoundService:
     def __init__(self):
-        self.menu_music_path = 'assets/sounds/menu.mp3'
+        self.menu_music_path = 'assets/sounds/menu.wav'
 
         self.start_sound = pygame.mixer.Sound('assets/sounds/start.mp3')
         self.start_sound.set_volume(0.2)
@@ -23,7 +23,7 @@ class SoundService:
 
     def sound_menu(self):
         pygame.mixer.music.load(self.menu_music_path)
-        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.set_volume(0.1)
         pygame.mixer.music.play()
 
     def sound_death(self):
