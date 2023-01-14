@@ -28,17 +28,11 @@ class MapGenerator:
                 new_map[row][column] = self.__generate_cell(row, column, new_map)
 
         self.map = new_map
-        print('1')
-        pretty_print_map(self.map)
         self.__destroy_no_ways()
-        print('__destroy_no_ways')
-        pretty_print_map(self.map)
         row, col = random.choice(self.space_cells)
         self.space_cells.remove((row, col))
         self.hero_spawn = (col, row)
         self.map[row][col] = 100
-        print('.map[row][col]')
-        pretty_print_map(self.map)
 
     @staticmethod
     def __generate_wall() -> int:
