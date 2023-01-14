@@ -13,6 +13,7 @@ from core.map_service.map_service import MapService
 from core.drawing.drawing import Drawing
 from core.ray_casting_service.ray_casting import ray_casting_walls_textured
 from core.sound_service.sound_service import SoundService
+from core.data_service.data_service import DataService
 from entities.main_player.main_player import MainPlayer
 
 
@@ -88,6 +89,7 @@ class RayCastingGame:
                 pygame.mouse.set_visible(False)
                 self.game_process()
             elif status == STATUS_GAME.MENU_START:
+                self.sound_service.sound_menu()
                 self.game_status = STATUS_GAME.MENU_START
         pygame.display.flip()
         self.clock.tick(FPS)
