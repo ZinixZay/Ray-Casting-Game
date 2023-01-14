@@ -23,6 +23,8 @@ class RayCastingGame:
         pygame.display.set_icon(icon)
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
 
+        self.data_service = DataService()
+
         self.sound_service = SoundService()
         self.sound_service.sound_menu()
 
