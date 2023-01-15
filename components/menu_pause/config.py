@@ -1,7 +1,8 @@
 from core.status_game import STATUS_GAME
+from settings import HALF_WIDTH
 
 BUTTONS = [
-    ((600, 400), (300, 80), 'Resume', STATUS_GAME.GAME_PROCESS),
-    ((600, 500), (300, 80), 'Exit Main Menu', STATUS_GAME.MENU_START),
-    ((600, 600), (300, 80), 'Exit Game', STATUS_GAME.EXIT)
+    ((HALF_WIDTH-150, 350), (300, 90), 'Resume', STATUS_GAME.GAME_PROCESS),
+    ((HALF_WIDTH-150, 435), (300, 90), 'Exit Main Menu', STATUS_GAME.MENU_START),
+    ((HALF_WIDTH-150, 520), (300, 90), 'Exit Game', STATUS_GAME.EXIT)
 ]

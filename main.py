@@ -43,7 +43,7 @@ class RayCastingGame:
                                     self.drawing.textures_interface['background'])
         self.start_pause = MenuPause(self.drawing.textures_interface['button'],
                                      self.drawing.textures_interface['active_button'],
-                                     self.drawing.textures_interface['background'])
+                                     self.drawing.textures_interface['background_pause'])
 
     def run(self):
         while True:
