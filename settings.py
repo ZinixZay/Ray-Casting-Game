@@ -114,8 +114,11 @@ ENTITIES_PARAM = {
         'animation_speed': 0,
         'blocked': False,
         'side': 20,
+        'action_dist': 50,
         'heath_point': -1,
-        'obj_action': []
+        'action_animation': [],
+        'damage': 0,
+        'speed': 0
     },
     'test_entity_anim': {
         'type': 'static',
@@ -130,8 +133,11 @@ ENTITIES_PARAM = {
         'animation_speed': 20,
         'blocked': True,
         'side': 100,
+        'action_dist': 50,
         'heath_point': -1,
-        'obj_action': []
+        'action_animation': [],
+        'damage': 0,
+        'speed': 0
     },
     'test_angle': {
         'type': 'static',
@@ -146,42 +152,31 @@ ENTITIES_PARAM = {
         'animation_speed': 20,
         'blocked': True,
         'side': 40,
+        'action_dist': 50,
         'heath_point': 100,
-        'obj_action': []
+        'action_animation': [],
+        'damage': 0,
+        'speed': 0
     },
     'test_npc': {
         'type': 'npc',
         'sprites': [f'{IMAGES_PATH}entities\\test_nps\\default\\{path}.png' for path in range(8)],
+        'animation': [f'{IMAGES_PATH}entities\\test_nps\\animation\\{path}.png' for path in range(4)],
+        'death_animation': [f'{IMAGES_PATH}entities\\test_nps\\death\\{path}.png' for path in range(11)],
+        'action_animation': [f'{IMAGES_PATH}entities\\test_nps\\action\\{path}.png' for path in range(6)],
         'viewing_angles': True,
         'angle': 0,
         'shift': 0.0,
         'scale': (0.5, 1),
         'side': 50,
-        'animation': [f'{IMAGES_PATH}entities\\test_nps\\action\\000{path}.png' for path in range(6)],
-        'death_animation': [f'{IMAGES_PATH}entities\\test_nps\\death\\{path}..png' for path in range(5)],
-        'is_dead': None,
         'dead_shift': 0.6,
-        'animation_dist': 10,
+        'animation_dist': 800,
         'animation_speed': 10,
+        'action_dist': 110,
         'blocked': True,
         'heath_point': 100,
-        'obj_action': [f'{IMAGES_PATH}entities\\test_nps\\action\\000{path}.png' for path in range(6)],
-    },
-    'bullet': {
-        'type': 'bullet',
-        'sprites': [IMAGES_PATH+'entities\\bullet\\base\\0.png'],
-        'viewing_angles': None,
-        'angle': None,
-        'shift': 0.4,
-        'scale': (0.18, 0.18),
-        'animation': [],
-        'death_animation': [],
-        'animation_dist': 800,
-        'animation_speed': 0,
-        'blocked': False,
-        'side': 20,
-        'heath_point': -1,
-        'obj_action': []
+        'damage': 20,
+        'speed': 2
     },
 }
 

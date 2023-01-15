@@ -51,6 +51,7 @@ class MainPlayer:
                 dx = 0
         self.x += dx
         self.y += dy
+        self.rect = next_rect
 
     def movement(self) -> None:
         self.keys_control()

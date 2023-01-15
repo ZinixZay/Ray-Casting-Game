@@ -19,7 +19,7 @@ class StaticEntity:
         self.scale = parameters['scale']
         self.animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['animation'].copy()])
         self.death_animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['death_animation'].copy()])
-        self.obj_action = deque([pygame.image.load(i).convert_alpha() for i in parameters['obj_action'].copy()])
+        self.action_animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['action_animation'].copy()])
         self.animation_dist = parameters['animation_dist']
         self.animation_speed = parameters['animation_speed']
         self.blocked = parameters['blocked']
@@ -27,15 +27,21 @@ class StaticEntity:
         self.health_point = parameters['heath_point']
         self.animation_count = 0
         self.dead_animation_count = 0
+        self.action_dist = parameters['action_dist']
+        self.action_length = 0
+        self.damage = parameters['damage']
+        self.speed = parameters['speed']
         self.death = False
         self.action_trigger = False
         self.x, self.y = pos[0] * TILE, pos[1] * TILE
         self.pos = self.x - self.side // 2, self.y - self.side // 2
         self.angle = angle
         self.rect = pygame.Rect(*self.pos, self.side, self.side)
+        self.chance = 0.40
         if self.viewing_angles:
             self.sprite_angles = list(map(frozenset, get_sprite_angles(self.angle)))
             self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.objects)}
+        self.current_ray = 0
 
     def is_on_fire(self, player):
         if CENTER_RAY - self.side // 2 < self.current_ray < CENTER_RAY + self.side // 2 and self.blocked:
@@ -96,11 +102,14 @@ class StaticEntity:
         return self.object
 
     def npc_in_action(self):
-        sprite_object = self.obj_action[0]
+        if self.action_length == 0:
+            self.action_length = len(self.param['animation'])
+        sprite_object = self.action_animation[0]
         if self.animation_count < self.animation_speed:
             self.animation_count += 1
         else:
-            self.obj_action.rotate(-1)
+            self.action_animation.rotate(-1)
+            self.action_length -= 1
             self.animation_count = 0
         return sprite_object
 
@@ -125,13 +134,12 @@ class StaticEntity:
                 self.dead_animation_count = 0
         return self.dead_sprite
 
-    def update_pos(self, pos: tuple[float, float]) -> None:
-        self.x, self.y = list(map(lambda x: x * TILE, pos))
+    def update_pos(self, pos: tuple[int, int]) -> None:
+        self.x, self.y = pos
+        self.rect = pygame.Rect(*self.pos, self.side, self.side)
 
     def update_angle(self, angle: int) -> None:
-        # print(angle)
         self.angle = angle
         if self.viewing_angles:
             self.sprite_angles = list(map(frozenset, get_sprite_angles(self.angle)))
-            # print(self.sprite_angles)
             self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.objects)}

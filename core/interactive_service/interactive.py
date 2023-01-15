@@ -1,4 +1,5 @@
 import math
+from random import random
 
 import pygame
 from numba import njit
@@ -55,15 +56,18 @@ class Interactive:
         for obj in self.entity_service.entity_vulnerable:
             if obj.type == 'npc' and not obj.death:
                 if ray_casting_npc_player(obj.x, obj.y, world_map, player.pos):
-                    obj.npc_action_trigger = True
-                    self.npc_move(player, obj)
-                else:
-                    obj.npc_action_trigger = False
+                    obj.action_trigger = abs(obj.distance(player)) <= obj.action_dist
+                    if not obj.action_trigger:
+                        self.npc_move(player, obj)
+                    elif obj.action_trigger and obj.action_length == 0:
+                        if random() < obj.chance:
+                            player.health_points -= obj.damage
+
+
 
     def npc_move(self, player, obj):
-        if abs(obj.distance(player)) >= obj.animation_dist-5:
+        if abs(obj.distance(player)) >= obj.action_dist:
             dx, dy = obj.x - player.pos[0], obj.y - player.pos[1]
-            obj.x = obj.x + 1 if dx < 0 else obj.x - 1
-            obj.y = obj.y + 1 if dy < 0 else obj.y - 1
+            obj.update_pos((obj.x + obj.speed if dx < 0 else obj.x - obj.speed,  obj.y + obj.speed if dy < 0 else obj.y - obj.speed))
             obj.update_angle(math.degrees(math.atan2(dx, dy))-90)
 

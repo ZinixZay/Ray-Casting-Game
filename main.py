@@ -72,7 +72,7 @@ class RayCastingGame:
             elif self.game_status == STATUS_GAME.MENU_WIN:
                 self.win_menu_logic()
             elif self.game_status == STATUS_GAME.MENU_LOSE:
-                pass
+                self.lose_menu_logic()
 
     def start_menu_logic(self):
         pygame.mouse.set_visible(True)
@@ -105,6 +105,21 @@ class RayCastingGame:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 pygame.mouse.set_pos(0, 0)
                 self.start_game(self.map_lvl + 1)
+        pygame.display.flip()
+        self.clock.tick(FPS)
+
+    def lose_menu_logic(self):
+        pygame.mouse.set_visible(True)
+        self.lose_menu.draw(self.screen)
+        status = self.lose_menu.get_status()
+        if status:
+            if status == STATUS_GAME.EXIT:
+                pygame.quit()
+                sys.exit()
+            elif status == STATUS_GAME.GAME_PROCESS:
+                self.game_status = STATUS_GAME.GAME_PROCESS
+                pygame.mouse.set_pos(0, 0)
+                self.start_game(self.map_lvl)
         pygame.display.flip()
         self.clock.tick(FPS)
 
@@ -163,6 +178,9 @@ class RayCastingGame:
 
     def game_process(self):
         self.screen.fill(BLACK)
+        if self.player.health_points <= 0:
+            pygame.mouse.set_pos(0, 0)
+            self.game_status = STATUS_GAME.MENU_LOSE
         if all(map(lambda x: x.death, self.entity_service.entity_vulnerable)):
             pygame.mouse.set_pos(0, 0)
             self.game_status = STATUS_GAME.MENU_WIN
