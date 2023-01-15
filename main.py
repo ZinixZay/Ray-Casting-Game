@@ -132,7 +132,7 @@ class RayCastingGame:
 
     def game_process(self):
         self.screen.fill(BLACK)
-        if self.player.rect.collidepoint(self.map_service.end_point):
+        if all(map(lambda x: x.death, self.entity_service.entity_vulnerable)):
             self.start_game(self.map_lvl+1)
         self.player.movement()
         self.interactive_service.shot(self.player)

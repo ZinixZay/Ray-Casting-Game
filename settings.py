@@ -207,9 +207,9 @@ WEAPONS_PARAM = {
         'miniature': IMAGES_PATH+'\\weapons\\test_weapon\\miniature\\0.png',
         'numbers_bullets': 100,
         'gun_magazine': 10,
-        'animation_shot': [f'{IMAGES_PATH}weapons\\test_weapon\\shotgun\\shot\\{path}.png' for path in range(1, 6)],
+        'animation_shot': [f'{IMAGES_PATH}weapons\\test_weapon\\shotgun\\shot\\{path}.png' for path in range(10)],
         'animation_shot_speed': 4,
-        'shot_length': 20,
+        'shot_length': 40,
         'damage': 55
     }
 }
