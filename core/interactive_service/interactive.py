@@ -3,7 +3,7 @@ import math
 import pygame
 from numba import njit
 
-from core.utils.utils import mapping
+from core.utils.utils import mapping, normalize_angle
 from settings import TILE
 
 
@@ -61,8 +61,9 @@ class Interactive:
                     obj.npc_action_trigger = False
 
     def npc_move(self, player, obj):
-        if abs(obj.distance(player)) > TILE:
-            dx = obj.x - player.pos[0]
-            dy = obj.y - player.pos[1]
+        if abs(obj.distance(player)) >= obj.animation_dist-5:
+            dx, dy = obj.x - player.pos[0], obj.y - player.pos[1]
             obj.x = obj.x + 1 if dx < 0 else obj.x - 1
             obj.y = obj.y + 1 if dy < 0 else obj.y - 1
+            obj.update_angle(math.degrees(math.atan2(dx, dy))-90)
+

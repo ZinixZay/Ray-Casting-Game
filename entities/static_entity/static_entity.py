@@ -19,7 +19,7 @@ class StaticEntity:
         self.scale = parameters['scale']
         self.animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['animation'].copy()])
         self.death_animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['death_animation'].copy()])
-        self.obj_action = parameters['obj_action'].copy()
+        self.obj_action = deque([pygame.image.load(i).convert_alpha() for i in parameters['obj_action'].copy()])
         self.animation_dist = parameters['animation_dist']
         self.animation_speed = parameters['animation_speed']
         self.blocked = parameters['blocked']
@@ -90,7 +90,7 @@ class StaticEntity:
             if self.animation_count < self.animation_speed:
                 self.animation_count += 1
             else:
-                self.animation.rotate()
+                self.animation.rotate(-1)
                 self.animation_count = 0
             return sprite_object
         return self.object
@@ -100,7 +100,7 @@ class StaticEntity:
         if self.animation_count < self.animation_speed:
             self.animation_count += 1
         else:
-            self.obj_action.rotate()
+            self.obj_action.rotate(-1)
             self.animation_count = 0
         return sprite_object
 
@@ -129,7 +129,9 @@ class StaticEntity:
         self.x, self.y = list(map(lambda x: x * TILE, pos))
 
     def update_angle(self, angle: int) -> None:
+        # print(angle)
         self.angle = angle
         if self.viewing_angles:
             self.sprite_angles = list(map(frozenset, get_sprite_angles(self.angle)))
+            # print(self.sprite_angles)
             self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.objects)}
