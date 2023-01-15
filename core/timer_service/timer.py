@@ -4,26 +4,29 @@ import threading
 
 class Timer:
     def __init__(self):
-        self.end_time = None
         self.cur_time = None
         self.available = True
+        self.start_time = None
 
-    def set_timer(self, seconds: int):
+    def set_timer(self):
         if self.available:
             self.available = False
-            self.end_time = round(time.time()) + seconds
+            self.start_time = round(time.time())
             timer_process = threading.Thread(target=self.time_proc)
             timer_process.start()
 
     def __reboot(self):
-        self.end_time = None
         self.cur_time = None
         self.available = True
+        self.start_time = None
 
     def time_proc(self):
-        while self.end_time > round(time.time()):
-            self.cur_time = self.end_time - round(time.time())
+        while not self.available:
+            self.cur_time = round(time.time()) - self.start_time
         self.__reboot()
+
+    def stop_timer(self):
+        self.available = True
 
     def get_parsed_time(self) -> tuple:
         minutes = self.cur_time // 60
