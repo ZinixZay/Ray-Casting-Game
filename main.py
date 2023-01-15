@@ -43,13 +43,13 @@ class RayCastingGame:
         self.start_menu = MenuStart(self.drawing.textures_interface['button'],
                                     self.drawing.textures_interface['active_button'],
                                     self.drawing.textures_interface['background'])
-        self.start_pause = MenuPause(self.drawing.textures_interface['button'],
+        self.pause_menu = MenuPause(self.drawing.textures_interface['button'],
                                      self.drawing.textures_interface['active_button'],
                                      self.drawing.textures_interface['background_pause'])
-        self.start_win = MenuWin(self.drawing.textures_interface['button'],
+        self.win_menu = MenuWin(self.drawing.textures_interface['button'],
                                      self.drawing.textures_interface['active_button'],
                                      self.drawing.textures_interface['background_pause'])
-        self.start_lose = MenuLose(self.drawing.textures_interface['button'],
+        self.lose_menu = MenuLose(self.drawing.textures_interface['button'],
                                      self.drawing.textures_interface['active_button'],
                                      self.drawing.textures_interface['background_pause'])
 
@@ -70,7 +70,7 @@ class RayCastingGame:
             elif self.game_status == STATUS_GAME.MENU_PAUSE:
                 self.pause_menu_logic()
             elif self.game_status == STATUS_GAME.MENU_WIN:
-                pass
+                self.win_menu_logic()
             elif self.game_status == STATUS_GAME.MENU_LOSE:
                 pass
 
@@ -84,18 +84,35 @@ class RayCastingGame:
                 sys.exit()
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
+                pygame.mouse.set_pos(0, 0)
                 self.start_game(1)
             elif status == STATUS_GAME.GAME_PROCESS_RANDOM:
                 self.game_status = STATUS_GAME.GAME_PROCESS_RANDOM
+                pygame.mouse.set_pos(0, 0)
                 self.start_game_random()
+        pygame.display.flip()
+        self.clock.tick(FPS)
+
+    def win_menu_logic(self):
+        pygame.mouse.set_visible(True)
+        self.win_menu.draw(self.screen)
+        status = self.win_menu.get_status()
+        if status:
+            if status == STATUS_GAME.EXIT:
+                pygame.quit()
+                sys.exit()
+            elif status == STATUS_GAME.GAME_PROCESS:
+                self.game_status = STATUS_GAME.GAME_PROCESS
+                pygame.mouse.set_pos(0, 0)
+                self.start_game(self.map_lvl + 1)
         pygame.display.flip()
         self.clock.tick(FPS)
 
     def pause_menu_logic(self):
         pygame.mouse.set_visible(True)
         self.sound_service.sound_pause()
-        self.start_pause.draw(self.screen)
-        status = self.start_pause.get_status()
+        self.pause_menu.draw(self.screen)
+        status = self.pause_menu.get_status()
         if status:
             if status == STATUS_GAME.EXIT:
                 pygame.quit()
@@ -103,10 +120,12 @@ class RayCastingGame:
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 self.sound_service.sound_unpause()
+                pygame.mouse.set_pos(0, 0)
                 pygame.mouse.set_visible(False)
                 self.game_process()
             elif status == STATUS_GAME.MENU_START:
                 self.sound_service.sound_menu()
+                pygame.mouse.set_pos(0, 0)
                 self.game_status = STATUS_GAME.MENU_START
         pygame.display.flip()
         self.clock.tick(FPS)
@@ -145,7 +164,8 @@ class RayCastingGame:
     def game_process(self):
         self.screen.fill(BLACK)
         if all(map(lambda x: x.death, self.entity_service.entity_vulnerable)):
-            self.start_game(self.map_lvl+1)
+            pygame.mouse.set_pos(0, 0)
+            self.game_status = STATUS_GAME.MENU_WIN
         self.player.movement()
         self.interactive_service.shot(self.player)
         self.interactive_service.npc_action(self.player, self.map_service.walls)
