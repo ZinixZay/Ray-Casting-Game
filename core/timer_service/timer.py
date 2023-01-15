@@ -12,6 +12,8 @@ class Timer:
         if self.available:
             self.available = False
             self.end_time = round(time.time()) + seconds
+            timer_process = threading.Thread(target=self.time_proc)
+            timer_process.start()
 
     def __reboot(self):
         self.end_time = None
