@@ -22,3 +22,8 @@ class Timer:
         while self.end_time > round(time.time()):
             self.cur_time = self.end_time - round(time.time())
         self.__reboot()
+
+    def get_parsed_time(self) -> tuple:
+        minutes = self.cur_time // 60
+        seconds = self.cur_time % 60
+        return minutes, seconds
