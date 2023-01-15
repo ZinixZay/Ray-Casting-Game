@@ -113,7 +113,8 @@ ENTITIES_PARAM = {
         'animation_speed': 0,
         'blocked': False,
         'side': 20,
-        'heath_point': -1
+        'heath_point': -1,
+        'obj_action': []
     },
     'test_entity_anim': {
         'type': 'static',
@@ -128,7 +129,8 @@ ENTITIES_PARAM = {
         'animation_speed': 20,
         'blocked': True,
         'side': 100,
-        'heath_point': -1
+        'heath_point': -1,
+        'obj_action': []
     },
     'test_angle': {
         'type': 'static',
@@ -143,7 +145,26 @@ ENTITIES_PARAM = {
         'animation_speed': 20,
         'blocked': True,
         'side': 40,
-        'heath_point': 100
+        'heath_point': 100,
+        'obj_action': []
+    },
+    'test_npc': {
+        'type': 'npc',
+        'sprites': [f'{IMAGES_PATH}entities\\test_nps\\default\\{path}.png' for path in range(8)],
+        'viewing_angles': True,
+        'angle': 0,
+        'shift': 0.0,
+        'scale': (1, 1),
+        'side': 50,
+        'animation': [],
+        'death_animation': [f'{IMAGES_PATH}entities\\test_nps\\death\\{path}.png' for path in range(11)],
+        'is_dead': None,
+        'dead_shift': 0.6,
+        'animation_dist': None,
+        'animation_speed': 10,
+        'blocked': True,
+        'heath_point': 100,
+        'obj_action': [f'{IMAGES_PATH}entities\\test_nps\\action\\{path}.png' for path in range(6)],
     },
     'bullet': {
         'type': 'bullet',
@@ -158,7 +179,8 @@ ENTITIES_PARAM = {
         'animation_speed': 0,
         'blocked': False,
         'side': 20,
-        'heath_point': -1
+        'heath_point': -1,
+        'obj_action': []
     },
 }
 

@@ -136,6 +136,7 @@ class RayCastingGame:
             self.start_game(self.map_lvl+1)
         self.player.movement()
         self.interactive_service.shot(self.player)
+        self.interactive_service.npc_action(self.player, self.map_service.walls)
         self.sound_service.sound_steps(self.player.is_moving())
         self.drawing.draw_floor_sky(self.player.angle)
         self.drawing.draw_world_objects(

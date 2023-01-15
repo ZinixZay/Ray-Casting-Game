@@ -9,6 +9,7 @@ from collections import deque
 class StaticEntity:
     def __init__(self, parameters: dict, pos: tuple[float, float], angle: int = 0) -> None:
         self.param = parameters
+        self.type = parameters['type']
         if parameters['viewing_angles']:
             self.objects = [pygame.image.load(i).convert_alpha() for i in parameters['sprites'].copy()]
         self.object = pygame.image.load(parameters['sprites'][0]).convert_alpha()
@@ -18,6 +19,7 @@ class StaticEntity:
         self.scale = parameters['scale']
         self.animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['animation'].copy()])
         self.death_animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['death_animation'].copy()])
+        self.obj_action = parameters['obj_action'].copy()
         self.animation_dist = parameters['animation_dist']
         self.animation_speed = parameters['animation_speed']
         self.blocked = parameters['blocked']
@@ -26,6 +28,7 @@ class StaticEntity:
         self.animation_count = 0
         self.dead_animation_count = 0
         self.death = False
+        self.action_trigger = False
         self.x, self.y = pos[0] * TILE, pos[1] * TILE
         self.pos = self.x - self.side // 2, self.y - self.side // 2
         self.angle = angle
@@ -68,6 +71,8 @@ class StaticEntity:
                 sprite_object = self.dead_animation()
                 shift = half_sprite_height * self.shift
                 sprite_height = int(sprite_height / 1.3)
+            elif self.action_trigger:
+                sprite_object = self.npc_in_action()
             else:
                 self.object = self.visible_sprite()
                 sprite_object = self.sprite_animation()
@@ -89,6 +94,15 @@ class StaticEntity:
                 self.animation_count = 0
             return sprite_object
         return self.object
+
+    def npc_in_action(self):
+        sprite_object = self.obj_action[0]
+        if self.animation_count < self.animation_speed:
+            self.animation_count += 1
+        else:
+            self.obj_action.rotate()
+            self.animation_count = 0
+        return sprite_object
 
     def visible_sprite(self):
         if self.viewing_angles:

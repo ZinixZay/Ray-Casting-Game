@@ -50,3 +50,19 @@ class Interactive:
                     obj.health_point -= player.weapon.damage
                 if obj.health_point <= 0:
                     obj.death = True
+
+    def npc_action(self, player, world_map):
+        for obj in self.entity_service.entity_vulnerable:
+            if obj.type == 'npc' and not obj.death:
+                if ray_casting_npc_player(obj.x, obj.y, world_map, player.pos):
+                    obj.npc_action_trigger = True
+                    self.npc_move(player, obj)
+                else:
+                    obj.npc_action_trigger = False
+
+    def npc_move(self, player, obj):
+        if abs(obj.distance(player)) > TILE:
+            dx = obj.x - player.pos[0]
+            dy = obj.y - player.pos[1]
+            obj.x = obj.x + 1 if dx < 0 else obj.x - 1
+            obj.y = obj.y + 1 if dy < 0 else obj.y - 1
