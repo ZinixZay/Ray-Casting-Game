@@ -15,6 +15,9 @@ class SoundService:
         self.win_sound = pygame.mixer.Sound('assets/sounds/win.mp3')
         self.win_sound.set_volume(0.1)
 
+        self.lose_sound = pygame.mixer.Sound('assets/sounds/lose.mp3')
+        self.lose_sound.set_volume(0.9)
+
         self.shot_sound = pygame.mixer.Sound('assets/sounds/shot.mp3')
         self.shot_sound.set_volume(0.2)
 
@@ -33,7 +36,12 @@ class SoundService:
         self.death_sound.play()
 
     def sound_win(self):
+        pygame.mixer.music.stop()
         self.win_sound.play()
+
+    def sound_lose(self):
+        pygame.mixer.music.stop()
+        self.lose_sound.play()
 
     def sound_start(self):
         pygame.mixer.music.stop()

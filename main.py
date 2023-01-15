@@ -179,7 +179,7 @@ class RayCastingGame:
     def game_process(self):
         self.screen.fill(BLACK)
         if self.player.health_points <= 0:
-            # self.sound_servic
+            self.sound_service.sound_lose()
             pygame.mouse.set_pos(0, 0)
             self.game_status = STATUS_GAME.MENU_LOSE
         if all(map(lambda x: x.death, self.entity_service.entity_vulnerable)):
