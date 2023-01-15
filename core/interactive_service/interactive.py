@@ -61,7 +61,7 @@ class Interactive:
                         self.npc_move(player, obj)
                     elif obj.action_trigger and obj.action_length == 0:
                         if random() < obj.chance:
-                            player.health_points -= obj.damage
+                            player.damage(obj.damage)
 
 
 

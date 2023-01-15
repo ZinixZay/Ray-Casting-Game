@@ -87,6 +87,14 @@ class MainPlayer:
             self.weapon.recharge()
         self.angle += numpy.clip((pygame.mouse.get_rel()[0]) / 200, -0.2, .2)
 
+    def damage(self, damage):
+        if self.armor_points > 0:
+            self.armor_points -= int(damage/100*80)
+            if self.armor_points < 0: self.armor_points = 0
+            self.health_points -= int(damage/100*20)
+        else:
+            self.health_points -= int(damage)
+
     @staticmethod
     def is_moving() -> bool:
         keys = pygame.key.get_pressed()
