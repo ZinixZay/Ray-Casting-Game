@@ -1,34 +1,23 @@
-import time
-import threading
+import datetime
+
+import pygame
 
 
 class Timer:
     def __init__(self):
-        self.cur_time = None
-        self.available = True
-        self.start_time = None
+        self.time = pygame.time
+        self.start_sec = 0
+        self.end_sec = None
 
-    def set_timer(self):
-        if self.available:
-            self.available = False
-            self.start_time = round(time.time())
-            timer_process = threading.Thread(target=self.time_proc)
-            timer_process.start()
+    @property
+    def time_pars(self):
+        if self.end_sec:
+            return datetime.datetime(1, 1, 1, second=(self.end_sec - self.start_sec)//1000).strftime('%M:%S')
+        return datetime.datetime(1, 1, 1, second=(self.time.get_ticks() - self.start_sec)//1000).strftime('%M:%S')
 
-    def __reboot(self):
-        self.cur_time = None
-        self.available = True
-        self.start_time = None
+    def start_time(self):
+        self.start_sec = self.time.get_ticks()
+        self.end_sec = None
 
-    def time_proc(self):
-        while not self.available:
-            self.cur_time = round(time.time()) - self.start_time
-        self.__reboot()
-
-    def stop_timer(self):
-        self.available = True
-
-    def get_parsed_time(self) -> tuple:
-        minutes = self.cur_time // 60
-        seconds = self.cur_time % 60
-        return minutes, seconds
+    def stop_time(self):
+        self.end_sec = self.time.get_ticks()

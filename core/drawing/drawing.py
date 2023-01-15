@@ -38,13 +38,13 @@ class Drawing:
             _, object_surface, object_pos = obj
             self.screen.blit(object_surface, object_pos)
 
-    def draw_interface(self, player: MainPlayer, mini_map: set, fps='none') -> None:
+    def draw_interface(self, player: MainPlayer, mini_map: set, time, fps='none') -> None:
         player.weapon.draw(self.screen)
         self.screen.blit(self.textures_interface['interface'], (MARGIN, HEIGHT-220-MARGIN))
         self.screen.blit(player.weapon.miniature, (260, HEIGHT-140))
         self.draw_weapon_info(player.weapon.name, player.weapon.get_bullet_str)
         self.draw_points(player.health_points, player.armor_points)
-        self.draw_gameinfo([f'FPS: {fps}', f'Pos: {int(player.x//TILE)} {int(player.y//TILE)}'])
+        self.draw_gameinfo([f'FPS: {fps}', f'Pos: {int(player.x//TILE)} {int(player.y//TILE)}', f'Time: {time}'])
         self.draw_minimap(player, mini_map)
 
     def draw_weapon_info(self, weapon_name, bullet_number) -> None:

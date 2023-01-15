@@ -6,6 +6,7 @@ from components.menu_lose.menu_lose import MenuLose
 from components.menu_pause.menu_pause import MenuPause
 from components.menu_start.menu_start import MenuStart
 from components.menu_win.menu_win import MenuWin
+from core.timer_service.timer import Timer
 
 from entities.weapon.weapon import Weapon
 
@@ -167,6 +168,8 @@ class RayCastingGame:
         self.map_lvl = map_lvl
         self.map_service = MapService()
         self.map_service.load_map(self.map_lvl)
+        self.timer = Timer()
+        self.timer.start_time()
 
         self.entity_service = EntityService(self.map_service.entities)
         self.interactive_service = Interactive(self.entity_service, self.sound_service)
@@ -179,10 +182,12 @@ class RayCastingGame:
     def game_process(self):
         self.screen.fill(BLACK)
         if self.player.health_points <= 0:
+            self.timer.stop_time()
             self.sound_service.sound_lose()
             pygame.mouse.set_pos(0, 0)
             self.game_status = STATUS_GAME.MENU_LOSE
         if all(map(lambda x: x.death, self.entity_service.entity_vulnerable)):
+            self.timer.stop_time()
             self.sound_service.sound_win()
             pygame.mouse.set_pos(0, 0)
             self.game_status = STATUS_GAME.MENU_WIN
@@ -195,7 +200,7 @@ class RayCastingGame:
             ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.walls)
             + [obj.object_locate(self.player) for obj in self.entity_service.entities]
         )
-        self.drawing.draw_interface(self.player, self.map_service.mini_map, round(self.clock.get_fps()))
+        self.drawing.draw_interface(self.player, self.map_service.mini_map, self.timer.time_pars, round(self.clock.get_fps()))
         pygame.display.flip()
         self.clock.tick(FPS)
 
