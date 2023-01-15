@@ -48,10 +48,10 @@ class RayCastingGame:
                                      self.drawing.textures_interface['background_pause'])
         self.win_menu = MenuWin(self.drawing.textures_interface['button'],
                                      self.drawing.textures_interface['active_button'],
-                                     self.drawing.textures_interface['background_pause'])
+                                     self.drawing.textures_interface['background_win'])
         self.lose_menu = MenuLose(self.drawing.textures_interface['button'],
                                      self.drawing.textures_interface['active_button'],
-                                     self.drawing.textures_interface['background_pause'])
+                                     self.drawing.textures_interface['background_lose'])
 
     def run(self):
         while True:
