@@ -2,8 +2,10 @@ import sys
 
 import pygame
 
+from components.menu_lose.menu_lose import MenuLose
 from components.menu_pause.menu_pause import MenuPause
 from components.menu_start.menu_start import MenuStart
+from components.menu_win.menu_win import MenuWin
 
 from entities.weapon.weapon import Weapon
 
@@ -44,6 +46,12 @@ class RayCastingGame:
         self.start_pause = MenuPause(self.drawing.textures_interface['button'],
                                      self.drawing.textures_interface['active_button'],
                                      self.drawing.textures_interface['background_pause'])
+        self.start_win = MenuWin(self.drawing.textures_interface['button'],
+                                     self.drawing.textures_interface['active_button'],
+                                     self.drawing.textures_interface['background_pause'])
+        self.start_lose = MenuLose(self.drawing.textures_interface['button'],
+                                     self.drawing.textures_interface['active_button'],
+                                     self.drawing.textures_interface['background_pause'])
 
     def run(self):
         while True:
@@ -61,6 +69,10 @@ class RayCastingGame:
                 self.game_process()
             elif self.game_status == STATUS_GAME.MENU_PAUSE:
                 self.pause_menu_logic()
+            elif self.game_status == STATUS_GAME.MENU_WIN:
+                pass
+            elif self.game_status == STATUS_GAME.MENU_LOSE:
+                pass
 
     def start_menu_logic(self):
         pygame.mouse.set_visible(True)
