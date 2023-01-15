@@ -34,6 +34,14 @@
     {
       "id": "test_npc",
       "pos": [9.5, 5.5]
+    },
+    {
+      "id": "test_npc",
+      "pos": [26, 16]
+    },
+    {
+      "id": "test_npc",
+      "pos": [7, 9]
     }
   ],
 "endpoint": [10.5, 9.4]

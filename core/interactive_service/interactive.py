@@ -41,11 +41,13 @@ def ray_casting_npc_player(npc_x, npc_y, world_map, player_pos):
     return True
 
 class Interactive:
-    def __init__(self, entity_service):
+    def __init__(self, entity_service, sound_service):
         self.entity_service = entity_service
+        self.sound_service = sound_service
 
     def shot(self, player):
         if player.shot:
+            self.sound_service.shot()
             for obj in sorted(self.entity_service.entity_vulnerable, key=lambda obj: obj.distance(player)):
                 if obj.is_on_fire(player)[1]:
                     obj.health_point -= player.weapon.damage
@@ -61,8 +63,8 @@ class Interactive:
                         self.npc_move(player, obj)
                     elif obj.action_trigger and obj.action_length == 0:
                         if random() < obj.chance:
+                            self.sound_service.sound_hit()
                             player.damage(obj.damage)
-
 
 
     def npc_move(self, player, obj):

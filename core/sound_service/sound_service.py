@@ -15,6 +15,9 @@ class SoundService:
         self.win_sound = pygame.mixer.Sound('assets/sounds/win.mp3')
         self.win_sound.set_volume(0.1)
 
+        self.shot_sound = pygame.mixer.Sound('assets/sounds/shot.mp3')
+        self.shot_sound.set_volume(0.2)
+
         self.steps_sound = pygame.mixer.Sound('assets/sounds/steps.mp3')
         self.steps_sound.set_volume(0.2)
         self.steps_channel = pygame.mixer.Channel(1)
@@ -47,6 +50,9 @@ class SoundService:
         self.hit_sound = pygame.mixer.Sound(f'assets/sounds/hit{randint(1, 9)}.mp3')
         self.hit_sound.set_volume(0.3)
         self.hit_sound.play()
+
+    def shot(self):
+        self.shot_sound.play()
 
     def sound_game(self):
         playlist = self.game_songs.copy()

@@ -153,7 +153,7 @@ class RayCastingGame:
         self.map_service.generate_map()
 
         self.entity_service = EntityService(self.map_service.entities)
-        self.interactive_service = Interactive(self.entity_service)
+        self.interactive_service = Interactive(self.entity_service, self.sound_service)
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
         self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
@@ -169,7 +169,7 @@ class RayCastingGame:
         self.map_service.load_map(self.map_lvl)
 
         self.entity_service = EntityService(self.map_service.entities)
-        self.interactive_service = Interactive(self.entity_service)
+        self.interactive_service = Interactive(self.entity_service, self.sound_service)
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
         self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
@@ -179,9 +179,11 @@ class RayCastingGame:
     def game_process(self):
         self.screen.fill(BLACK)
         if self.player.health_points <= 0:
+            # self.sound_servic
             pygame.mouse.set_pos(0, 0)
             self.game_status = STATUS_GAME.MENU_LOSE
         if all(map(lambda x: x.death, self.entity_service.entity_vulnerable)):
+            self.sound_service.sound_win()
             pygame.mouse.set_pos(0, 0)
             self.game_status = STATUS_GAME.MENU_WIN
         self.player.movement()

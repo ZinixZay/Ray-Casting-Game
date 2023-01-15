@@ -8,8 +8,8 @@ from settings import *
 class MainPlayer:
     def __init__(self, player_pos: tuple, weapon: Weapon, angle: int = 0, speed: int = 2) -> None:
         self.x, self.y = player_pos
-        self.health_points = 80
-        self.armor_points = 60
+        self.health_points = 100
+        self.armor_points = 100
         self.weapon = weapon
         self.inventory = list()
         self.angle = angle
@@ -58,6 +58,7 @@ class MainPlayer:
         self.mouse_control()
         self.rect.center = self.x, self.y
         self.angle %= DOUBLE_PI
+        pygame.event.clear()
 
     def keys_control(self) -> None:
         sin_a, cos_a = math.sin(self.angle), math.cos(self.angle)
