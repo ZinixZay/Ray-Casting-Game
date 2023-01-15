@@ -19,3 +19,8 @@ class DataService:
     def update_data(self):
         with open(f"{DATA_PATH}data.json") as f:
             self.data = json.load(f)
+
+    def get_data(self, head: str):
+        self.update_data()
+        if head in self.data.keys():
+            return self.data[head]
