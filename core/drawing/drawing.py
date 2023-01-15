@@ -52,7 +52,8 @@ class Drawing:
         bullets_text = self.font_bullet.render(bullet_number, 0, WHITE)
 
         self.screen.blit(self.textures_interface['bullet'], WEAPON_BULLET_POS)
-        self.screen.blit(weapon_name_text, WEAPON_NAME_TEXT_POS)
+        self.screen.blit(weapon_name_text, (WEAPON_NAME_CENTER_TEXT_POS[0]-weapon_name_text.get_rect().width//2,
+                                            WEAPON_NAME_CENTER_TEXT_POS[1]))
         self.screen.blit(bullets_text, WEAPON_BULLET_NUMBER_POS)
 
     def draw_points(self, health_points, armor_points) -> None:

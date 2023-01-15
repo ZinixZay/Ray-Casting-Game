@@ -80,7 +80,7 @@ HEALTH_POINTS_TEXT_POS = (MARGIN + 385, HEIGHT - 120 - MARGIN)
 ARMOR_POINTS_POS = (MARGIN + 445, HEIGHT - 45 - MARGIN)
 ARMOR_POINTS_TEXT_POS = (MARGIN + 445, HEIGHT - 65 - MARGIN)
 WEAPON_BULLET_POS = (MARGIN + HALF_WIDTH + 76, HEIGHT - 95 - MARGIN)
-WEAPON_NAME_TEXT_POS = (MARGIN + HALF_WIDTH + 56, HEIGHT - 120 - MARGIN)
+WEAPON_NAME_CENTER_TEXT_POS = (MARGIN + HALF_WIDTH + 125, HEIGHT - 120 - MARGIN)
 WEAPON_BULLET_NUMBER_POS = (MARGIN + HALF_WIDTH + 104, HEIGHT - 88 - MARGIN)
 
 
@@ -179,14 +179,15 @@ HEALTH_PACK = {
 
 WEAPONS_PARAM = {
     'test_weapon': {
-        'name': 'test',
+        'name': 'SRM-8900',
         'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\0.png',
+        'exhausted_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\1.png',
         'miniature': IMAGES_PATH+'\\weapons\\test_weapon\\miniature\\0.png',
         'numbers_bullets': 100,
         'gun_magazine': 10,
-        'animation_shot': [f'{IMAGES_PATH}weapons\\test_weapon\\shotgun\\shot\\{path}.png' for path in range(20)],
-        'animation_shot_speed': 3,
-        'shot_length': 60,
+        'animation_shot': [f'{IMAGES_PATH}weapons\\test_weapon\\shotgun\\shot\\{path}.png' for path in range(1, 6)],
+        'animation_shot_speed': 4,
+        'shot_length': 20,
         'damage': 55
     }
 }

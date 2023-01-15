@@ -23,10 +23,8 @@ class Weapon:
         self.animation_shot_count = 0
 
         self.base_texture = pygame.image.load(param['base_sprite']).convert_alpha()
-        self.base_texture = pygame.transform.scale(self.base_texture, (
-            self.base_texture.get_rect().width,
-            self.base_texture.get_rect().height
-        ))
+        self.exhausted_texture = pygame.image.load(param['exhausted_sprite']).convert_alpha()
+
         self.shot_animation = deque([pygame.image.load(i).convert_alpha() for i in param['animation_shot'].copy()])
         self.miniature = pygame.image.load(param['miniature']).convert_alpha()
 
@@ -44,8 +42,12 @@ class Weapon:
             screen.blit(self.shot_animation[0], (HALF_WIDTH - self.shot_animation[0].get_rect().width // 2,
                                                     HEIGHT - self.shot_animation[0].get_rect().height))
         else:
-            screen.blit(self.base_texture, (HALF_WIDTH - self.base_texture.get_rect().width // 2,
-                                        HEIGHT - self.base_texture.get_rect().height))
+            if self.bullet > 0:
+                screen.blit(self.base_texture, (HALF_WIDTH - self.base_texture.get_rect().width // 2,
+                                            HEIGHT - self.base_texture.get_rect().height))
+            else:
+                screen.blit(self.exhausted_texture, (HALF_WIDTH - self.exhausted_texture.get_rect().width // 2,
+                                                HEIGHT - self.exhausted_texture.get_rect().height))
 
     def fire(self) -> bool:
         if self.bullet > 0 and self.shot_count == 0:
