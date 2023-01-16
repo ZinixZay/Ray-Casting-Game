@@ -1,5 +1,7 @@
 import math
 from random import random
+
+import pygame
 from numba import njit
 
 from core.utils.utils import mapping
@@ -54,6 +56,9 @@ class Interactive:
                     obj.death = True
 
     def npc_action(self, player, world_map):
+        for obj in self.entity_service.entity_packs:
+            if pygame.Rect.colliderect(player.rect, obj.rect):
+                print('pack')
         for obj in self.entity_service.entity_vulnerable:
             if obj.type == STATUS_ENTITIES.NPC and not obj.death:
                 if ray_casting_npc_player(obj.x, obj.y, world_map, player.pos):
