@@ -29,6 +29,7 @@ class RayCastingGame:
         pygame.init()
         icon = pygame.image.load(IMAGES_PATH+'\\icon\\icon.png')
         pygame.display.set_icon(icon)
+        pygame.display.set_caption('No Return')
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
 
         self.data_service = DataService()
