@@ -26,3 +26,9 @@ class DataService:
     def get_all_data(self):
         self.update_data()
         return self.data
+
+    def clear_data(self):
+        self.data = {}
+        dumped_data = json.dumps(self.data)
+        with open(self.path, 'w') as f:
+            f.write(dumped_data)
