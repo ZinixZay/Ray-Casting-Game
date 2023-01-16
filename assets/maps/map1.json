@@ -36,8 +36,16 @@
   },
   "entities": [
     {
-      "id": "health_pack",
+      "id": "bullet_pack",
       "pos": [28.5, 23.5]
+    },
+    {
+      "id": "unactive_column",
+      "pos": [5.5, 23.5]
+    },
+    {
+      "id": "health_pack",
+      "pos": [29.5, 29.5]
     },
     {
       "id": "test_npc",
