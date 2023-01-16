@@ -87,7 +87,7 @@ class RayCastingGame:
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 pygame.mouse.set_pos(0, 0)
-                self.start_game(2)
+                self.start_game(1)
             elif status == STATUS_GAME.GAME_PROCESS_RANDOM:
                 self.game_status = STATUS_GAME.GAME_PROCESS_RANDOM
                 pygame.mouse.set_pos(0, 0)
