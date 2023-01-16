@@ -178,7 +178,7 @@ ENTITIES_PARAM = {
         'blocked': True,
         'heath_point': 100,
         'damage': 20,
-        'speed': 2
+        'speed': 5
     },
 }
 
