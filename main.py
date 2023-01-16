@@ -106,6 +106,10 @@ class RayCastingGame:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 pygame.mouse.set_pos(0, 0)
                 self.start_game(self.map_lvl + 1)
+            elif status == STATUS_GAME.GAME_PROCESS_RESTART:
+                self.game_status = STATUS_GAME.GAME_PROCESS
+                pygame.mouse.set_pos(0, 0)
+                self.start_game(self.map_lvl)
         pygame.display.flip()
         self.clock.tick(FPS)
 
@@ -190,6 +194,10 @@ class RayCastingGame:
             self.timer.stop_time()
             self.sound_service.sound_win()
             pygame.mouse.set_pos(0, 0)
+            data = [f'Level number: {self.map_lvl}',
+                    f'Time: {self.timer.time_pars}',
+                    f'Health Points: {self.player.health_points}']
+            self.win_menu.set_data(data)
             self.game_status = STATUS_GAME.MENU_WIN
         self.player.movement()
         self.interactive_service.shot(self.player)
