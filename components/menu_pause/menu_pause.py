@@ -2,7 +2,7 @@ import pygame.font
 
 from components.button.button import Button
 from components.menu_pause.config import BUTTONS
-from core.status_game import STATUS_GAME
+from statuses.status_game import STATUS_GAME
 from paths import FONT_PATH
 from settings import LIGHT_GRAY2, HALF_WIDTH
 

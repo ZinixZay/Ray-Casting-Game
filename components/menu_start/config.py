@@ -1,4 +1,4 @@
-from core.status_game import STATUS_GAME
+from statuses.status_game import STATUS_GAME
 
 BUTTONS = [
     ((100, 350), (300, 90), 'Start', STATUS_GAME.GAME_PROCESS),

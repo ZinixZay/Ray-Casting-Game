@@ -1,7 +1,6 @@
 import numpy
 import random
 
-from core.map_generator.map_generator_test import pretty_print_map
 from settings import GENERATE_RATE, INTENSIVE
 
 

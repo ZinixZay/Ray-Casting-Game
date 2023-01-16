@@ -32,6 +32,7 @@ class MapService:
         with open(MAPS_PATH+f'map{number_map}.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
         self.matrix_map = data["matrix_map"]
+        pretty_print_map(self.matrix_map)
         self.start_player_pos = list(map(lambda coord: coord*TILE+HALF_TILE, data["player"]["start_pos"]))
         self.entities = data["entities"]
         self.end_point = tuple(map(lambda coord: int(coord*TILE+HALF_TILE), data["endpoint"]))

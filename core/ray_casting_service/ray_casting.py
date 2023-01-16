@@ -1,11 +1,12 @@
+import math
+import pygame
 from typing import List
 
-import pygame
-
 from entities.main_player.main_player import MainPlayer
-from settings import *
 from numba import njit, prange
 from core.utils.utils import get_left_top_coord_texture, mapping
+from settings import HALF_FOV, NUM_RAYS, WORLD_WIDTH_TILE, TILE, WORLD_HEIGHT_TILE, SCALE, HEIGHT, HALF_HEIGHT, \
+    PROJ_COEFF, DELTA_ANGLE
 
 
 @njit(fastmath=True, cache=True)
@@ -17,8 +18,8 @@ def ray_casting(player_pos, player_angle, world_map):
     cur_angle = player_angle - HALF_FOV
     for ray in prange(NUM_RAYS):
         sin_a = math.sin(cur_angle)
-        sin_a = sin_a if sin_a else 0.000001
         cos_a = math.cos(cur_angle)
+        sin_a = sin_a if sin_a else 0.000001
         cos_a = cos_a if cos_a else 0.000001
 
         x, dx = (xm + TILE, 1) if cos_a >= 0 else (xm, -1)

@@ -25,9 +25,3 @@ class EntityService:
 
     def update_entity_angle(self, id: int, angle: int) -> None:
         self.entities[id].update_angle(angle)
-
-    def create_bullet(self):
-        pass
-
-    def remove_entity(self):
-        pass

@@ -1,5 +1,6 @@
-from settings import *
+import math
 from numba import njit, float32, int32
+from settings import TILE, HEIGHT, TEXTURE_HEIGHT, TEXTURE_SCALE, HALF_TEXTURE_HEIGHT
 
 
 @njit(fastmath=True, cache=True)

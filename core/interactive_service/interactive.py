@@ -1,11 +1,10 @@
 import math
 from random import random
-
-import pygame
 from numba import njit
 
-from core.utils.utils import mapping, normalize_angle
+from core.utils.utils import mapping
 from settings import TILE
+from statuses.status_entities import STATUS_ENTITIES
 
 
 @njit(fastmath=True, cache=True)
@@ -13,12 +12,11 @@ def ray_casting_npc_player(npc_x, npc_y, world_map, player_pos):
     ox, oy = player_pos
     xm, ym = mapping(ox, oy)
     delta_x, delta_y = ox - npc_x, oy - npc_y
-    cur_angle = math.atan2(delta_y, delta_x)
-    cur_angle += math.pi
+    cur_angle = math.atan2(delta_y, delta_x) + math.pi
 
     sin_a = math.sin(cur_angle)
-    sin_a = sin_a if sin_a else 0.000001
     cos_a = math.cos(cur_angle)
+    sin_a = sin_a if sin_a else 0.000001
     cos_a = cos_a if cos_a else 0.000001
 
     x, dx = (xm + TILE, 1) if cos_a >= 0 else (xm, -1)
@@ -40,6 +38,7 @@ def ray_casting_npc_player(npc_x, npc_y, world_map, player_pos):
         y += dy * TILE
     return True
 
+
 class Interactive:
     def __init__(self, entity_service, sound_service):
         self.entity_service = entity_service
@@ -56,20 +55,20 @@ class Interactive:
 
     def npc_action(self, player, world_map):
         for obj in self.entity_service.entity_vulnerable:
-            if obj.type == 'npc' and not obj.death:
+            if obj.type == STATUS_ENTITIES.NPC and not obj.death:
                 if ray_casting_npc_player(obj.x, obj.y, world_map, player.pos):
                     obj.action_trigger = abs(obj.distance(player)) <= obj.action_dist
                     if not obj.action_trigger:
-                        self.npc_move(player, obj)
+                        self.npc_movement(player, obj)
                     elif obj.action_trigger and obj.action_length == 0:
                         if random() < obj.chance:
                             self.sound_service.sound_hit()
                             player.damage(obj.damage)
 
-
-    def npc_move(self, player, obj):
+    def npc_movement(self, player, obj):
         if abs(obj.distance(player)) >= obj.action_dist:
             dx, dy = obj.x - player.pos[0], obj.y - player.pos[1]
-            obj.update_pos((obj.x + obj.speed if dx < 0 else obj.x - obj.speed,  obj.y + obj.speed if dy < 0 else obj.y - obj.speed))
+            obj.update_pos((obj.x + obj.speed if dx < 0 else obj.x - obj.speed,
+                            obj.y + obj.speed if dy < 0 else obj.y - obj.speed))
             obj.update_angle(math.degrees(math.atan2(dx, dy))-90)
 

@@ -1,5 +1,6 @@
 import math
 from paths import IMAGES_PATH, WALLS_TEXTURES_PATH, SKY_TEXTURES_PATH, INTERFACE_TEXTURES_PATH, ENTITY_TEXTURES_PATH
+from statuses.status_entities import STATUS_ENTITIES
 
 # general
 SIZE_SCREEN = WIDTH, HEIGHT = 1200, 800
@@ -104,7 +105,7 @@ YELLOW = (220, 220, 0)
 # entities
 ENTITIES_PARAM = {
     'test_entity': {
-        'type': 'static',
+        'type': STATUS_ENTITIES.STATIC,
         'sprites': [IMAGES_PATH+'entities\\test_entity\\default\\0.png'],
         'viewing_angles': None,
         'angle': None,
@@ -123,7 +124,7 @@ ENTITIES_PARAM = {
         'speed': 0
     },
     'test_entity_anim': {
-        'type': 'static',
+        'type': STATUS_ENTITIES.STATIC,
         'sprites': [IMAGES_PATH+'entities\\test_entity_anim\\default\\0.png'],
         'viewing_angles': None,
         'angle': None,
@@ -142,7 +143,7 @@ ENTITIES_PARAM = {
         'speed': 0
     },
     'test_angle': {
-        'type': 'static',
+        'type': STATUS_ENTITIES.STATIC,
         'sprites': [f'{IMAGES_PATH}entities\\test_angle\\default\\{path}.png' for path in range(8)],
         'viewing_angles': True,
         'angle': 90,
@@ -161,7 +162,7 @@ ENTITIES_PARAM = {
         'speed': 0
     },
     'test_npc': {
-        'type': 'npc',
+        'type': STATUS_ENTITIES.NPC,
         'sprites': [f'{IMAGES_PATH}entities\\test_nps\\default\\{path}.png' for path in range(8)],
         'animation': [f'{IMAGES_PATH}entities\\test_nps\\animation\\{path}.png' for path in range(4)],
         'death_animation': [f'{IMAGES_PATH}entities\\test_nps\\death\\{path}.png' for path in range(11)],
@@ -180,21 +181,25 @@ ENTITIES_PARAM = {
         'damage': 20,
         'speed': 5
     },
-}
-
-HEALTH_PACK = {
-    'name': 'heath pack',
-    'sprites': [ENTITY_TEXTURES_PATH+'heath_pack\\default\\0.png'],
-    'viewing_angles': None,
-    'angle': None,
-    'shift': 0,
-    'scale': (0, 0),
-    'animation': [],
-    'animation_dist': 800,
-    'animation_speed': 0,
-    'blocked': False,
-    'side': 20,
-    'heath_point': -1
+    'health_pack': {
+        'type': STATUS_ENTITIES.HEALTH_PACK,
+        'sprites': [ENTITY_TEXTURES_PATH+'heath_pack\\default\\0.png'],
+        'viewing_angles': None,
+        'angle': None,
+        'shift': 0.4,
+        'scale': (1, 1),
+        'animation': [],
+        'death_animation': [],
+        'animation_dist': 800,
+        'animation_speed': 0,
+        'blocked': False,
+        'side': 20,
+        'action_dist': 50,
+        'heath_point': -1,
+        'action_animation': [],
+        'damage': 0,
+        'speed': 0
+    },
 }
 
 WEAPONS_PARAM = {

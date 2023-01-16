@@ -1,8 +1,13 @@
+import math
+
 import pygame
 from core.utils.utils import get_sky_offset
 from entities.main_player.main_player import MainPlayer
 from paths import FONT_PATH
-from settings import *
+from settings import GAMEINFO_SIZE, MINIMAP_SIZE, TEXTURES, TEXTURES_INTERFACE, HALF_HEIGHT, MARGIN, HEIGHT, TILE, \
+    WHITE, WEAPON_BULLET_POS, WEAPON_NAME_CENTER_TEXT_POS, WEAPON_BULLET_NUMBER_POS, HEALTH_POINTS_TEXT_POS, \
+    HEALTH_POINTS_POS, ARMOR_POINTS_POS, ARMOR_POINTS_TEXT_POS, EMPTY_COLOR, GAMEINFO_POS, MINIMAP_SCALE, \
+    HALF_MINIMAP_WIDTH, HALF_MINIMAP_HEIGHT, MINIMAP_WIDTH, MINIMAP_HEIGHT, MINIMAP_TILE, MAP_WALLS_COLOR, MINIMAP_POS
 
 
 class Drawing:
@@ -11,11 +16,14 @@ class Drawing:
         self.screen_gameinfo = pygame.Surface(GAMEINFO_SIZE, pygame.SRCALPHA)
         self.screen_minimap = pygame.Surface(MINIMAP_SIZE, pygame.SRCALPHA)
         self.minimap_walls_screen = pygame.Surface(MINIMAP_SIZE, pygame.SRCALPHA)
+
         self.font_fps = pygame.font.Font(FONT_PATH+'Fifaks10Dev1.ttf', 34)
         self.font_hp = pygame.font.Font(FONT_PATH+'Fifaks10Dev1.ttf', 20)
         self.font_bullet = pygame.font.Font(FONT_PATH+'Fifaks10Dev1.ttf', 26)
+
         self.textures = dict()
         self.textures_interface = dict()
+
         self.load_textures()
         self.load_textures_interface()
 
@@ -40,11 +48,15 @@ class Drawing:
 
     def draw_interface(self, player: MainPlayer, mini_map: set, time, fps='none') -> None:
         player.weapon.draw(self.screen)
+
         self.screen.blit(self.textures_interface['interface'], (MARGIN, HEIGHT-220-MARGIN))
         self.screen.blit(player.weapon.miniature, (260, HEIGHT-140))
+
         self.draw_weapon_info(player.weapon.name, player.weapon.get_bullet_str)
         self.draw_points(player.health_points, player.armor_points)
-        self.draw_gameinfo([f'FPS: {fps}', f'Pos: {int(player.x//TILE)} {int(player.y//TILE)}', f'Time: {time}'])
+        self.draw_gameinfo([f'FPS: {fps}',
+                            f'Pos: {int(player.x//TILE)} {int(player.y//TILE)}',
+                            f'Time: {time}'])
         self.draw_minimap(player, mini_map)
 
     def draw_weapon_info(self, weapon_name, bullet_number) -> None:
@@ -83,13 +95,17 @@ class Drawing:
 
         dx, dy = player.x // MINIMAP_SCALE, player.y // MINIMAP_SCALE
 
-        player_point = pygame.transform.rotate(self.textures_interface['player_point'], 360 - math.degrees(player.angle))
+        player_point = pygame.transform.rotate(self.textures_interface['player_point'],
+                                               360 - math.degrees(player.angle))
         coord_player_point = player_point.get_rect().width // 2
         self.screen_minimap.blit(player_point,
-                                 (HALF_MINIMAP_WIDTH - coord_player_point, HALF_MINIMAP_HEIGHT - coord_player_point))
+                                 (HALF_MINIMAP_WIDTH - coord_player_point,
+                                  HALF_MINIMAP_HEIGHT - coord_player_point))
 
-        camera_rect = pygame.Rect(dx - HALF_MINIMAP_WIDTH, dy - HALF_MINIMAP_HEIGHT,
-                                  MINIMAP_WIDTH, MINIMAP_HEIGHT)
+        camera_rect = pygame.Rect(dx - HALF_MINIMAP_WIDTH,
+                                  dy - HALF_MINIMAP_HEIGHT,
+                                  MINIMAP_WIDTH,
+                                  MINIMAP_HEIGHT)
         diffx, diffy = HALF_MINIMAP_WIDTH - dx, HALF_MINIMAP_HEIGHT - dy
 
         for wall in minimap:

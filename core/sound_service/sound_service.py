@@ -1,68 +1,72 @@
 import pygame
-from random import randint, shuffle
+from random import shuffle, choice
+
+from paths import SOUND_PATH
 
 
 class SoundService:
-    def __init__(self):
-        self.menu_music_path = 'assets/sounds/menu.wav'
+    def __init__(self) -> None:
+        self.menu_music_path = SOUND_PATH+'menu.wav'
 
-        self.start_sound = pygame.mixer.Sound('assets/sounds/start.mp3')
+        self.hit_sounds = [pygame.mixer.Sound(SOUND_PATH+f'hit{i}.mp3') for i in range(1, 10)]
+        for sound in self.hit_sounds:
+            sound.set_volume(0.3)
+
+        self.start_sound = pygame.mixer.Sound(SOUND_PATH+'start.mp3')
         self.start_sound.set_volume(0.2)
 
-        self.death_sound = pygame.mixer.Sound('assets/sounds/death.mp3')
+        self.death_sound = pygame.mixer.Sound(SOUND_PATH+'death.mp3')
         self.death_sound.set_volume(0.3)
 
-        self.win_sound = pygame.mixer.Sound('assets/sounds/win.mp3')
+        self.win_sound = pygame.mixer.Sound(SOUND_PATH+'win.mp3')
         self.win_sound.set_volume(0.1)
 
-        self.lose_sound = pygame.mixer.Sound('assets/sounds/lose.mp3')
+        self.lose_sound = pygame.mixer.Sound(SOUND_PATH+'lose.mp3')
         self.lose_sound.set_volume(0.9)
 
-        self.shot_sound = pygame.mixer.Sound('assets/sounds/shot.mp3')
+        self.shot_sound = pygame.mixer.Sound(SOUND_PATH+'shot.mp3')
         self.shot_sound.set_volume(0.2)
 
-        self.steps_sound = pygame.mixer.Sound('assets/sounds/steps.mp3')
+        self.steps_sound = pygame.mixer.Sound(SOUND_PATH+'steps.mp3')
         self.steps_sound.set_volume(0.2)
         self.steps_channel = pygame.mixer.Channel(1)
 
-        self.game_songs = ['assets/sounds/game1.mp3', 'assets/sounds/game2.mp3', 'assets/sounds/game3.mp3']
+        self.game_songs = [SOUND_PATH+'game1.mp3', SOUND_PATH+'game2.mp3', SOUND_PATH+'game3.mp3']
 
-    def sound_menu(self):
+    def sound_menu(self) -> None:
         pygame.mixer.music.load(self.menu_music_path)
         pygame.mixer.music.set_volume(0.1)
         pygame.mixer.music.play()
 
-    def sound_death(self):
+    def sound_death(self) -> None:
         self.death_sound.play()
 
-    def sound_win(self):
+    def sound_win(self) -> None:
         pygame.mixer.music.stop()
         self.win_sound.play()
 
-    def sound_lose(self):
+    def sound_lose(self) -> None:
         pygame.mixer.music.stop()
         self.lose_sound.play()
 
-    def sound_start(self):
+    def sound_start(self) -> None:
         pygame.mixer.music.stop()
         self.start_sound.play()
 
-    def sound_steps(self, moving):
+    def sound_steps(self, moving) -> None:
         if moving:
             if not pygame.mixer.Channel(1).get_busy():
                 self.steps_channel.play(self.steps_sound)
         else:
             self.steps_channel.stop()
 
-    def sound_hit(self):
-        self.hit_sound = pygame.mixer.Sound(f'assets/sounds/hit{randint(1, 9)}.mp3')
-        self.hit_sound.set_volume(0.3)
-        self.hit_sound.play()
+    def sound_hit(self) -> None:
+        choice(self.hit_sounds).play()
 
-    def shot(self):
+    def shot(self) -> None:
         self.shot_sound.play()
 
-    def sound_game(self):
+    def sound_game(self) -> None:
         playlist = self.game_songs.copy()
         shuffle(playlist)
         pygame.mixer.music.load(playlist[0])
@@ -77,9 +81,9 @@ class SoundService:
             pygame.mixer.music.play()
 
     @staticmethod
-    def sound_pause():
+    def sound_pause() -> None:
         pygame.mixer.music.pause()
 
     @staticmethod
-    def sound_unpause():
+    def sound_unpause() -> None:
         pygame.mixer.music.unpause()

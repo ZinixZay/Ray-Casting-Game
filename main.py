@@ -13,7 +13,7 @@ from entities.weapon.weapon import Weapon
 from settings import IMAGES_PATH, SIZE_SCREEN, FPS, WEAPONS_PARAM, BLACK
 
 from core.interactive_service.interactive import Interactive
-from core.status_game import STATUS_GAME
+from statuses.status_game import STATUS_GAME
 from core.entity_service.entity_service import EntityService
 from core.map_service.map_service import MapService
 from core.drawing.drawing import Drawing

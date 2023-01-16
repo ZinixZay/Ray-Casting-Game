@@ -1,4 +1,4 @@
-from core.status_game import STATUS_GAME
+from statuses.status_game import STATUS_GAME
 from settings import WIDTH, HEIGHT, HALF_WIDTH
 
 BUTTONS = [
