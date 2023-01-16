@@ -162,8 +162,7 @@ class RayCastingGame:
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
         self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
-        self.player.update_collision_objs(self.map_service.collisions
-                                          + [i.rect for i in self.entity_service.entities if i.blocked])
+        self.player.update_collision_objs(self.map_service.collisions, self.entity_service)
 
     def start_game(self, map_lvl=1):
         self.sound_service.sound_start()
@@ -180,8 +179,7 @@ class RayCastingGame:
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
         self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
-        self.player.update_collision_objs(self.map_service.collisions
-                                          + [i.rect for i in self.entity_service.entities if i.blocked])
+        self.player.update_collision_objs(self.map_service.collisions, self.entity_service)
 
     def game_process(self):
         self.screen.fill(BLACK)

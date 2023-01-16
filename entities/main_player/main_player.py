@@ -19,6 +19,7 @@ class MainPlayer:
         self.rect = pygame.Rect(*player_pos, self.side, self.side)
         self.shot = False
         self.collision_objs = list()
+        self.entity_service = None
 
     @property
     def pos(self) -> tuple:
@@ -28,18 +29,20 @@ class MainPlayer:
     def pos_normalize(self) -> tuple:
         return self.x/TILE, self.y/TILE
 
-    def update_collision_objs(self, objs: list) -> None:
+    def update_collision_objs(self, objs: list, entity_service) -> None:
         self.collision_objs = objs
+        self.entity_service = entity_service
 
     def detect_collision(self, dx: float, dy: float) -> None:
         next_rect = self.rect.copy()
         next_rect.move_ip(dx, dy)
-        hit_indexes = next_rect.collidelistall(self.collision_objs)
+        collide_list = self.collision_objs + [i.rect for i in self.entity_service.entities if i.blocked]
+        hit_indexes = next_rect.collidelistall(collide_list)
 
         if len(hit_indexes):
             delta_x, delta_y = 0, 0
             for hit_index in hit_indexes:
-                hit_rect = self.collision_objs[hit_index]
+                hit_rect = collide_list[hit_index]
                 delta_x += next_rect.right - hit_rect.left if dx > 0 else hit_rect.right - next_rect.left
                 delta_y += next_rect.bottom - hit_rect.top if dy > 0 else hit_rect.bottom - next_rect.top
 

@@ -135,7 +135,7 @@ class StaticEntity:
         return self.dead_sprite
 
     def update_pos(self, pos: tuple[int, int]) -> None:
-        self.x, self.y = pos
+        self.pos = self.x, self.y = pos
         self.rect = pygame.Rect(*self.pos, self.side, self.side)
 
     def update_angle(self, angle: int) -> None:
