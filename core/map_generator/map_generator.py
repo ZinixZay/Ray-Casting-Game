@@ -37,7 +37,6 @@ class MapGenerator:
     def __generate_wall() -> int:
         return random.choices(list(GENERATE_RATE.keys()), weights=GENERATE_RATE.values())[0]
 
-
     @staticmethod
     def __get_neighbours(row: int, col: int) -> list:
         return [(row + 1, col), (row, col + 1), (row - 1, col), (row, col - 1)]
@@ -85,3 +84,12 @@ class MapGenerator:
                         self.map[row][col] = 1
                         if (row, col) in self.space_cells:
                             self.space_cells.remove((row, col))
+
+    def generate_entities(self) -> list:
+        entities = list()
+        k = random.randint(3, 5)
+        for _ in range(k):
+            entity_pos = random.choice(self.space_cells)
+            del self.space_cells[self.space_cells.index(entity_pos)]
+            entities.append(entity_pos)
+        return entities
