@@ -3,7 +3,7 @@ from paths import DATA_PATH
 
 
 class DataService:
-    def __init__(self, path: str = "{DATA_PATH}data.json"):
+    def __init__(self, path: str = f"{DATA_PATH}data.json"):
         self.data = {}
         self.path = path
 
