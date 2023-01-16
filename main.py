@@ -176,11 +176,12 @@ class RayCastingGame:
         self.timer.start_time()
 
         self.entity_service = EntityService(self.map_service.entities)
-        self.interactive_service = Interactive(self.entity_service, self.sound_service)
+
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
         self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
         self.player.update_collision_objs(self.map_service.collisions, self.entity_service)
+        self.interactive_service = Interactive(self.player, self.entity_service, self.sound_service)
 
     def game_process(self):
         self.screen.fill(BLACK)
@@ -199,8 +200,8 @@ class RayCastingGame:
             self.win_menu.set_data(data)
             self.game_status = STATUS_GAME.MENU_WIN
         self.player.movement()
-        self.interactive_service.shot(self.player)
-        self.interactive_service.npc_action(self.player, self.map_service.walls)
+        self.interactive_service.shot()
+        self.interactive_service.npc_action(self.map_service.walls)
         self.sound_service.sound_steps(self.player.is_moving())
         self.drawing.draw_floor_sky(self.player.angle)
         self.drawing.draw_world_objects(
