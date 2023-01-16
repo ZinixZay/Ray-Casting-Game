@@ -55,14 +55,17 @@ class Interactive:
             self.sound_service.shot()
             for obj in sorted(self.entity_service.entity_vulnerable, key=lambda obj: obj.distance(self.player)):
                 if obj.is_on_fire(self.player)[1]:
-                    obj.health_point -= self.player.weapon.damage
-                if obj.health_point <= 0:
-                    obj.death = True
+                    # obj.health_point -= self.player.weapon.damage
+                    obj.set_damage(self.player.weapon.damage)
+                # if obj.health_point <= 0:
+                #     obj.death = True
 
     def npc_action(self, world_map):
         for obj in self.entity_service.entity_packs:
             if pygame.Rect.colliderect(self.player.rect, obj.rect):
-                print('pack')
+                if obj.type == STATUS_ENTITIES.HEALTH_PACK and not obj.death:
+                    self.player.heal(20)
+                    obj.death = True
         for obj in self.entity_service.entity_vulnerable:
             if obj.type == STATUS_ENTITIES.NPC and not obj.death:
                 if ray_casting_npc_player(obj.x, obj.y, world_map, self.player.pos):

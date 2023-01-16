@@ -42,7 +42,7 @@ class Drawing:
         self.screen.blit(self.textures['F'], (0, HALF_HEIGHT))
 
     def draw_world_objects(self, world_objects: list) -> None:
-        for obj in filter(lambda el: el[0], sorted(world_objects, key=lambda n: n[0], reverse=True)):
+        for obj in filter(lambda el: all(el), sorted(world_objects, key=lambda n: n[0], reverse=True)):
             _, object_surface, object_pos = obj
             self.screen.blit(object_surface, object_pos)
 

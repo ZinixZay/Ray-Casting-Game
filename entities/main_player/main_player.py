@@ -99,6 +99,9 @@ class MainPlayer:
         else:
             self.health_points -= int(damage)
 
+    def heal(self, points):
+        self.health_points = min(self.health_points + points, 100)
+
     @staticmethod
     def is_moving() -> bool:
         keys = pygame.key.get_pressed()

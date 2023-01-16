@@ -73,7 +73,7 @@ class StaticEntity:
             half_sprite_height = sprite_height // 2
             shift = half_sprite_height * self.shift
 
-            if self.death and self.health_point != -1:
+            if self.death:
                 sprite_object = self.dead_animation()
                 shift = half_sprite_height * self.shift
                 sprite_height = int(sprite_height / 1.3)
@@ -83,12 +83,11 @@ class StaticEntity:
                 self.object = self.visible_sprite()
                 sprite_object = self.sprite_animation()
 
-            # sprite scale and pos
-            sprite_pos = (self.current_ray * SCALE - half_sprite_width, HALF_HEIGHT - half_sprite_height + shift)
-            sprite = pygame.transform.scale(sprite_object, (sprite_width, sprite_height))
-            return self.distance_to_sprite, sprite, sprite_pos
-        else:
-            return False, False, False
+            if sprite_object:
+                sprite_pos = (self.current_ray * SCALE - half_sprite_width, HALF_HEIGHT - half_sprite_height + shift)
+                sprite = pygame.transform.scale(sprite_object, (sprite_width, sprite_height))
+                return self.distance_to_sprite, sprite, sprite_pos
+        return False, False, False
 
     def sprite_animation(self):
         if self.animation and self.distance_to_sprite < self.animation_dist:
@@ -132,7 +131,14 @@ class StaticEntity:
             else:
                 self.dead_sprite = self.death_animation.popleft()
                 self.dead_animation_count = 0
+        else:
+            return False
         return self.dead_sprite
+
+    def set_damage(self, damage):
+        self.health_point -= int(damage)
+        if self.health_point < 0:
+            self.death = True
 
     def update_pos(self, pos: tuple[int, int]) -> None:
         self.pos = self.x, self.y = pos
