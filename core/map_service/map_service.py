@@ -18,13 +18,11 @@ class MapService:
         self.start_player_pos = None
         self.entities = list()
         self.mini_map = set()
-        self.end_point = None
 
     def generate_map(self) -> None:
         self.map_generator.generate()
         self.matrix_map = self.map_generator.map
         self.start_player_pos = list(map(lambda coord: coord*TILE+HALF_TILE, self.map_generator.hero_spawn))
-        self.end_point = tuple(map(lambda coord: int(coord * TILE), [1, 1]))
         self.reset_param()
 
     def load_map(self, number_map: int) -> None:
@@ -33,7 +31,6 @@ class MapService:
         self.matrix_map = data["matrix_map"]
         self.start_player_pos = list(map(lambda coord: coord*TILE+HALF_TILE, data["player"]["start_pos"]))
         self.entities = data["entities"]
-        self.end_point = tuple(map(lambda coord: int(coord*TILE+HALF_TILE), data["endpoint"]))
         self.reset_param()
 
     def reset_param(self) -> None:
