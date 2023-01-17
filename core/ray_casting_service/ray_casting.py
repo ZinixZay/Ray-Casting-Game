@@ -6,7 +6,7 @@ from entities.main_player.main_player import MainPlayer
 from numba import njit, prange
 from core.utils.utils import get_left_top_coord_texture, mapping
 from settings import HALF_FOV, NUM_RAYS, WORLD_WIDTH_TILE, TILE, WORLD_HEIGHT_TILE, SCALE, HEIGHT, HALF_HEIGHT, \
-    PROJ_COEFF, DELTA_ANGLE
+    PROJ_COEFF, DELTA_ANGLE, DRAWING_DISTANCE
 
 
 @njit(fastmath=True, cache=True)
@@ -23,7 +23,7 @@ def ray_casting(player_pos, player_angle, world_map):
         cos_a = cos_a if cos_a else 0.000001
 
         x, dx = (xm + TILE, 1) if cos_a >= 0 else (xm, -1)
-        for _ in prange(0, WORLD_WIDTH_TILE, TILE):
+        for _ in prange(0, DRAWING_DISTANCE, TILE):
             depth_v = (x - ox) / cos_a
             yv = oy + depth_v * sin_a
             tile_v = mapping(x + dx, yv)
@@ -33,7 +33,7 @@ def ray_casting(player_pos, player_angle, world_map):
             x += dx * TILE
 
         y, dy = (ym + TILE, 1) if sin_a >= 0 else (ym, -1)
-        for _ in prange(0, WORLD_HEIGHT_TILE, TILE):
+        for _ in prange(0, DRAWING_DISTANCE, TILE):
             depth_h = (y - oy) / sin_a
             xh = ox + depth_h * cos_a
             tile_h = mapping(xh, y + dy)

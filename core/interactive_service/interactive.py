@@ -68,6 +68,10 @@ class Interactive:
                     self.sound_service.get_item_sound()
                     self.player.weapon.numbers_bullets += 10
                     obj.death = True
+                if obj.type == STATUS_ENTITIES.ARMOR_PACK and not obj.death:
+                    self.sound_service.get_item_sound()
+                    self.player.armor_points += 10
+                    obj.death = True
         for obj in self.entity_service.entity_vulnerable:
             if obj.type == STATUS_ENTITIES.NPC and not obj.death:
                 if ray_casting_npc_player(obj.x, obj.y, world_map, self.player.pos):
