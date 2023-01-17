@@ -26,6 +26,10 @@ from entities.main_player.main_player import MainPlayer
 
 class RayCastingGame:
     def __init__(self):
+        """
+        Initialising all services, paths, actions screens
+        :return:
+        """
         pygame.init()
         icon = pygame.image.load(IMAGES_PATH+'\\icon\\icon.png')
         pygame.display.set_icon(icon)
@@ -57,6 +61,10 @@ class RayCastingGame:
                                      self.drawing.textures_interface['background_lose'])
 
     def run(self):
+        """
+        Main game loop
+        :return:
+        """
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -82,6 +90,10 @@ class RayCastingGame:
                 self.lose_menu_logic()
 
     def start_menu_logic(self):
+        """
+        Start menu screen logic
+        :return:
+        """
         pygame.mouse.set_visible(True)
         self.start_menu.draw(self.screen)
         status = self.start_menu.get_status()
@@ -105,6 +117,10 @@ class RayCastingGame:
         self.clock.tick(FPS)
 
     def win_menu_logic(self):
+        """
+        Win menu screen logic
+        :return:
+        """
         pygame.mouse.set_visible(True)
         self.win_menu.draw(self.screen)
         status = self.win_menu.get_status()
@@ -125,6 +141,10 @@ class RayCastingGame:
         self.clock.tick(FPS)
 
     def lose_menu_logic(self):
+        """
+        Lose menu screen logic
+        :return:
+        """
         pygame.mouse.set_visible(True)
         self.lose_menu.draw(self.screen)
         status = self.lose_menu.get_status()
@@ -141,6 +161,10 @@ class RayCastingGame:
         self.clock.tick(FPS)
 
     def pause_menu_logic(self):
+        """
+        Pause menu screen logic
+        :return:
+        """
         pygame.mouse.set_visible(True)
         self.sound_service.sound_pause()
         self.pause_menu.draw(self.screen)
@@ -165,6 +189,10 @@ class RayCastingGame:
         self.clock.tick(FPS)
 
     def start_game_random(self):
+        """
+        Loading all features for random map
+        :return:
+        """
         self.sound_service.sound_start()
         self.sound_service.sound_game()
         pygame.mouse.set_visible(False)
@@ -182,6 +210,11 @@ class RayCastingGame:
         self.interactive_service = Interactive(self.player, self.entity_service, self.sound_service)
 
     def start_game(self, map_lvl=1):
+        """
+        Loading all features for pre-made maps
+        :param map_lvl: id of a current map (level)
+        :return:
+        """
         self.sound_service.sound_start()
         self.sound_service.sound_game()
         pygame.mouse.set_visible(False)
@@ -201,6 +234,10 @@ class RayCastingGame:
         self.interactive_service = Interactive(self.player, self.entity_service, self.sound_service)
 
     def check_win(self):
+        """
+        Check if all entities died in usual game
+        :return:
+        """
         if self.player.health_points <= 0:
             self.timer.stop_time()
             self.sound_service.sound_lose()
@@ -217,6 +254,10 @@ class RayCastingGame:
             self.game_status = STATUS_GAME.MENU_WIN
 
     def check_win_random(self):
+        """
+        Check if all entities died in random game
+        :return:
+        """
         if self.player.health_points <= 0:
             self.timer.stop_time()
             self.sound_service.sound_lose()
@@ -232,6 +273,10 @@ class RayCastingGame:
             self.game_status = STATUS_GAME.MENU_WIN
 
     def game_process(self):
+        """
+        Logic for game process
+        :return:
+        """
         self.screen.fill(BLACK)
 
         self.player.movement()
