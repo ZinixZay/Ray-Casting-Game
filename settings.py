@@ -244,6 +244,8 @@ ENTITIES_PARAM = {
     },
 }
 
+NPC_IDS = ['soldier', 'brain_evil']
+
 WEAPONS_PARAM = {
     'test_weapon': {
         'name': 'SRM-8900',

@@ -24,6 +24,7 @@ class MapService:
         self.map_generator.generate()
         self.matrix_map = self.map_generator.map
         self.start_player_pos = list(map(lambda coord: coord*TILE+HALF_TILE, self.map_generator.hero_spawn))
+        self.entities = self.map_generator.generate_entities()
         self.player_angle = 0
         self.reset_param()
 

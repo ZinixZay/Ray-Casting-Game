@@ -1,7 +1,7 @@
 import numpy
 import random
 
-from settings import GENERATE_RATE, INTENSIVE
+from settings import GENERATE_RATE, INTENSIVE, NPC_IDS
 
 
 class MapGenerator:
@@ -87,9 +87,8 @@ class MapGenerator:
 
     def generate_entities(self) -> list:
         entities = list()
-        k = random.randint(3, 5)
-        for _ in range(k):
+        for _ in range(random.randint(5, 10)):
             entity_pos = random.choice(self.space_cells)
             del self.space_cells[self.space_cells.index(entity_pos)]
-            entities.append(entity_pos)
+            entities.append({"id": random.choice(NPC_IDS), "pos": entity_pos})
         return entities

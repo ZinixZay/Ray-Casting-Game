@@ -166,14 +166,16 @@ class RayCastingGame:
         pygame.mouse.set_visible(False)
         self.map_service = MapService()
         self.map_service.generate_map()
+        self.timer = Timer()
+        self.timer.start_time()
 
         self.entity_service = EntityService(self.map_service.entities)
-        self.interactive_service = Interactive(self.entity_service, self.sound_service)
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
         self.player = MainPlayer(self.map_service.start_player_pos, self.weapon,
                                  angle=self.map_service.player_angle, speed=8)
         self.player.update_collision_objs(self.map_service.collisions, self.entity_service)
+        self.interactive_service = Interactive(self.player, self.entity_service, self.sound_service)
 
     def start_game(self, map_lvl=1):
         self.sound_service.sound_start()
