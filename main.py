@@ -162,7 +162,8 @@ class RayCastingGame:
         self.interactive_service = Interactive(self.entity_service, self.sound_service)
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
-        self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
+        self.player = MainPlayer(self.map_service.start_player_pos, self.weapon,
+                                 angle=self.map_service.player_angle, speed=8)
         self.player.update_collision_objs(self.map_service.collisions, self.entity_service)
 
     def start_game(self, map_lvl=1):
@@ -179,7 +180,8 @@ class RayCastingGame:
 
 
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
-        self.player = MainPlayer(self.map_service.start_player_pos, self.weapon, angle=0, speed=8)
+        self.player = MainPlayer(self.map_service.start_player_pos, self.weapon,
+                                 angle=self.map_service.player_angle, speed=8)
         self.player.update_collision_objs(self.map_service.collisions, self.entity_service)
         self.interactive_service = Interactive(self.player, self.entity_service, self.sound_service)
 

@@ -16,6 +16,7 @@ class MapService:
         self.collisions = list()
         self.walls = Dict.empty(key_type=types.UniTuple(int64, 2), value_type=int64)
         self.start_player_pos = None
+        self.player_angle = None
         self.entities = list()
         self.mini_map = set()
 
@@ -23,6 +24,7 @@ class MapService:
         self.map_generator.generate()
         self.matrix_map = self.map_generator.map
         self.start_player_pos = list(map(lambda coord: coord*TILE+HALF_TILE, self.map_generator.hero_spawn))
+        self.player_angle = 0
         self.reset_param()
 
     def load_map(self, number_map: int) -> None:
@@ -30,6 +32,7 @@ class MapService:
             data = json.load(f)
         self.matrix_map = data["matrix_map"]
         self.start_player_pos = list(map(lambda coord: coord*TILE+HALF_TILE, data["player"]["start_pos"]))
+        self.player_angle = data["player"]["angle"]
         self.entities = data["entities"]
         self.reset_param()
 
