@@ -106,6 +106,7 @@ class RayCastingGame:
         status = self.win_menu.get_status()
         if status:
             if status == STATUS_GAME.EXIT:
+                self.data_service.save_data("lvl", self.map_lvl)
                 pygame.quit()
                 sys.exit()
             elif status == STATUS_GAME.GAME_PROCESS:
@@ -125,6 +126,7 @@ class RayCastingGame:
         status = self.lose_menu.get_status()
         if status:
             if status == STATUS_GAME.EXIT:
+                self.data_service.save_data("lvl", self.map_lvl)
                 pygame.quit()
                 sys.exit()
             elif status == STATUS_GAME.GAME_PROCESS:
