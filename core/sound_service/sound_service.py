@@ -5,7 +5,13 @@ from paths import SOUND_PATH
 
 
 class SoundService:
+    """
+    Cares for all game sounds
+    """
     def __init__(self) -> None:
+        """
+        Loading all paths for sounds, setting volume
+        """
         self.menu_music = pygame.mixer.Sound(SOUND_PATH+'menu.wav')
 
         self.hit_sounds = [pygame.mixer.Sound(SOUND_PATH+f'hit{i}.mp3') for i in range(1, 10)]
@@ -26,8 +32,11 @@ class SoundService:
         self.get_sound.set_volume(2.4)
 
         self.steps_sound = pygame.mixer.Sound(SOUND_PATH+'steps.mp3')
+
         self.game_sound_channel = pygame.mixer.Channel(1)
+
         self.steps_channel = pygame.mixer.Channel(2)
+
         self.shot_channel = pygame.mixer.Channel(3)
         self.shot_channel.set_volume(0.1)
 
