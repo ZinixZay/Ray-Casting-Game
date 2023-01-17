@@ -56,17 +56,17 @@ TEXTURES = {
 
 TEXTURES_INTERFACE = {
     'interface': INTERFACE_TEXTURES_PATH + 'interface.png',
-    'button': INTERFACE_TEXTURES_PATH + 'button.png',
-    'active_button': INTERFACE_TEXTURES_PATH + 'active_button.png',
-    'background': INTERFACE_TEXTURES_PATH + 'background.png',
-    'background_pause': INTERFACE_TEXTURES_PATH + 'background_pause.png',
-    'background_lose': INTERFACE_TEXTURES_PATH + 'lose_background.png',
-    'background_win': INTERFACE_TEXTURES_PATH + 'win_background.png',
-    'minimap_background': INTERFACE_TEXTURES_PATH + 'minimap.png',
-    'player_point': INTERFACE_TEXTURES_PATH + 'player_point.png',
-    'points': INTERFACE_TEXTURES_PATH + 'points.png',
-    'points_background': INTERFACE_TEXTURES_PATH + 'points_background.png',
-    'bullet': INTERFACE_TEXTURES_PATH + 'bullet.png',
+    'button': INTERFACE_TEXTURES_PATH + 'buttons\\button.png',
+    'active_button': INTERFACE_TEXTURES_PATH + 'buttons\\active_button.png',
+    'background': INTERFACE_TEXTURES_PATH + 'backgrounds\\background.png',
+    'background_pause': INTERFACE_TEXTURES_PATH + 'backgrounds\\background_pause.png',
+    'background_lose': INTERFACE_TEXTURES_PATH + 'backgrounds\\lose_background.png',
+    'background_win': INTERFACE_TEXTURES_PATH + 'backgrounds\\win_background.png',
+    'minimap_background': INTERFACE_TEXTURES_PATH + 'minimap\\minimap.png',
+    'player_point': INTERFACE_TEXTURES_PATH + 'minimap\\player_point.png',
+    'points': INTERFACE_TEXTURES_PATH + 'points\\points.png',
+    'points_background': INTERFACE_TEXTURES_PATH + 'points\\points_background.png',
+    'bullet': INTERFACE_TEXTURES_PATH + 'information\\bullet.png',
 }
 
 # drawing
