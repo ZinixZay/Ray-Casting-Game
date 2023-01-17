@@ -19,7 +19,7 @@ class SoundService:
             sound.set_volume(1.4)
 
         self.start_sound = pygame.mixer.Sound(SOUND_PATH+'start.mp3')
-        self.start_sound.set_volume(0.3цц)
+        self.start_sound.set_volume(0.3)
 
         self.death_sound = pygame.mixer.Sound(SOUND_PATH+'death.mp3')
 
