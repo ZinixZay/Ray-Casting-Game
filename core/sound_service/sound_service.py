@@ -9,6 +9,8 @@ class SoundService:
         self.menu_music = pygame.mixer.Sound(SOUND_PATH+'menu.wav')
 
         self.hit_sounds = [pygame.mixer.Sound(SOUND_PATH+f'hit{i}.mp3') for i in range(1, 10)]
+        for sound in self.hit_sounds:
+            sound.set_volume(1.4)
 
         self.start_sound = pygame.mixer.Sound(SOUND_PATH+'start.mp3')
 
@@ -27,6 +29,8 @@ class SoundService:
 
         playlist_sound_game = [SOUND_PATH+'game1.mp3', SOUND_PATH+'game2.mp3', SOUND_PATH+'game3.mp3']
         self.game_songs = [pygame.mixer.Sound(i) for i in playlist_sound_game]
+        for sound in self.game_songs:
+            sound.set_volume(0.4)
 
     def sound_menu(self) -> None:
         self.game_sound_channel.stop()
@@ -58,7 +62,8 @@ class SoundService:
         choice(self.hit_sounds).play()
 
     def shot(self) -> None:
-        self.shot_sound.play()
+        self.shot_channel.stop()
+        self.shot_channel.play(self.shot_sound)
 
     def sound_game(self) -> None:
         self.game_sound_channel.stop()
