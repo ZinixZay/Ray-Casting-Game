@@ -157,7 +157,7 @@ ENTITIES_PARAM = {
         'side': 40,
         'action_dist': 400,
         'heath_point': 100,
-        'action_animation': [f'{IMAGES_PATH}entities\\brain_evil\\action\\{path}.png' for path in range(7)],
+        'action_animation': [f'{IMAGES_PATH}entities\\brain_evil\\action\\{path}.png' for path in range(10)],
         'damage': 8,
         'speed': 4,
         'chance': 0.5
@@ -203,6 +203,27 @@ ENTITIES_PARAM = {
         'damage': 18,
         'speed': 5,
         'chance': 0.4
+    },
+    'soldier_brut': {
+        'type': STATUS_ENTITIES.NPC,
+        'sprites': [f'{IMAGES_PATH}entities\\soldier1\\default\\{path}.png' for path in range(8)],
+        'animation': [f'{IMAGES_PATH}entities\\soldier1\\animation\\{path}.png' for path in range(1)],
+        'death_animation': [f'{IMAGES_PATH}entities\\soldier1\\death\\{path}.png' for path in range(10)],
+        'action_animation': [f'{IMAGES_PATH}entities\\soldier1\\action\\{path}.png' for path in range(4)],
+        'viewing_angles': True,
+        'angle': 0,
+        'shift': 0.8,
+        'scale': (0.7, 0.8),
+        'side': 50,
+        'dead_shift': 0.6,
+        'animation_dist': 800,
+        'animation_speed': 14,
+        'action_dist': 180,
+        'blocked': True,
+        'heath_point': 100,
+        'damage': 20,
+        'speed': 5,
+        'chance': 0.6
     },
     'health_pack': {
         'type': STATUS_ENTITIES.HEALTH_PACK,

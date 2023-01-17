@@ -20,6 +20,8 @@ class MainPlayer:
         self.shot = False
         self.collision_objs = list()
         self.entity_service = None
+        self.immortal = 40
+        self.immortal_count = 0
 
     @property
     def pos(self) -> tuple:
@@ -61,6 +63,8 @@ class MainPlayer:
         self.mouse_control()
         self.rect.center = self.x, self.y
         self.angle %= DOUBLE_PI
+        if self.immortal_count > 0:
+            self.immortal_count -= 1
         pygame.event.clear()
 
     def keys_control(self) -> None:
@@ -92,12 +96,14 @@ class MainPlayer:
         self.angle += numpy.clip((pygame.mouse.get_rel()[0]) / 200, -0.2, .2)
 
     def damage(self, damage):
-        if self.armor_points > 0:
-            self.armor_points -= int(damage/100*80)
-            if self.armor_points < 0: self.armor_points = 0
-            self.health_points -= int(damage/100*20)
-        else:
-            self.health_points -= int(damage)
+        if self.immortal_count == 0:
+            if self.armor_points > 0:
+                self.armor_points -= int(damage/100*80)
+                if self.armor_points < 0: self.armor_points = 0
+                self.health_points -= int(damage/100*20)
+            else:
+                self.health_points -= int(damage)
+            self.immortal_count = self.immortal
 
     def heal(self, points):
         self.health_points = min(self.health_points + points, 100)
