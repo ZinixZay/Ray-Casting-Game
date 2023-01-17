@@ -143,23 +143,24 @@ ENTITIES_PARAM = {
         'speed': 0
     },
     'brain_evil': {
-        'type': STATUS_ENTITIES.STATIC,
+        'type': STATUS_ENTITIES.NPC,
         'sprites': [f'{IMAGES_PATH}entities\\brain_evil\\default\\{path}.png' for path in range(8)],
         'viewing_angles': True,
         'angle': 0,
         'shift': 0.6,
         'scale': (1, 3),
-        'animation': [],
+        'animation': [f'{IMAGES_PATH}entities\\brain_evil\\animation\\{path}.png' for path in range(2)],
         'death_animation': [f'{IMAGES_PATH}entities\\brain_evil\\death\\{path}.png' for path in range(8)],
         'animation_dist': 800,
         'animation_speed': 6,
         'blocked': True,
         'side': 40,
-        'action_dist': 50,
+        'action_dist': 600,
         'heath_point': 100,
-        'action_animation': [],
-        'damage': 30,
-        'speed': 4
+        'action_animation': [f'{IMAGES_PATH}entities\\brain_evil\\action\\{path}.png' for path in range(7)],
+        'damage': 1,
+        'speed': 4,
+        'chance': 0.4
     },
     'test_npc': {
         'type': STATUS_ENTITIES.NPC,
