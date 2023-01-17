@@ -72,7 +72,7 @@ class Interactive:
             if obj.type == STATUS_ENTITIES.NPC and not obj.death:
                 if ray_casting_npc_player(obj.x, obj.y, world_map, self.player.pos):
                     obj.action_trigger = abs(obj.distance(self.player)) <= obj.action_dist
-                    if not obj.action_trigger:
+                    if abs(obj.distance(self.player)) <= obj.animation_dist and not obj.action_trigger:
                         self.npc_movement(obj)
                     elif obj.action_trigger and obj.action_length == 0:
                         if random() < obj.chance:

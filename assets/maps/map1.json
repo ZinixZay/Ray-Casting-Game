@@ -49,39 +49,39 @@
       "pos": [29.5, 29.5]
     },
     {
-      "id": "test_npc",
+      "id": "soldier",
       "pos": [21.5, 8.5]
     },
     {
-      "id": "test_npc",
+      "id": "soldier",
       "pos": [8.5, 27.5]
     },
     {
-      "id": "test_npc",
+      "id": "soldier",
       "pos": [3.5, 16.5]
     },
     {
-      "id": "test_npc",
+      "id": "soldier",
       "pos": [4.5, 4.5]
     },
     {
-      "id": "test_npc",
+      "id": "soldier",
       "pos": [10.5, 24.5]
     },
     {
-      "id": "test_npc",
+      "id": "soldier",
       "pos": [10.5, 16.5]
     },
     {
-      "id": "test_npc",
+      "id": "soldier",
       "pos": [16.5, 18.5]
     },
     {
-      "id": "test_npc",
+      "id": "soldier",
       "pos": [23.5, 10.5]
     },
     {
-      "id": "test_npc",
+      "id": "soldier",
       "pos": [22.5, 2.5]
     }
   ]

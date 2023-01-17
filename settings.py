@@ -162,6 +162,26 @@ ENTITIES_PARAM = {
         'damage': 20,
         'speed': 5
     },
+    'soldier': {
+        'type': STATUS_ENTITIES.NPC,
+        'sprites': [f'{IMAGES_PATH}entities\\soldier0\\default\\{path}.png' for path in range(8)],
+        'animation': [f'{IMAGES_PATH}entities\\soldier0\\animation\\{path}.png' for path in range(4)],
+        'death_animation': [f'{IMAGES_PATH}entities\\soldier0\\death\\{path}.png' for path in range(10)],
+        'action_animation': [f'{IMAGES_PATH}entities\\soldier0\\action\\{path}.png' for path in range(4)],
+        'viewing_angles': True,
+        'angle': 0,
+        'shift': 0.8,
+        'scale': (0.7, 0.8),
+        'side': 50,
+        'dead_shift': 0.6,
+        'animation_dist': 800,
+        'animation_speed': 14,
+        'action_dist': 600,
+        'blocked': True,
+        'heath_point': 100,
+        'damage': 10,
+        'speed': 5
+    },
     'health_pack': {
         'type': STATUS_ENTITIES.HEALTH_PACK,
         'sprites': [ENTITY_TEXTURES_PATH+'health_pack\\default\\0.png'],
