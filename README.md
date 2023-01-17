@@ -122,9 +122,10 @@ The project will help pass the time
 <!-- CONTACT -->
 ## Contact
 
+* Daniel Ryzhik - [@ZinixZay](https://t.me/@ZinixZay) - Developer
 * Dmitrii Gorshkov - [@dmitrii1011](https://t.me/@dmitrii1011) - Developer
 * Valeria Sklarova - [@chuuiqs](https://t.me/@chuuiqs) - Designer, Artist
-* Daniel Ryzhik - [@ZinixZay](https://t.me/@ZinixZay) - Developer
+* Nikolai Grigoriev - [@whyitsoblue](https://t.me/whyitsoblue) - Composer
 
 Project Link: [https://github.com/ZinixZay/Ray-Casting-Game.git](https://github.com/ZinixZay/Ray-Casting-Game.git)
 
