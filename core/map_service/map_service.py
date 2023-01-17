@@ -11,6 +11,9 @@ from settings import WORLD_SIZE, TILE, MINIMAP_TILE, HALF_TILE
 
 class MapService:
     def __init__(self) -> None:
+        """
+        Cares for all logics connected with map
+        """
         self.map_generator = MapGenerator(*WORLD_SIZE)
         self.matrix_map = list()
         self.collisions = list()
@@ -21,6 +24,10 @@ class MapService:
         self.mini_map = set()
 
     def generate_map(self) -> None:
+        """
+        Get generated map and spawns a player
+        :return:
+        """
         self.map_generator.generate()
         self.matrix_map = self.map_generator.map
         self.start_player_pos = list(map(lambda coord: coord*TILE+HALF_TILE, self.map_generator.hero_spawn))
@@ -29,6 +36,11 @@ class MapService:
         self.reset_param()
 
     def load_map(self, number_map: int) -> None:
+        """
+        Loads map from txt file
+        :param number_map: map id
+        :return:
+        """
         with open(MAPS_PATH+f'map{number_map}.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
         self.matrix_map = data["matrix_map"]
@@ -38,6 +50,10 @@ class MapService:
         self.reset_param()
 
     def reset_param(self) -> None:
+        """
+        Clears map
+        :return:
+        """
         self.walls = Dict.empty(key_type=types.UniTuple(int64, 2), value_type=int64)
         self.collisions.clear()
         self.mini_map.clear()
