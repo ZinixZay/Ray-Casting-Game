@@ -5,13 +5,25 @@ from settings import GENERATE_RATE, INTENSIVE, NPC_IDS
 
 
 class MapGenerator:
+    """
+    Generates map using rules in config
+    """
     def __init__(self, width: int, height: int) -> None:
+        """
+        :param width: map width in cells
+        :param height: map height in cells
+        """
         self.width, self.height = width, height
         self.map = None
         self.space_cells = list()
         self.hero_spawn = None
 
     def generate(self) -> None:
+        """
+        Full generating process include hero spawn walls etc.
+        Loading generated map in self.map
+        :return:
+        """
         new_map = numpy.zeros((self.height, self.width), dtype=numpy.int32)
         for row in range(self.height):
             for column in range(self.width):
@@ -34,14 +46,31 @@ class MapGenerator:
         self.map[row][col] = 100
 
     @staticmethod
-    def __generate_wall() -> int:
+    def __generate_wall() -> list:
+        """
+        Randomly choose walls to be generated on cell coordinates
+        :return: list of walls
+        """
         return random.choices(list(GENERATE_RATE.keys()), weights=GENERATE_RATE.values())[0]
 
     @staticmethod
     def __get_neighbours(row: int, col: int) -> list:
+        """
+        Get all neighbour cells on 'krest' way
+        :param row: row cell of findable
+        :param col: col cell of findable
+        :return: list of neighbours (cells)
+        """
         return [(row + 1, col), (row, col + 1), (row - 1, col), (row, col - 1)]
 
     def __generate_cell(self, row: int, col: int, field: list[list]) -> int:
+        """
+        Randomly understand to place wall or space in current cell
+        :param row: row of cell
+        :param col: col of cell
+        :param field:
+        :return: current map field
+        """
         walls_near = 0
         wall_chance = INTENSIVE
         for cell in self.__get_neighbours(row, col):
@@ -64,6 +93,10 @@ class MapGenerator:
         return 0
 
     def __destroy_no_ways(self) -> None:
+        """
+        Clears map from closed spaces
+        :return:
+        """
         for row in range(self.height):
             for col in range(self.width):
                 if row == 0 or col == 0 or row == self.height - 1 or col == self.width - 1:
@@ -86,6 +119,10 @@ class MapGenerator:
                             self.space_cells.remove((row, col))
 
     def generate_entities(self) -> list:
+        """
+        Generates list of entities
+        :return: list of entities
+        """
         entities = list()
         for _ in range(random.randint(5, 10)):
             entity_pos = random.choice(self.space_cells)
