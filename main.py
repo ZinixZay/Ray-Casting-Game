@@ -68,7 +68,11 @@ class RayCastingGame:
 
             if self.game_status == STATUS_GAME.MENU_START:
                 self.start_menu_logic()
-            elif self.game_status == STATUS_GAME.GAME_PROCESS or self.game_status == STATUS_GAME.GAME_PROCESS_RANDOM:
+            elif self.game_status == STATUS_GAME.GAME_PROCESS:
+                self.check_win()
+                self.game_process()
+            elif self.game_status == STATUS_GAME.GAME_PROCESS_RANDOM:
+                self.check_win_random()
                 self.game_process()
             elif self.game_status == STATUS_GAME.MENU_PAUSE:
                 self.pause_menu_logic()
@@ -196,8 +200,7 @@ class RayCastingGame:
         self.player.update_collision_objs(self.map_service.collisions, self.entity_service)
         self.interactive_service = Interactive(self.player, self.entity_service, self.sound_service)
 
-    def game_process(self):
-        self.screen.fill(BLACK)
+    def check_win(self):
         if self.player.health_points <= 0:
             self.timer.stop_time()
             self.sound_service.sound_lose()
@@ -212,6 +215,25 @@ class RayCastingGame:
                     f'Health Points: {self.player.health_points}']
             self.win_menu.set_data(data)
             self.game_status = STATUS_GAME.MENU_WIN
+
+    def check_win_random(self):
+        if self.player.health_points <= 0:
+            self.timer.stop_time()
+            self.sound_service.sound_lose()
+            pygame.mouse.set_pos(0, 0)
+            self.game_status = STATUS_GAME.MENU_LOSE
+        if all(map(lambda x: x.death, self.entity_service.entity_vulnerable)):
+            self.timer.stop_time()
+            self.sound_service.sound_win()
+            pygame.mouse.set_pos(0, 0)
+            data = [f'Time: {self.timer.time_pars}',
+                    f'Health Points: {self.player.health_points}']
+            self.win_menu.set_data(data)
+            self.game_status = STATUS_GAME.MENU_WIN
+
+    def game_process(self):
+        self.screen.fill(BLACK)
+
         self.player.movement()
         self.interactive_service.shot()
         self.interactive_service.npc_action(self.map_service.walls)
