@@ -31,7 +31,7 @@ class RayCastingGame:
         :return:
         """
         pygame.init()
-        icon = pygame.image.load(IMAGES_PATH+'\\icon\\icon.png')
+        icon = pygame.image.load(IMAGES_PATH + '\\icon\\icon.png')
         pygame.display.set_icon(icon)
         pygame.display.set_caption('No Return')
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
@@ -52,14 +52,14 @@ class RayCastingGame:
                                     self.drawing.textures_interface['background'],
                                     btn_disabled_texture=self.drawing.textures_interface['disabled_button'])
         self.pause_menu = MenuPause(self.drawing.textures_interface['button'],
-                                     self.drawing.textures_interface['active_button'],
-                                     self.drawing.textures_interface['background_pause'])
+                                    self.drawing.textures_interface['active_button'],
+                                    self.drawing.textures_interface['background_pause'])
         self.win_menu = MenuWin(self.drawing.textures_interface['button'],
-                                     self.drawing.textures_interface['active_button'],
-                                     self.drawing.textures_interface['background_win'])
+                                self.drawing.textures_interface['active_button'],
+                                self.drawing.textures_interface['background_win'])
         self.lose_menu = MenuLose(self.drawing.textures_interface['button'],
-                                     self.drawing.textures_interface['active_button'],
-                                     self.drawing.textures_interface['background_lose'])
+                                  self.drawing.textures_interface['active_button'],
+                                  self.drawing.textures_interface['background_lose'])
 
     def run(self):
         """
@@ -71,7 +71,7 @@ class RayCastingGame:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and\
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE and \
                         self.game_status in [STATUS_GAME.GAME_PROCESS, STATUS_GAME.GAME_PROCESS_RANDOM]:
                     self.game_status = STATUS_GAME.MENU_PAUSE
 
@@ -156,6 +156,7 @@ class RayCastingGame:
                 sys.exit()
             elif status == STATUS_GAME.MENU_START:
                 self.game_status = STATUS_GAME.MENU_START
+                self.data_service.save_data("lvl", self.map_lvl)
                 self.start_menu_logic()
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
@@ -230,7 +231,6 @@ class RayCastingGame:
 
         self.entity_service = EntityService(self.map_service.entities)
 
-
         self.weapon = Weapon(WEAPONS_PARAM['test_weapon'])
         self.player = MainPlayer(self.map_service.start_player_pos, self.weapon,
                                  angle=self.map_service.player_angle, speed=8)
@@ -292,7 +292,8 @@ class RayCastingGame:
             ray_casting_walls_textured(self.player, self.drawing.textures, self.map_service.walls)
             + [obj.object_locate(self.player) for obj in self.entity_service.entities]
         )
-        self.drawing.draw_interface(self.player, self.map_service.mini_map, self.timer.time_pars, round(self.clock.get_fps()))
+        self.drawing.draw_interface(self.player, self.map_service.mini_map, self.timer.time_pars,
+                                    round(self.clock.get_fps()))
         pygame.display.flip()
         self.clock.tick(FPS)
 

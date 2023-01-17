@@ -160,7 +160,7 @@ ENTITIES_PARAM = {
         'action_dist': 400,
         'heath_point': 100,
         'action_animation': [f'{IMAGES_PATH}entities\\brain_evil\\action\\{path}.png' for path in range(10)],
-        'damage': 8,
+        'damage': 20,
         'speed': 4,
         'chance': 0.5
     },
@@ -181,7 +181,7 @@ ENTITIES_PARAM = {
         'action_dist': 110,
         'blocked': True,
         'heath_point': 100,
-        'damage': 20,
+        'damage': 45,
         'speed': 5,
         'chance': 0.9
     },
@@ -202,9 +202,9 @@ ENTITIES_PARAM = {
         'action_dist': 600,
         'blocked': True,
         'heath_point': 100,
-        'damage': 18,
+        'damage': 20,
         'speed': 5,
-        'chance': 0.4
+        'chance': 0.8
     },
     'soldier_brut': {
         'type': STATUS_ENTITIES.NPC,
