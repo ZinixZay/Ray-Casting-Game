@@ -24,6 +24,7 @@ DOUBLE_PI = math.pi * 2
 CENTER_RAY = NUM_RAYS // 2 - 1
 FAKE_RAYS = 100
 FAKE_RAYS_RANGE = NUM_RAYS - 1 + 2 * FAKE_RAYS
+DRAWING_DISTANCE = 3000
 
 # map
 WORLD_SIZE = WORLD_WIDTH, WORLD_HEIGHT = 27, 18
@@ -251,6 +252,25 @@ ENTITIES_PARAM = {
         'angle': None,
         'shift': 4,
         'scale': (0.5, 0.3),
+        'animation': [],
+        'death_animation': [],
+        'animation_dist': 800,
+        'animation_speed': 0,
+        'blocked': False,
+        'side': 20,
+        'action_dist': 50,
+        'heath_point': -1,
+        'action_animation': [],
+        'damage': 0,
+        'speed': 0
+    },
+    'armor_pack': {
+        'type': STATUS_ENTITIES.ARMOR_PACK,
+        'sprites': [ENTITY_TEXTURES_PATH+'armor_pack\\default\\0.png'],
+        'viewing_angles': None,
+        'angle': None,
+        'shift': 0,
+        'scale': (1, 1),
         'animation': [],
         'death_animation': [],
         'animation_dist': 800,
