@@ -19,26 +19,29 @@ class SoundService:
             sound.set_volume(1.4)
 
         self.start_sound = pygame.mixer.Sound(SOUND_PATH+'start.mp3')
+        self.start_sound.set_volume(0.3цц)
 
         self.death_sound = pygame.mixer.Sound(SOUND_PATH+'death.mp3')
 
         self.win_sound = pygame.mixer.Sound(SOUND_PATH+'win.mp3')
 
         self.lose_sound = pygame.mixer.Sound(SOUND_PATH+'lose.mp3')
+        self.lose_sound.set_volume(0.3)
 
         self.shot_sound = pygame.mixer.Sound(SOUND_PATH+'shot.mp3')
+        self.shot_sound.set_volume(0.1)
 
         self.get_sound = pygame.mixer.Sound(SOUND_PATH+'get_item.mp3')
         self.get_sound.set_volume(2.4)
 
         self.steps_sound = pygame.mixer.Sound(SOUND_PATH+'steps.mp3')
+        self.steps_sound.set_volume(2)
 
         self.game_sound_channel = pygame.mixer.Channel(1)
 
         self.steps_channel = pygame.mixer.Channel(2)
 
         self.shot_channel = pygame.mixer.Channel(3)
-        self.shot_channel.set_volume(0.1)
 
         playlist_sound_game = [SOUND_PATH+'game1.mp3', SOUND_PATH+'game2.mp3', SOUND_PATH+'game3.mp3']
         self.game_songs = [pygame.mixer.Sound(i) for i in playlist_sound_game]
