@@ -208,7 +208,7 @@ WEAPONS_PARAM = {
         'base_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\0.png',
         'exhausted_sprite': IMAGES_PATH+'\\weapons\\test_weapon\\shotgun\\base\\1.png',
         'miniature': IMAGES_PATH+'\\weapons\\test_weapon\\miniature\\0.png',
-        'numbers_bullets': 100,
+        'numbers_bullets': 5,
         'gun_magazine': 10,
         'animation_shot': [f'{IMAGES_PATH}weapons\\test_weapon\\shotgun\\shot\\{path}.png' for path in range(10)],
         'animation_shot_speed': 4,

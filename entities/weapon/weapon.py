@@ -58,10 +58,11 @@ class Weapon:
 
     def recharge(self):
         if self.numbers_bullets > 0 and self.bullet < self.gun_magazine:
-            bullet_prev = self.bullet
-            if self.numbers_bullets > self.gun_magazine:
+            need_bullet = self.gun_magazine - self.bullet
+            remains = self.numbers_bullets - need_bullet
+            if remains > 0:
+                self.numbers_bullets = remains
                 self.bullet = self.gun_magazine
             else:
-                self.bullet = self.numbers_bullets
-
-            self.numbers_bullets = max(self.numbers_bullets - (self.gun_magazine - bullet_prev), 0)
+                self.numbers_bullets = 0
+                self.bullet = self.gun_magazine + remains

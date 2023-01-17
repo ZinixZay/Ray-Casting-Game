@@ -56,6 +56,7 @@ class Interactive:
             for obj in sorted(self.entity_service.entity_vulnerable, key=lambda obj: obj.distance(self.player)):
                 if obj.is_on_fire(self.player)[1]:
                     obj.set_damage(self.player.weapon.damage)
+                    break
 
     def npc_action(self, world_map):
         for obj in self.entity_service.entity_packs:
