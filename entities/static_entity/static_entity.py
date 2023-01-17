@@ -8,6 +8,7 @@ from collections import deque
 
 class StaticEntity:
     def __init__(self, parameters: dict, pos: tuple[float, float], angle: int = 0) -> None:
+        # general param
         self.param = parameters
         self.type = parameters['type']
         if parameters['viewing_angles']:
@@ -15,40 +16,50 @@ class StaticEntity:
         self.object = pygame.image.load(parameters['sprites'][0]).convert_alpha()
         self.viewing_angles = parameters['viewing_angles']
         self.angle = parameters['angle']
-        self.shift = parameters['shift']
-        self.scale = parameters['scale']
-        self.animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['animation'].copy()])
-        self.death_animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['death_animation'].copy()])
-        self.action_animation = deque([pygame.image.load(i).convert_alpha() for i in parameters['action_animation'].copy()])
-        self.animation_dist = parameters['animation_dist']
-        self.animation_speed = parameters['animation_speed']
+        self.damage = parameters['damage']
+        self.speed = parameters['speed']
         self.blocked = parameters['blocked']
         self.side = parameters['side']
         self.health_point = parameters['heath_point']
-        self.animation_count = 0
-        self.dead_animation_count = 0
-        self.action_dist = parameters['action_dist']
-        self.action_length = 0
-        self.damage = parameters['damage']
-        self.speed = parameters['speed']
         self.death = False
         self.action_trigger = False
         self.x, self.y = pos[0] * TILE, pos[1] * TILE
         self.pos = self.x - self.side // 2, self.y - self.side // 2
         self.angle = angle
         self.rect = pygame.Rect(*self.pos, self.side, self.side)
-        self.chance = 0.40
+        self.chance = parameters['chance'] if self.type == STATUS_ENTITIES.NPC else 0
+
+        # drawing param
+        self.shift = parameters['shift']
+        self.scale = parameters['scale']
+
+        # animations
+        self.animation = deque([pygame.image.load(i).convert_alpha()
+                                for i in parameters['animation'].copy()])
+        self.death_animation = deque([pygame.image.load(i).convert_alpha()
+                                      for i in parameters['death_animation'].copy()])
+        self.action_animation = deque([pygame.image.load(i).convert_alpha()
+                                       for i in parameters['action_animation'].copy()])
+
+        # animations param
+        self.animation_dist = parameters['animation_dist']
+        self.animation_speed = parameters['animation_speed']
+        self.action_dist = parameters['action_dist']
+        self.animation_count = 0
+        self.dead_animation_count = 0
+        self.action_length = 0
+
         if self.viewing_angles:
             self.sprite_angles = list(map(frozenset, get_sprite_angles(self.angle)))
             self.sprite_positions = {angle: pos for angle, pos in zip(self.sprite_angles, self.objects)}
         self.current_ray = 0
 
-    def is_on_fire(self, player):
+    def is_on_fire(self, player: MainPlayer) -> tuple:
         if CENTER_RAY - self.side // 2 < self.current_ray < CENTER_RAY + self.side // 2 and self.blocked:
             return self.distance(player), self.proj_height
         return float('inf'), None
 
-    def distance(self, player):
+    def distance(self, player: MainPlayer):
         dx, dy = self.x - player.x, self.y - player.y
         return math.sqrt(dx ** 2 + dy ** 2)
 
@@ -135,11 +146,10 @@ class StaticEntity:
             return False
         return self.dead_sprite
 
-    def set_damage(self, damage):
+    def set_damage(self, damage: float | int) -> None:
         self.health_point -= int(damage)
         if self.health_point < 0:
-            self.blocked = False
-            self.death = True
+            self.blocked, self.death = False, True
 
     def update_pos(self, pos: tuple[int, int]) -> None:
         self.pos = self.x, self.y = pos

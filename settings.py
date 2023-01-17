@@ -142,6 +142,25 @@ ENTITIES_PARAM = {
         'damage': 0,
         'speed': 0
     },
+    'brain_evil': {
+        'type': STATUS_ENTITIES.STATIC,
+        'sprites': [f'{IMAGES_PATH}entities\\brain_evil\\default\\{path}.png' for path in range(8)],
+        'viewing_angles': True,
+        'angle': 0,
+        'shift': -0.6,
+        'scale': (1, 1),
+        'animation': [],
+        'death_animation': [],
+        'animation_dist': 800,
+        'animation_speed': 0,
+        'blocked': True,
+        'side': 40,
+        'action_dist': 50,
+        'heath_point': 100,
+        'action_animation': [],
+        'damage': 30,
+        'speed': 4
+    },
     'test_npc': {
         'type': STATUS_ENTITIES.NPC,
         'sprites': [f'{IMAGES_PATH}entities\\test_nps\\default\\{path}.png' for path in range(8)],
@@ -160,7 +179,8 @@ ENTITIES_PARAM = {
         'blocked': True,
         'heath_point': 100,
         'damage': 20,
-        'speed': 5
+        'speed': 5,
+        'chance': 0.9
     },
     'soldier': {
         'type': STATUS_ENTITIES.NPC,
@@ -179,8 +199,9 @@ ENTITIES_PARAM = {
         'action_dist': 600,
         'blocked': True,
         'heath_point': 100,
-        'damage': 10,
-        'speed': 5
+        'damage': 30,
+        'speed': 5,
+        'chance': 0.4
     },
     'health_pack': {
         'type': STATUS_ENTITIES.HEALTH_PACK,

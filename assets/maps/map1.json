@@ -37,8 +37,8 @@
   },
   "entities": [
     {
-      "id": "bullet_pack",
-      "pos": [28.5, 23.5]
+      "id": "brain_evil",
+      "pos": [22.5, 26.5]
     },
     {
       "id": "unactive_column",
