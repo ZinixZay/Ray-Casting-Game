@@ -8,11 +8,13 @@ from settings import LIGHT_GRAY2
 
 
 class MenuStart:
-    def __init__(self, btn_texture, btn_active_texture, background_image):
+    def __init__(self, btn_texture, btn_active_texture, background_image, btn_disabled_texture):
         self.title = 'No Return'
         self.background_image = background_image
         self.font = pygame.font.Font(FONT_PATH +'\\GULAG Pavljenko.otf', 100)
-        self.buttons = {Button(pos, size, btn_texture, btn_active_texture, title=name): status for pos, size, name, status in BUTTONS}
+        self.buttons = {
+            Button(pos, size, btn_texture, btn_active_texture,
+                   title=name, texture_disabled=btn_disabled_texture, disabled=disabled): status for pos, size, name, status, disabled in BUTTONS}
 
     def draw(self, screen):
         screen.blit(self.background_image, (0, 0))
