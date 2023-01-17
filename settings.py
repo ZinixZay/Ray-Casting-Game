@@ -59,6 +59,7 @@ TEXTURES_INTERFACE = {
     'interface': INTERFACE_TEXTURES_PATH + 'interface.png',
     'button': INTERFACE_TEXTURES_PATH + 'buttons\\button.png',
     'active_button': INTERFACE_TEXTURES_PATH + 'buttons\\active_button.png',
+    'disabled_button': INTERFACE_TEXTURES_PATH + 'buttons\\disabled_button.png',
     'background': INTERFACE_TEXTURES_PATH + 'backgrounds\\background.png',
     'background_pause': INTERFACE_TEXTURES_PATH + 'backgrounds\\background_pause.png',
     'background_lose': INTERFACE_TEXTURES_PATH + 'backgrounds\\lose_background.png',
