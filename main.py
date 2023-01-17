@@ -33,6 +33,7 @@ class RayCastingGame:
         self.screen = pygame.display.set_mode(SIZE_SCREEN)
 
         self.data_service = DataService()
+        self.data_service.update_data()
 
         self.sound_service = SoundService()
         self.sound_service.sound_menu()
@@ -88,6 +89,10 @@ class RayCastingGame:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 pygame.mouse.set_pos(0, 0)
                 self.start_game(1)
+            elif status == STATUS_GAME.GAME_PROCESS_CONTINUE:
+                self.game_status = STATUS_GAME.GAME_PROCESS
+                pygame.mouse.set_pos(0, 0)
+                self.start_game(self.data_service.get_data("lvl"))
             elif status == STATUS_GAME.GAME_PROCESS_RANDOM:
                 self.game_status = STATUS_GAME.GAME_PROCESS_RANDOM
                 pygame.mouse.set_pos(0, 0)
@@ -136,6 +141,7 @@ class RayCastingGame:
         status = self.pause_menu.get_status()
         if status:
             if status == STATUS_GAME.EXIT:
+                self.data_service.save_data("lvl", self.map_lvl)
                 pygame.quit()
                 sys.exit()
             elif status == STATUS_GAME.GAME_PROCESS:
@@ -145,6 +151,7 @@ class RayCastingGame:
                 pygame.mouse.set_visible(False)
                 self.game_process()
             elif status == STATUS_GAME.MENU_START:
+                self.data_service.save_data("lvl", self.map_lvl)
                 self.sound_service.sound_menu()
                 pygame.mouse.set_pos(0, 0)
                 self.game_status = STATUS_GAME.MENU_START

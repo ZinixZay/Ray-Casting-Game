@@ -7,7 +7,7 @@ class DataService:
         self.data = {}
         self.path = path
 
-    def save_data(self, head: str, body: dict) -> str:
+    def save_data(self, head: str, body) -> str:
         self.update_data()
         self.data[head] = body
         dumped_data = json.dumps(self.data)
