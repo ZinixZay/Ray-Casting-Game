@@ -138,6 +138,7 @@ class StaticEntity:
     def set_damage(self, damage):
         self.health_point -= int(damage)
         if self.health_point < 0:
+            self.blocked = False
             self.death = True
 
     def update_pos(self, pos: tuple[int, int]) -> None:
