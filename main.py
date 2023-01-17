@@ -154,6 +154,9 @@ class RayCastingGame:
                 self.data_service.save_data("lvl", self.map_lvl)
                 pygame.quit()
                 sys.exit()
+            elif status == STATUS_GAME.MENU_START:
+                self.game_status = STATUS_GAME.MENU_START
+                self.start_menu_logic()
             elif status == STATUS_GAME.GAME_PROCESS:
                 self.game_status = STATUS_GAME.GAME_PROCESS
                 pygame.mouse.set_pos(0, 0)
