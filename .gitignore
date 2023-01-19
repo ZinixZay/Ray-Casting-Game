@@ -2,4 +2,6 @@ venv
 .idea
 __pycache__
 **/test.py
-/assets/data/
+build
+dist
+main.spec
